@@ -22,6 +22,7 @@ namespace PriateCardGame
             //Nikolaj
             //JS
             //Mads
+            //Det her er en ændring nikolaj har lavet
 
             base.Initialize();
         }
