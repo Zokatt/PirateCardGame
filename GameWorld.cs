@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace PriateCardGame
 {
-    public class Game1 : Game
+    public class GameWorld : Game
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
 
-        public Game1()
+        public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
@@ -19,7 +19,7 @@ namespace PriateCardGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
-
+            //Nikolaj
             base.Initialize();
         }
 
