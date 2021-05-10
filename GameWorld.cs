@@ -16,7 +16,9 @@ namespace PriateCardGame
         public static string Storage;
         public static CardRepository repo;
         public static List<CardBase> playerCards;
-
+        public static Point mousePos;
+        public static float scale = 1;
+        public static bool cardInfo = false;
 
         public GameWorld()
         {
@@ -82,7 +84,6 @@ namespace PriateCardGame
 
 
             ListUpdate(playerCards);
-            
 
             // TODO: Add your update logic here
 
@@ -95,6 +96,16 @@ namespace PriateCardGame
             {
                 refList[i].UpdateCardPos(i);
             }
+
+            for (int i = 0; i < refList.Count; i++)
+            {
+                if (playerCards[i].Collision.Contains(mousePos))
+                {
+                    cardInfo = true;
+
+                }
+            }
+
         }
 
         protected override void Draw(GameTime gameTime)
@@ -105,7 +116,17 @@ namespace PriateCardGame
             foreach (CardBase item in playerCards)
             {
                 item.Draw(this._spriteBatch);
+
+                if (cardInfo == true)
+                {
+                    for (int i = 0; i < playerCards.Count; i++)
+                    {
+                        _spriteBatch.Draw(item.sprite, new Vector2(100, 100), Color.White);
+                        
+                    }
+                }
             }
+
 
             _spriteBatch.End();
             // TODO: Add your drawing code here
