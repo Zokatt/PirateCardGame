@@ -38,7 +38,7 @@ namespace PriateCardGame
 
         public void UpdateCardPos(int i)
         {
-            this.position = new Vector2(100 + (i*100), 100);
+            this.position = new Vector2(600 + (i*140), 800);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
