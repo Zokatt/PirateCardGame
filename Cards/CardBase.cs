@@ -19,7 +19,6 @@ namespace PriateCardGame
 
         public string storageState { get; set; }
 
-
         //Validate method?
 
         public void CardEffect()
@@ -43,7 +42,10 @@ namespace PriateCardGame
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, color);
+            //spriteBatch.Draw(sprite, position, color);
+            spriteBatch.Draw(sprite, position, null, color, 0f,
+            Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+
         }
 
     }
