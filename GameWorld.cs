@@ -21,6 +21,7 @@ namespace PriateCardGame
             // TODO: Add your initialization logic here
             //Nikolaj
             //JS
+            //Mads
 
             base.Initialize();
         }
