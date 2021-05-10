@@ -46,6 +46,7 @@ namespace PriateCardGame
             for (int i = 0; i < 8; i++)
             {
                 playerSpaces.Add(new CardSpace());
+                playerSpaces[i].setCard(new Captain());
             }
 
             //for (int i = 0; i < 50; i++)
