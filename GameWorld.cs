@@ -12,7 +12,7 @@ namespace PriateCardGame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        public static Rectangle screenBounds = new Rectangle(0, 0, 1920, 1000);
+        public static Rectangle screenBounds = new Rectangle(0, 0, 1600, 1000);
         public static string Deck;
         public static string Storage;
         public static CardRepository repo;
@@ -20,6 +20,7 @@ namespace PriateCardGame
         public static List<CardSpace> playerSpaces;
         public static List<CardBase> PlayerDeck;
         public static CardBase refCard;
+        private Texture2D background;
 
 
         public GameWorld()
@@ -95,6 +96,8 @@ namespace PriateCardGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            background = Content.Load<Texture2D>("Background");
+
             foreach (var item in playerSpaces)
             {
                 if (item.card != null)
@@ -139,6 +142,8 @@ namespace PriateCardGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
+
+            _spriteBatch.Draw(background, new Vector2(-150, 0), Color.White);
 
             foreach (CardBase item in playerCards)
             {
