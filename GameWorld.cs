@@ -17,6 +17,7 @@ namespace PriateCardGame
         public static CardRepository repo;
         public static List<CardBase> playerCards;
         public static Point mousePos;
+        public static MouseState mouseState;
         public static float scale = 1;
         public static bool cardInfo = false;
 
@@ -82,8 +83,15 @@ namespace PriateCardGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            mouseState = Mouse.GetState();
+            mousePos = new Point(mouseState.X, mouseState.Y);
 
+            if (cardInfo == true)
+            {
+                cardInfo = false;
+            }
             ListUpdate(playerCards);
+
 
             // TODO: Add your update logic here
 
@@ -97,13 +105,14 @@ namespace PriateCardGame
                 refList[i].UpdateCardPos(i);
             }
 
-            for (int i = 0; i < refList.Count; i++)
+            foreach (CardBase item in refList)
             {
-                if (playerCards[i].Collision.Contains(mousePos))
+                if (item.Collision.Contains(mousePos))
                 {
                     cardInfo = true;
 
                 }
+                
             }
 
         }
@@ -121,8 +130,8 @@ namespace PriateCardGame
                 {
                     for (int i = 0; i < playerCards.Count; i++)
                     {
-                        _spriteBatch.Draw(item.sprite, new Vector2(100, 100), Color.White);
-                        
+                        _spriteBatch.Draw(item.sprite, new Vector2(100, 100), null, Color.White, 0f,
+                        Vector2.Zero, 1f, SpriteEffects.None, 0f);
                     }
                 }
             }
