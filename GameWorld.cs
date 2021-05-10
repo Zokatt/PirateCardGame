@@ -13,6 +13,9 @@ namespace PriateCardGame
         public static string Deck;
         public static string Storage;
 
+        public static List<CardBase> playerCards;
+        public static CardBase allCards;
+
 
         public GameWorld()
         {
@@ -40,7 +43,8 @@ namespace PriateCardGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            
+            allCards.LoadContent(this.Content);
+
             // TODO: use this.Content to load your game content here
         }
 
@@ -49,6 +53,7 @@ namespace PriateCardGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            allCards.Update(gameTime);
 
             // TODO: Add your update logic here
 
@@ -59,6 +64,7 @@ namespace PriateCardGame
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
+            allCards.Draw(this._spriteBatch);
 
             // TODO: Add your drawing code here
 
