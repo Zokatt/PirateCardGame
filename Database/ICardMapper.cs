@@ -5,7 +5,7 @@ using System.Text;
 
 namespace PriateCardGame.Database
 {
-    interface ICardMapper
+    public interface ICardMapper
     {
         List<CardBase> MapCardsFromReader(SQLiteDataReader reader);
     }

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using PriateCardGame.Cards;
+using System;
 using System.Collections.Generic;
 using System.Data.SQLite;
 using System.Text;
 
 namespace PriateCardGame.Database
 {
-    class CardMapper : ICardMapper
+    public class CardMapper : ICardMapper
     {
         public List<CardBase> MapCardsFromReader(SQLiteDataReader reader)
         {
@@ -15,10 +16,15 @@ namespace PriateCardGame.Database
                 var cardID = reader.GetInt32(0);
                 var Name = reader.GetString(1);
                 var storageState = reader.GetString(2);
-                
 
-                result.Add(new CardBase() {CardID = cardID,Name = Name, storageState = storageState});
-            }
+                switch (Name)
+                {
+                    case "Captain":
+                        result.Add(new Captain() { CardID = cardID, Name = Name, storageState = storageState });
+                        break;
+                }
+
+             }
             return result;
         }
     }

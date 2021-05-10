@@ -6,12 +6,11 @@ using System.Text;
 
 namespace PriateCardGame.Database
 {
-    class CardRepository
+    public class CardRepository
     {
         private readonly SQLiteDatabaseProvider provider;
         private readonly ICardMapper mapper;
         private IDbConnection connection;
-
         public CardRepository(SQLiteDatabaseProvider provider, ICardMapper mapper)
         {
             this.provider = provider;
@@ -20,7 +19,7 @@ namespace PriateCardGame.Database
 
         private void CreateDatabaseTables()
         {
-            var cmd = new SQLiteCommand($"CREATE TABLE IF NOT EXISTS Cards (cardID INTEGER PRIMARY KEY, Name STRING,StorageState STRING,);", (SQLiteConnection)connection);
+            var cmd = new SQLiteCommand($"CREATE TABLE IF NOT EXISTS Cards (cardID INTEGER PRIMARY KEY, Name STRING,StorageState STRING);", (SQLiteConnection)connection);
             cmd.ExecuteNonQuery();
         }
 
@@ -51,7 +50,7 @@ namespace PriateCardGame.Database
 
         public void AddCard(string cardName)
         {
-            var cmd = new SQLiteCommand($"Insert into Cards (Name,StorageStage) VALUES('{cardName}', 'deck')",(SQLiteConnection)connection);
+            var cmd = new SQLiteCommand($"Insert into Cards (Name,StorageState) VALUES('{cardName}', '{GameWorld.Deck}')",(SQLiteConnection)connection);
             cmd.ExecuteNonQuery();
         }
 

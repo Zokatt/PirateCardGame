@@ -6,7 +6,7 @@ using System.Text;
 
 namespace PriateCardGame.Database
 {
-    class SQLiteDatabaseProvider
+    public class SQLiteDatabaseProvider
     {
         private readonly string connectionString;
 
