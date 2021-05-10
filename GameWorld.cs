@@ -24,6 +24,7 @@ namespace PriateCardGame
         public static Point mousePos;
         public static MouseState mouseState;
         public static bool cardInfo = false;
+        public static bool bPress = false;
 
 
         public GameWorld()
@@ -49,7 +50,6 @@ namespace PriateCardGame
             for (int i = 0; i < 8; i++)
             {
                 playerSpaces.Add(new CardSpace());
-                playerSpaces[i].setCard(new Captain());
             }
 
             //for (int i = 0; i < 50; i++)
@@ -104,6 +104,7 @@ namespace PriateCardGame
 
             foreach (var item in playerSpaces)
             {
+                item.LoadContent(this.Content);
                 if (item.card != null)
                 {
                     item.card.LoadContent(this.Content);
@@ -134,9 +135,38 @@ namespace PriateCardGame
             for (int i = 0; i < playerSpaces.Count; i++)
             {
                 playerSpaces[i].setPos(i);
+                playerSpaces[i].CanPlace = false;
             }
 
             // TODO: Add your update logic here
+
+
+            if (refCard != null)
+            {
+                refCard.position.X = mousePos.X;
+                refCard.position.Y = mousePos.Y;
+            }
+
+            foreach (CardSpace item in playerSpaces)
+            {
+                if (item.Collision.Contains(mousePos) && refCard != null && item.card == null)
+                {
+                    item.CanPlace = true;
+                }
+                if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null)
+                {
+                    item.setCard(refCard);
+                    playerCards.Remove(refCard);
+                    refCard = null;
+
+                    bPress = true;
+                }
+            }
+
+            if (mouseState.LeftButton == ButtonState.Released) //so that the player can click the mouse again
+            {
+                bPress = false;
+            }
 
             base.Update(gameTime);
         }
@@ -147,12 +177,17 @@ namespace PriateCardGame
             {
                 refList[i].UpdateCardPos(i);
             }
-
-            foreach (CardBase item in refList)
+            for (int i = 0; i < refList.Count; i++)
             {
-                if (item.Collision.Contains(mousePos))
+                if (refList[i].Collision.Contains(mousePos))
                 {
                     cardInfo = true;
+                }
+                if (refList[i].Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false)
+                {
+                    refCard = refList[i];
+                    //playerCards.RemoveAt(i);
+                    bPress = true;
                 }
             }
         }
@@ -179,6 +214,7 @@ namespace PriateCardGame
             }
             foreach (var item in playerSpaces)
             {
+                item.DrawCanPlaceHere(this._spriteBatch);
                 if (item.card != null)
                 {
                     item.card.Draw(this._spriteBatch);

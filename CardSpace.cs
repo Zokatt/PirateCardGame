@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,21 @@ namespace PriateCardGame
     {
         public CardBase card;
         public Vector2 position;
+        private Texture2D sprite;
+        public bool CanPlace = false;
 
+        public virtual Rectangle Collision
+        {
+            get
+            {
+                return new Rectangle(
+                       (int)position.X,
+                       (int)position.Y,
+                       (int)sprite.Width,
+                       (int)sprite.Height
+                   );
+            }
+        }
         public CardSpace()
         {
 
@@ -21,11 +36,19 @@ namespace PriateCardGame
             this.card.position = this.position;
         }
 
+
         public void DrawCard(SpriteBatch spritebatch)
         {
             card.Draw(spritebatch);
         }
 
+        public void DrawCanPlaceHere(SpriteBatch spriteBatch)
+        {
+            if (CanPlace == true)
+            {
+                spriteBatch.Draw(sprite, position, Color.White);
+            }
+        }
         public void setPos(int i)
         {
             if (i <= 3)
@@ -41,6 +64,11 @@ namespace PriateCardGame
             {
                 this.card.position = this.position;
             }
+        }
+
+        public void LoadContent(ContentManager contentManager)
+        {
+            this.sprite = contentManager.Load<Texture2D>("CardSpace");
         }
 
     }
