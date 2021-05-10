@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using System.Collections.Generic;
 
 namespace PriateCardGame
 {
@@ -9,6 +10,7 @@ namespace PriateCardGame
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         public static Rectangle screenBounds = new Rectangle(0, 0, 1920, 1000);
+
 
         public GameWorld()
         {
@@ -27,6 +29,8 @@ namespace PriateCardGame
             //Mads
             //Det her er en ændring nikolaj har lavet
 
+            
+
             base.Initialize();
         }
 
@@ -34,6 +38,7 @@ namespace PriateCardGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
+            
             // TODO: use this.Content to load your game content here
         }
 
@@ -41,6 +46,7 @@ namespace PriateCardGame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
 
             // TODO: Add your update logic here
 
@@ -50,6 +56,7 @@ namespace PriateCardGame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+
 
             // TODO: Add your drawing code here
 
