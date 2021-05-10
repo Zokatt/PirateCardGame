@@ -8,7 +8,7 @@ namespace PriateCardGame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
-        public static Rectangle screenBounds = new Rectangle(0, 0, 1920, 1080);
+        public static Rectangle screenBounds = new Rectangle(0, 0, 1920, 1000);
 
         public GameWorld()
         {
