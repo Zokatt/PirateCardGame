@@ -17,6 +17,8 @@ namespace PriateCardGame
 
         public int CardID { get; set; }
 
+        public string storageState { get; set; }
+
 
         //Validate method?
 

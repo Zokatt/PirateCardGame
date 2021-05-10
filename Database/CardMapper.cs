@@ -17,7 +17,7 @@ namespace PriateCardGame.Database
                 var storageState = reader.GetString(2);
                 
 
-                result.Add(new CardBase() { teamState = teamState, });
+                result.Add(new CardBase() {CardID = cardID,Name = Name, storageState = storageState});
             }
             return result;
         }

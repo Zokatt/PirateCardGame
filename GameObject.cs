@@ -7,6 +7,7 @@ using System.Text;
 
 namespace PriateCardGame
 {
+
     public abstract class GameObject
     {
         public Vector2 position;
