@@ -3,6 +3,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PriateCardGame.Cards;
 using PriateCardGame.Database;
+using System;
 using System.Collections.Generic;
 
 namespace PriateCardGame
@@ -16,6 +17,9 @@ namespace PriateCardGame
         public static string Storage;
         public static CardRepository repo;
         public static List<CardBase> playerCards;
+        public static List<CardSpace> playerSpaces;
+        public static List<CardBase> PlayerDeck;
+        public static CardBase refCard;
 
 
         public GameWorld()
@@ -36,6 +40,17 @@ namespace PriateCardGame
             //Det her er en ændring nikolaj har lavet
 
             playerCards = new List<CardBase>();
+            playerSpaces = new List<CardSpace>();
+            PlayerDeck = new List<CardBase>();
+            for (int i = 0; i < 8; i++)
+            {
+                playerSpaces.Add(new CardSpace());
+            }
+
+            //for (int i = 0; i < 50; i++)
+            //{
+            //    PlayerDeck.Add(new Captain());
+            //}
 
             var mapper = new CardMapper();
             var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
@@ -51,13 +66,27 @@ namespace PriateCardGame
             repo.AddCard("Captain");
             repo.AddCard("Captain");
             repo.AddCard("Captain");
+            repo.AddCard("Captain");
+            repo.AddCard("Captain");
+            repo.AddCard("Captain");
+            repo.AddCard("Captain");
+            repo.AddCard("Captain");
 
-            playerCards = repo.FindDeck();
-
+            PlayerDeck = repo.FindDeck();
 
             repo.Close();
 
-            
+            //Random rnd = new Random();
+
+            //for (int i = 0; i < 5; i++)
+            //{
+            //    int temp = rnd.Next(0, PlayerDeck.Count);
+
+            //    playerCards.Add(PlayerDeck[temp]);
+            //    PlayerDeck.RemoveAt(temp);
+            //}
+
+            DrawHand();
 
             base.Initialize();
         }
@@ -66,7 +95,13 @@ namespace PriateCardGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-
+            foreach (var item in playerSpaces)
+            {
+                if (item.card != null)
+                {
+                    item.card.LoadContent(this.Content);
+                }
+            }
             for (int i = 0; i < playerCards.Count; i++)
             {
                 playerCards[i].LoadContent(this.Content);
@@ -82,7 +117,10 @@ namespace PriateCardGame
 
 
             ListUpdate(playerCards);
-            
+            for (int i = 0; i < playerSpaces.Count; i++)
+            {
+                playerSpaces[i].setPos(i);
+            }
 
             // TODO: Add your update logic here
 
@@ -106,7 +144,13 @@ namespace PriateCardGame
             {
                 item.Draw(this._spriteBatch);
             }
-
+            foreach (var item in playerSpaces)
+            {
+                if (item.card != null)
+                {
+                    item.card.Draw(this._spriteBatch);
+                }
+            }
             _spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -118,6 +162,18 @@ namespace PriateCardGame
             repo.Open();
             repo.DropTable();
             repo.Close();
+        }
+
+        public void DrawHand()
+        {
+            Random rnd = new Random();
+            while (playerCards.Count <5)
+            {
+                int temp = rnd.Next(0, PlayerDeck.Count);
+
+                playerCards.Add(PlayerDeck[temp]);
+                PlayerDeck.RemoveAt(temp);
+            }
         }
     }
 }
