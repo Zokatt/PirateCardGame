@@ -10,6 +10,8 @@ namespace PriateCardGame
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         public static Rectangle screenBounds = new Rectangle(0, 0, 1920, 1000);
+        public static string Deck;
+        public static string Storage;
 
 
         public GameWorld()
