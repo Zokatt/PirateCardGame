@@ -2,6 +2,7 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PriateCardGame.Cards;
+using PriateCardGame.Database;
 using System.Collections.Generic;
 
 namespace PriateCardGame
@@ -13,7 +14,7 @@ namespace PriateCardGame
         public static Rectangle screenBounds = new Rectangle(0, 0, 1920, 1000);
         public static string Deck;
         public static string Storage;
-
+        public static CardRepository repo;
         public static List<CardBase> playerCards;
 
 
@@ -35,11 +36,28 @@ namespace PriateCardGame
             //Det her er en ændring nikolaj har lavet
 
             playerCards = new List<CardBase>();
-            playerCards.Add(new Captain());
-            playerCards.Add(new Captain());
-            playerCards.Add(new Captain());
-            playerCards.Add(new Captain());
-            playerCards.Add(new Captain());
+
+            var mapper = new CardMapper();
+            var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
+            repo = new CardRepository(provider, mapper);
+
+            dropRepoTable();
+
+            repo.Open();
+            
+
+            repo.AddCard("Captain");
+            repo.AddCard("Captain");
+            repo.AddCard("Captain");
+            repo.AddCard("Captain");
+            repo.AddCard("Captain");
+
+            playerCards = repo.FindDeck();
+
+
+            repo.Close();
+
+            
 
             base.Initialize();
         }
@@ -93,6 +111,13 @@ namespace PriateCardGame
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
+        }
+
+        public void dropRepoTable()
+        {
+            repo.Open();
+            repo.DropTable();
+            repo.Close();
         }
     }
 }

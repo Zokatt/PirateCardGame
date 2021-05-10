@@ -11,7 +11,8 @@ namespace PriateCardGame.Cards
     {
         public Captain()
         {
-
+            this.Damage = 4;
+            this.Health = 12;
         }
 
         public override void LoadContent(ContentManager contentManager)
