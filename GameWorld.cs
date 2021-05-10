@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PriateCardGame.Cards;
 using System.Collections.Generic;
 
 namespace PriateCardGame
@@ -14,7 +15,6 @@ namespace PriateCardGame
         public static string Storage;
 
         public static List<CardBase> playerCards;
-        public static CardBase allCards;
 
 
         public GameWorld()
@@ -34,7 +34,12 @@ namespace PriateCardGame
             //Mads
             //Det her er en ændring nikolaj har lavet
 
-            
+            playerCards = new List<CardBase>();
+            playerCards.Add(new Captain());
+            playerCards.Add(new Captain());
+            playerCards.Add(new Captain());
+            playerCards.Add(new Captain());
+            playerCards.Add(new Captain());
 
             base.Initialize();
         }
@@ -43,7 +48,11 @@ namespace PriateCardGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
-            allCards.LoadContent(this.Content);
+
+            for (int i = 0; i < playerCards.Count; i++)
+            {
+                playerCards[i].LoadContent(this.Content);
+            }
 
             // TODO: use this.Content to load your game content here
         }
@@ -53,8 +62,8 @@ namespace PriateCardGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            allCards.Update(gameTime);
 
+            ListUpdate(playerCards);
             
 
             // TODO: Add your update logic here
@@ -73,9 +82,14 @@ namespace PriateCardGame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
+            _spriteBatch.Begin();
 
-            allCards.Draw(this._spriteBatch);
+            foreach (CardBase item in playerCards)
+            {
+                item.Draw(this._spriteBatch);
+            }
 
+            _spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

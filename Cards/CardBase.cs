@@ -28,7 +28,6 @@ namespace PriateCardGame
         }
         public override void LoadContent(ContentManager contentManager)
         {
-            this.sprite = contentManager.Load<Texture2D>("PirateCaptain");
             this.color = Color.White;
         }
 
