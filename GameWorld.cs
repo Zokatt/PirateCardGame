@@ -8,12 +8,15 @@ namespace PriateCardGame
     {
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
+        public static Rectangle screenBounds = new Rectangle(0, 0, 1920, 1080);
 
         public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            _graphics.PreferredBackBufferHeight = screenBounds.Height;
+            _graphics.PreferredBackBufferWidth = screenBounds.Width;
         }
 
         protected override void Initialize()
