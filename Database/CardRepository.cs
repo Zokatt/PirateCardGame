@@ -43,15 +43,16 @@ namespace PriateCardGame.Database
         public List<CardBase> FindDeck()
         {
             var cmd = new SQLiteCommand($"Select * from Cards where StorageState = '{GameWorld.Deck}'",(SQLiteConnection)connection);
-            var reader = cmd.ExecuteNonQuery();
+            var reader = cmd.ExecuteReader();
 
             var result = mapper.MapCardsFromReader(reader);
             return result;
         }
 
-        public void AddCard()
+        public void AddCard(string cardName)
         {
-
+            var cmd = new SQLiteCommand($"Insert into Cards (Name,StorageStage) VALUES('{cardName}', 'deck')",(SQLiteConnection)connection);
+            cmd.ExecuteNonQuery();
         }
 
         public void AddToDeck(string cardName)
@@ -62,6 +63,16 @@ namespace PriateCardGame.Database
             cmd.ExecuteNonQuery();
         }
 
+        public void DropTable()
+        {
+            var cmd = new SQLiteCommand($"DROP TABLE Cards", (SQLiteConnection)connection);
+            cmd.ExecuteNonQuery();
+        }
+        
+        public void removeCard(int cardID)
+        {
+            
+        }
 
     }
 }
