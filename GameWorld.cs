@@ -21,6 +21,9 @@ namespace PriateCardGame
         public static List<CardBase> PlayerDeck;
         public static CardBase refCard;
         private Texture2D background;
+        public static Point mousePos;
+        public static MouseState mouseState;
+        public static bool cardInfo = false;
 
 
         public GameWorld()
@@ -119,6 +122,13 @@ namespace PriateCardGame
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
+            mouseState = Mouse.GetState();
+            mousePos = new Point(mouseState.X, mouseState.Y);
+
+            if (cardInfo == true)
+            {
+                cardInfo = false;
+            }
 
             ListUpdate(playerCards);
             for (int i = 0; i < playerSpaces.Count; i++)
@@ -137,6 +147,14 @@ namespace PriateCardGame
             {
                 refList[i].UpdateCardPos(i);
             }
+
+            foreach (CardBase item in refList)
+            {
+                if (item.Collision.Contains(mousePos))
+                {
+                    cardInfo = true;
+                }
+            }
         }
 
         protected override void Draw(GameTime gameTime)
@@ -149,6 +167,15 @@ namespace PriateCardGame
             foreach (CardBase item in playerCards)
             {
                 item.Draw(this._spriteBatch);
+
+                if (cardInfo == true)
+                {
+                    for (int i = 0; i < playerCards.Count; i++)
+                    {
+                        _spriteBatch.Draw(item.sprite, new Vector2(100, 100), null, Color.White, 0f,
+                        Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    }
+                }
             }
             foreach (var item in playerSpaces)
             {
