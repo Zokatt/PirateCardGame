@@ -35,6 +35,11 @@ namespace PriateCardGame
             
         }
 
+        public void UpdateCardPos(int i)
+        {
+            this.position = new Vector2(100 + (i*100), 100);
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(sprite, position, color);

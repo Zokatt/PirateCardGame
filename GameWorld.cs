@@ -55,9 +55,19 @@ namespace PriateCardGame
 
             allCards.Update(gameTime);
 
+            
+
             // TODO: Add your update logic here
 
             base.Update(gameTime);
+        }
+
+        public void ListUpdate(List<CardBase> refList)
+        {
+            for (int i = 0; i < refList.Count; i++)
+            {
+                refList[i].UpdateCardPos(i);
+            }
         }
 
         protected override void Draw(GameTime gameTime)
