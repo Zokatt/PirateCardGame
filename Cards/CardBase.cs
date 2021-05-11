@@ -11,6 +11,7 @@ namespace PriateCardGame
     {
         public bool tookDamage;
         public int damageTaken;
+        protected Texture2D DamageBox;
         public override Rectangle Collision
         {
             get
@@ -74,9 +75,11 @@ namespace PriateCardGame
 
             spriteBatch.DrawString(GameWorld.font, $"{this.Damage}", new Vector2(this.position.X+17, this.position.Y+160), Color.Black);
             spriteBatch.DrawString(GameWorld.font, $"{this.Health}", new Vector2(this.position.X+100, this.position.Y+160), Color.Goldenrod);
+            
             if (tookDamage == true)
             {
-                spriteBatch.DrawString(GameWorld.font, $"-{damageTaken}", new Vector2(this.position.X + 100, this.position.Y + 160), Color.Black);
+                spriteBatch.Draw(DamageBox, new Vector2(this.position.X + 25, this.position.Y + 90), color);
+                spriteBatch.DrawString(GameWorld.font, $"-{damageTaken}", new Vector2(this.position.X + 40, this.position.Y + 100), Color.White);
             }
         }
 
