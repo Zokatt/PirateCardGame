@@ -379,6 +379,7 @@ namespace PriateCardGame
                     {
                         if (item.card != null)
                         {
+                            item.card.color = Color.LawnGreen;
                             item.card.CardEffect(enemySpaces, playerSpaces);
                         }
 
@@ -401,7 +402,17 @@ namespace PriateCardGame
                             {
                                 enemyItem.card.tookDamage = false;
                                 enemyItem.card.damageTaken = 0;
+
+                                if (enemyItem.card.Health <=0)
+                                {
+                                    enemyItem.card = null;  
+                                }
                             }
+                        }
+
+                        if (item.card != null)
+                        {
+                            item.card.color = Color.White;
                         }
 
                     }
