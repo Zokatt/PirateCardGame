@@ -20,6 +20,7 @@ namespace PriateCardGame
         public static List<CardSpace> playerSpaces;
         public static List<CardSpace> enemySpaces;
         public static List<CardBase> PlayerDeck;
+        public static List<CardBase> enemyDeck;
         public static CardBase refCard;
         private Texture2D background;
         public static SpriteFont font;
@@ -51,6 +52,7 @@ namespace PriateCardGame
             playerSpaces = new List<CardSpace>();
             enemySpaces = new List<CardSpace>();
             PlayerDeck = new List<CardBase>();
+            enemyDeck = new List<CardBase>();
             for (int i = 0; i < 8; i++)
             {
                 playerSpaces.Add(new CardSpace(i));
