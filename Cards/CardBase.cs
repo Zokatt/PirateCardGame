@@ -70,6 +70,8 @@ namespace PriateCardGame
             spriteBatch.Draw(sprite, position, null, color, 0f,
             Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
 
+            spriteBatch.DrawString(GameWorld.font, $"{this.Damage}", new Vector2(this.position.X+17, this.position.Y+160), Color.Black);
+            spriteBatch.DrawString(GameWorld.font, $"{this.Health}", new Vector2(this.position.X+100, this.position.Y+160), Color.Goldenrod);
         }
 
         public virtual void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)

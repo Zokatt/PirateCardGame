@@ -21,6 +21,7 @@ namespace PriateCardGame
         public static List<CardBase> PlayerDeck;
         public static CardBase refCard;
         private Texture2D background;
+        public static SpriteFont font;
         public static Point mousePos;
         public static MouseState mouseState;
         public static bool cardInfo = false;
@@ -101,6 +102,7 @@ namespace PriateCardGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
 
             background = Content.Load<Texture2D>("Background");
+            font = Content.Load<SpriteFont>("Font");
 
             foreach (var item in playerSpaces)
             {
@@ -212,8 +214,10 @@ namespace PriateCardGame
                 {
                     for (int i = 0; i < playerCards.Count; i++)
                     {
-                        _spriteBatch.Draw(item.sprite, new Vector2(100, 100), null, Color.White, 0f,
+                        _spriteBatch.Draw(item.sprite, new Vector2(1300, 400), null, Color.White, 0f,
                         Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                        _spriteBatch.DrawString(GameWorld.font, $"{item.Damage}", new Vector2(1337, 730), Color.Black);
+                        _spriteBatch.DrawString(GameWorld.font, $"{item.Health}", new Vector2(1505, 727), Color.Goldenrod);
                     }
                 }
             }
