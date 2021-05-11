@@ -72,11 +72,11 @@ namespace PriateCardGame
         {
             if (i <= 3)
             {
-                this.position = new Vector2(525 + (150 * i), 0);
+                this.position = new Vector2(525 + (150 * i), 45);
             }
             else if (i >= 4)
             {
-                this.position = new Vector2(525 + (150 * (i - 4)), 200);
+                this.position = new Vector2(525 + (150 * (i - 4)), 245);
             }
 
             if (this.card != null)

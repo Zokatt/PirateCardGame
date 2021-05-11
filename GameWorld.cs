@@ -18,6 +18,7 @@ namespace PriateCardGame
         public static CardRepository repo;
         public static List<CardBase> playerCards;
         public static List<CardSpace> playerSpaces;
+        public static List<CardSpace> enemySpaces;
         public static List<CardBase> PlayerDeck;
         public static CardBase refCard;
         private Texture2D background;
@@ -26,6 +27,7 @@ namespace PriateCardGame
         public static MouseState mouseState;
         public static bool cardInfo = false;
         public static bool bPress = false;
+        public static bool tPress = false;
 
 
         public GameWorld()
@@ -47,12 +49,22 @@ namespace PriateCardGame
 
             playerCards = new List<CardBase>();
             playerSpaces = new List<CardSpace>();
+            enemySpaces = new List<CardSpace>();
             PlayerDeck = new List<CardBase>();
             for (int i = 0; i < 8; i++)
             {
                 playerSpaces.Add(new CardSpace(i));
             }
 
+            for (int i = 0; i < 8; i++)
+            {
+                enemySpaces.Add(new CardSpace(i));
+            }
+
+            foreach (CardSpace item in enemySpaces)
+            {
+                item.setCard(new Captain());
+            }
             //for (int i = 0; i < 50; i++)
             //{
             //    PlayerDeck.Add(new Captain());
@@ -112,6 +124,14 @@ namespace PriateCardGame
                     item.card.LoadContent(this.Content);
                 }
             }
+            foreach (var item in enemySpaces)
+            {
+                item.LoadContent(this.Content);
+                if (item.card != null)
+                {
+                    item.card.LoadContent(this.Content);
+                }
+            }
             for (int i = 0; i < playerCards.Count; i++)
             {
                 playerCards[i].LoadContent(this.Content);
@@ -124,6 +144,9 @@ namespace PriateCardGame
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
+
+            Input(gameTime);
+
 
             mouseState = Mouse.GetState();
             mousePos = new Point(mouseState.X, mouseState.Y);
@@ -143,6 +166,10 @@ namespace PriateCardGame
             {
                 playerSpaces[i].setPos(i);
                 playerSpaces[i].CanPlace = false;
+            }
+            for (int i = 0; i < enemySpaces.Count; i++)
+            {
+                enemySpaces[i].setEnemyPos(i);
             }
 
             // TODO: Add your update logic here
@@ -229,6 +256,13 @@ namespace PriateCardGame
                     item.card.Draw(this._spriteBatch);
                 }
             }
+            foreach (var item in enemySpaces)
+            {
+                if (item.card != null)
+                {
+                    item.card.Draw(this._spriteBatch);
+                }
+            }
             _spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -251,6 +285,39 @@ namespace PriateCardGame
 
                 playerCards.Add(PlayerDeck[temp]);
                 PlayerDeck.RemoveAt(temp);
+            }
+        }
+
+        public void Input(GameTime gametime)
+        {
+            KeyboardState state = Keyboard.GetState();
+
+            if (state.IsKeyDown(Keys.T) && tPress == false )
+            {
+                tPress = true;
+                foreach (CardSpace item in playerSpaces)
+                {
+                    if (item.card != null)
+                    {
+                        item.card.CardEffect(enemySpaces, playerSpaces);
+                    }
+                }
+
+                foreach (CardSpace item in enemySpaces)
+                {
+                    if (item.card != null)
+                    {
+                        if (item.card.Health <= 0)
+                        {
+                            item.card = null;
+                        }
+                    }
+                }
+            }
+
+            if (state.IsKeyUp(Keys.T))
+            {
+                tPress = false;
             }
         }
     }
