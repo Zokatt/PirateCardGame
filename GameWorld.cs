@@ -5,6 +5,7 @@ using PriateCardGame.Cards;
 using PriateCardGame.Database;
 using System;
 using System.Collections.Generic;
+using System.Threading;
 
 namespace PriateCardGame
 {
@@ -20,6 +21,7 @@ namespace PriateCardGame
         public static List<CardSpace> playerSpaces;
         public static List<CardSpace> enemySpaces;
         public static List<CardBase> PlayerDeck;
+        public static List<UI> GameUI;
         public static CardBase refCard;
         private Texture2D background;
         public static SpriteFont font;
@@ -28,6 +30,8 @@ namespace PriateCardGame
         public static bool cardInfo = false;
         public static bool bPress = false;
         public static bool tPress = false;
+        public static bool playerTurn = false;
+
 
 
         public GameWorld()
@@ -51,6 +55,8 @@ namespace PriateCardGame
             playerSpaces = new List<CardSpace>();
             enemySpaces = new List<CardSpace>();
             PlayerDeck = new List<CardBase>();
+            GameUI = new List<UI>();
+            GameUI.Add(new UI("EndTurnButton",new Vector2(1050 , 450)));
             for (int i = 0; i < 8; i++)
             {
                 playerSpaces.Add(new CardSpace(i));
@@ -105,6 +111,7 @@ namespace PriateCardGame
             //}
 
             DrawHand();
+            playerTurn = true;
 
             base.Initialize();
         }
@@ -116,6 +123,10 @@ namespace PriateCardGame
             background = Content.Load<Texture2D>("Background");
             font = Content.Load<SpriteFont>("Font");
 
+            foreach (UI item in GameUI)
+            {
+                item.LoadContent(this.Content);
+            }
             foreach (var item in playerSpaces)
             {
                 item.LoadContent(this.Content);
@@ -180,7 +191,22 @@ namespace PriateCardGame
                 refCard.position.X = mousePos.X;
                 refCard.position.Y = mousePos.Y;
             }
-
+            foreach (UI item in GameUI)
+            {
+                if (item.Collision.Contains(mousePos))
+                {
+                    item.color = Color.Goldenrod;
+                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "EndTurnButton" && bPress == false)
+                    {
+                        bPress = true;
+                        endTurn(gameTime);
+                    }
+                }
+                else if (item.color != Color.White)
+                {
+                    item.color = Color.White;
+                }
+            }
             foreach (CardSpace item in playerSpaces)
             {
                 if (item.Collision.Contains(mousePos) && refCard != null && item.card == null)
@@ -233,6 +259,11 @@ namespace PriateCardGame
 
             _spriteBatch.Draw(background, new Vector2(-150, 0), Color.White);
 
+
+            foreach (UI item in GameUI)
+            {
+                item.Draw(this._spriteBatch);
+            }
             foreach (CardBase item in playerCards)
             {
                 item.Draw(this._spriteBatch);
@@ -263,6 +294,8 @@ namespace PriateCardGame
                     item.card.Draw(this._spriteBatch);
                 }
             }
+
+
             _spriteBatch.End();
             // TODO: Add your drawing code here
 
@@ -324,6 +357,94 @@ namespace PriateCardGame
             {
                 tPress = false;
             }
+        }
+
+        public void endTurn(GameTime gameTime)
+        {
+            Thread newRoundEndThread = new Thread(() => ThreadWork(gameTime))
+            {
+                IsBackground = true
+            };
+            newRoundEndThread.Start();
+        }
+
+        public void ThreadWork(GameTime gameTime)
+        {
+            var WhileBool = true;
+            while (WhileBool == true)
+            {
+                if (playerTurn == true)
+                {
+                    foreach (CardSpace item in playerSpaces)
+                    {
+                        if (item.card != null)
+                        {
+                            item.card.CardEffect(enemySpaces, playerSpaces);
+                        }
+
+                        foreach (CardSpace enemyItem in enemySpaces)
+                        {
+                            if (enemyItem.card!=null)
+                            {
+                                enemyItem.card.tookDamage = true;
+                            }
+                            
+                        }
+                        if (item.card!=null)
+                        {
+                            Thread.Sleep(1000);
+                        }
+
+                        foreach (CardSpace enemyItem in enemySpaces)
+                        {
+                            if (enemyItem.card!=null)
+                            {
+                                enemyItem.card.tookDamage = false;
+                                enemyItem.card.damageTaken = 0;
+                            }
+                        }
+
+                    }
+                    foreach (CardSpace item in enemySpaces)
+                    {
+                        if (item.card !=null)
+                        {
+                            if (item.card.Health <= 0)
+                            {
+                                item.card = null;
+                            }
+                        }
+                        
+                    }
+                    WhileBool = false;
+                }
+                else
+                {
+                    foreach (CardSpace item in enemySpaces)
+                    {
+                        if (item.card != null)
+                        {
+                            item.card.CardEffect(enemySpaces, playerSpaces);
+
+                        }
+                    }
+
+                    foreach (CardSpace item in playerSpaces)
+                    {
+                        if (item.card !=null)
+                        {
+                            if (item.card.Health <= 0)
+                            {
+                                item.card = null;
+                            }
+                        }
+                    }
+                    WhileBool = false;
+                }
+
+               
+            }
+            
         }
     }
 }

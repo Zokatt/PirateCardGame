@@ -7,8 +7,10 @@ using System.Text;
 
 namespace PriateCardGame
 {
-    public class CardBase : GameObject
+    public abstract class CardBase : GameObject
     {
+        public bool tookDamage;
+        public int damageTaken;
         public override Rectangle Collision
         {
             get
@@ -47,7 +49,7 @@ namespace PriateCardGame
             {
                 attackPlayer(enemySpaces,playerSpaces);
             }
-
+           
             AdditionalCardEffect(enemySpaces,playerSpaces);
         }
         public override void LoadContent(ContentManager contentManager)
@@ -72,12 +74,13 @@ namespace PriateCardGame
 
             spriteBatch.DrawString(GameWorld.font, $"{this.Damage}", new Vector2(this.position.X+17, this.position.Y+160), Color.Black);
             spriteBatch.DrawString(GameWorld.font, $"{this.Health}", new Vector2(this.position.X+100, this.position.Y+160), Color.Goldenrod);
+            if (tookDamage == true)
+            {
+                spriteBatch.DrawString(GameWorld.font, $"-{damageTaken}", new Vector2(this.position.X + 100, this.position.Y + 160), Color.Black);
+            }
         }
 
-        public virtual void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
-        {
-
-        }
+        public abstract void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces);
 
         private void attackEnemy(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
@@ -86,10 +89,12 @@ namespace PriateCardGame
                 if (enemySpaces[this.spaceNumber + 4].card != null)
                 {
                     enemySpaces[this.spaceNumber + 4].card.Health -= this.Damage;
+                    enemySpaces[this.spaceNumber + 4].card.damageTaken += this.Damage;
                 }
                 else if (enemySpaces[this.spaceNumber].card != null)
                 {
                     enemySpaces[this.spaceNumber].card.Health -= this.Damage;
+                    enemySpaces[this.spaceNumber].card.damageTaken += this.Damage;
                 }
                 else
                 {
@@ -101,10 +106,12 @@ namespace PriateCardGame
                 if (enemySpaces[this.spaceNumber].card != null)
                 {
                     enemySpaces[this.spaceNumber].card.Health -= this.Damage;
+                    enemySpaces[this.spaceNumber].card.damageTaken += this.Damage;
                 }
                 else if (enemySpaces[this.spaceNumber - 4].card != null)
                 {
                     enemySpaces[this.spaceNumber - 4].card.Health -= this.Damage;
+                    enemySpaces[this.spaceNumber - 4].card.damageTaken += this.Damage;
                 }
                 else
                 {
@@ -122,10 +129,12 @@ namespace PriateCardGame
                     if (playerSpaces[this.spaceNumber].card != null)
                     {
                         playerSpaces[this.spaceNumber].card.Health -= this.Damage;
+                        playerSpaces[this.spaceNumber].card.damageTaken+= this.Damage;
                     }
                     else if (playerSpaces[this.spaceNumber+4].card != null)
                     {
                         playerSpaces[this.spaceNumber+4].card.Health -= this.Damage;
+                        playerSpaces[this.spaceNumber + 4].card.damageTaken += this.Damage;
                     }
                 }
                 else
@@ -138,10 +147,12 @@ namespace PriateCardGame
                 if (playerSpaces[this.spaceNumber-4].card != null)
                 {
                     playerSpaces[this.spaceNumber-4].card.Health -= this.Damage;
+                    playerSpaces[this.spaceNumber - 4].card.damageTaken += this.Damage;
                 }
                 else if (playerSpaces [this.spaceNumber].card != null)
                 {
                     playerSpaces[this.spaceNumber].card.Health -= this.Damage;
+                    playerSpaces[this.spaceNumber].card.damageTaken += this.Damage;
                 }
                 else
                 {
