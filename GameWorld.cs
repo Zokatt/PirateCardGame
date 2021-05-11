@@ -126,6 +126,11 @@ namespace PriateCardGame
             mouseState = Mouse.GetState();
             mousePos = new Point(mouseState.X, mouseState.Y);
 
+            if (mouseState.LeftButton == ButtonState.Pressed) //to check for postion placements
+            {
+
+            }//breakpoint here to test <--
+
             if (cardInfo == true)
             {
                 cardInfo = false;
@@ -175,7 +180,7 @@ namespace PriateCardGame
         {
             for (int i = 0; i < refList.Count; i++)
             {
-                refList[i].UpdateCardPos(i);
+                refList[i].UpdatePlayerCardPos(i);
             }
             for (int i = 0; i < refList.Count; i++)
             {
@@ -236,7 +241,7 @@ namespace PriateCardGame
         public void DrawHand()
         {
             Random rnd = new Random();
-            while (playerCards.Count <5)
+            while (playerCards.Count < 5)
             {
                 int temp = rnd.Next(0, PlayerDeck.Count);
 

@@ -34,9 +34,50 @@ namespace PriateCardGame
         public int spaceNumber { get; set; }
 
 
+
         //Validate method?
 
         public void CardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
+        {
+            if (this.position.Y > 500)
+            {
+                attackEnemy(enemySpaces,playerSpaces);
+            }
+            else if (this.position.Y <500)
+            {
+                attackPlayer(enemySpaces,playerSpaces);
+            }
+
+            AdditionalCardEffect(enemySpaces,playerSpaces);
+        }
+        public override void LoadContent(ContentManager contentManager)
+        {
+            this.color = Color.White;
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            
+        }
+
+        public void UpdatePlayerCardPos(int i)
+        {
+            this.position = new Vector2(500 + (i*140), 800);
+        }
+
+        public override void Draw(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(sprite, position, null, color, 0f,
+            Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+
+        }
+
+        public virtual void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
+        {
+
+        }
+
+        private void attackEnemy(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             if (this.spaceNumber <= 3)
             {
@@ -68,36 +109,43 @@ namespace PriateCardGame
                     //attack enemy
                 }
             }
-
-            AdditionalCardEffect(enemySpaces,playerSpaces);
         }
-        public override void LoadContent(ContentManager contentManager)
+
+        private void attackPlayer(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
-            this.color = Color.White;
+            if (this.spaceNumber <= 3)
+            {
+                if (enemySpaces[this.spaceNumber+4] == null)
+                {
+                    if (playerSpaces[this.spaceNumber].card != null)
+                    {
+                        playerSpaces[this.spaceNumber].card.Health -= this.Damage;
+                    }
+                    else if (playerSpaces[this.spaceNumber+4].card != null)
+                    {
+                        playerSpaces[this.spaceNumber+4].card.Health -= this.Damage;
+                    }
+                }
+                else
+                {
+                    //attack enemy
+                }
+            }
+            else
+            {
+                if (playerSpaces[this.spaceNumber-4].card != null)
+                {
+                    playerSpaces[this.spaceNumber-4].card.Health -= this.Damage;
+                }
+                else if (playerSpaces [this.spaceNumber].card != null)
+                {
+                    playerSpaces[this.spaceNumber].card.Health -= this.Damage;
+                }
+                else
+                {
+                    //attack enemy
+                }
+            }
         }
-
-        public override void Update(GameTime gameTime)
-        {
-            
-        }
-
-        public void UpdateCardPos(int i)
-        {
-            this.position = new Vector2(500 + (i*140), 800);
-        }
-
-        public override void Draw(SpriteBatch spriteBatch)
-        {
-            spriteBatch.Draw(sprite, position, null, color, 0f,
-            Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
-
-        }
-
-        public virtual void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
-        {
-
-        }
-
-
     }
 }

@@ -68,6 +68,23 @@ namespace PriateCardGame
             }
         }
 
+        public void setEnemyPos(int i)
+        {
+            if (i <= 3)
+            {
+                this.position = new Vector2(525 + (150 * i), 0);
+            }
+            else if (i >= 4)
+            {
+                this.position = new Vector2(525 + (150 * (i - 4)), 200);
+            }
+
+            if (this.card != null)
+            {
+                this.card.position = this.position;
+            }
+        }
+
         public void LoadContent(ContentManager contentManager)
         {
             this.sprite = contentManager.Load<Texture2D>("CardSpace");
