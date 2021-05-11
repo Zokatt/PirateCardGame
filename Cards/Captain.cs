@@ -9,6 +9,41 @@ namespace PriateCardGame.Cards
 {
     class Captain : CardBase
     {
+        public override void CardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
+        {
+            if (this.spaceNumber <=3)
+            {
+                if (enemySpaces[this.spaceNumber + 4].card != null)
+                {
+                    enemySpaces[this.spaceNumber + 4].card.Health -= this.Damage;
+                }
+                else if (enemySpaces[this.spaceNumber].card != null)
+                {
+                    enemySpaces[this.spaceNumber].card.Health -= this.Damage;
+                }
+                else
+                {
+                    //attack enemy
+                }
+            }
+            else if (playerSpaces[this.spaceNumber -4].card == null)
+            {
+                if (enemySpaces[this.spaceNumber ].card != null)
+                {
+                    enemySpaces[this.spaceNumber ].card.Health -= this.Damage;
+                }
+                else if (enemySpaces[this.spaceNumber-4].card != null)
+                {
+                    enemySpaces[this.spaceNumber-4].card.Health -= this.Damage;
+                }
+                else
+                {
+                    //attack enemy
+                }
+            }
+            
+        }
+
         public Captain()
         {
             this.Damage = 4;

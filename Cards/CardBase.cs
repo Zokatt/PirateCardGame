@@ -9,6 +9,18 @@ namespace PriateCardGame
 {
     public class CardBase : GameObject
     {
+        public override Rectangle Collision
+        {
+            get
+            {
+                return new Rectangle(
+                       (int)position.X,
+                       (int)position.Y,
+                       (int)sprite.Width/2,
+                       (int)sprite.Height/2
+                   );
+            }
+        }
         public string Name { get; set; }
 
         public int Damage { get; set; }
@@ -19,10 +31,12 @@ namespace PriateCardGame
 
         public string storageState { get; set; }
 
+        public int spaceNumber { get; set; }
+
 
         //Validate method?
 
-        public void CardEffect()
+        public virtual void CardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
 
         }
@@ -38,7 +52,7 @@ namespace PriateCardGame
 
         public void UpdateCardPos(int i)
         {
-            this.position = new Vector2(600 + (i*140), 800);
+            this.position = new Vector2(500 + (i*140), 800);
         }
 
         public override void Draw(SpriteBatch spriteBatch)
@@ -47,6 +61,7 @@ namespace PriateCardGame
             Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
 
         }
+
 
     }
 }

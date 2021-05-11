@@ -13,6 +13,7 @@ namespace PriateCardGame
         public Vector2 position;
         private Texture2D sprite;
         public bool CanPlace = false;
+        public int spaceNumber;
 
         public virtual Rectangle Collision
         {
@@ -26,14 +27,15 @@ namespace PriateCardGame
                    );
             }
         }
-        public CardSpace()
+        public CardSpace(int i)
         {
-
+            this.spaceNumber = i;
         }
         public void setCard(CardBase otherCard)
         {
             this.card = otherCard;
             this.card.position = this.position;
+            this.card.spaceNumber = this.spaceNumber;
         }
 
 

@@ -49,7 +49,7 @@ namespace PriateCardGame
             PlayerDeck = new List<CardBase>();
             for (int i = 0; i < 8; i++)
             {
-                playerSpaces.Add(new CardSpace());
+                playerSpaces.Add(new CardSpace(i));
             }
 
             //for (int i = 0; i < 50; i++)
