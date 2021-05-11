@@ -4,7 +4,7 @@ using System.Text;
 
 namespace PriateCardGame.BuilderPattern
 {
-    class Director
+    public class Director
     {
         private IBuilder builder;
 
@@ -13,7 +13,7 @@ namespace PriateCardGame.BuilderPattern
             this.builder = builder;
         }
 
-        public List<GameObject> ConstructEnemyDeck()
+        public List<CardBase> ConstructEnemyDeck()
         {
 
             builder.BuildEnemyDeck();

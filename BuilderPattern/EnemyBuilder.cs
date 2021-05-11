@@ -10,9 +10,11 @@ namespace PriateCardGame.BuilderPattern
         private Enemy enemy;
         public void BuildEnemyDeck()
         {
-            GameWorld.enemyDeck;
-            GameWorld.dropRepoTable();
-            
+
+            GameWorld.repo.Open();
+            GameWorld.repo.DropTable();
+            GameWorld.repo.Close();
+
             GameWorld.repo.Open();
 
 
@@ -22,14 +24,14 @@ namespace PriateCardGame.BuilderPattern
             GameWorld.repo.AddCard("Captain");
             GameWorld.repo.AddCard("Captain");
 
-            GameWorld.enemyDeck = GameWorld.enemyDeck.repo.FindDeck();
+            GameWorld.enemyDeck = GameWorld.repo.FindDeck();
 
             GameWorld.repo.Close();
         }
 
-        public List<GameObject> GetResult()
+        public List<CardBase> GetResult()
         {
-            return enemyDeck;
+            return GameWorld.enemyDeck;
         }
     }
 }

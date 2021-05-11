@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PriateCardGame.BuilderPattern;
 using PriateCardGame.Cards;
 using PriateCardGame.Database;
 using System;
@@ -29,7 +30,7 @@ namespace PriateCardGame
         public static bool cardInfo = false;
         public static bool bPress = false;
         public static bool tPress = false;
-
+        public static Director director = new Director(new EnemyBuilder());
 
         public GameWorld()
         {
@@ -117,6 +118,8 @@ namespace PriateCardGame
 
             background = Content.Load<Texture2D>("Background");
             font = Content.Load<SpriteFont>("Font");
+
+            director.ConstructEnemyDeck();
 
             foreach (var item in playerSpaces)
             {

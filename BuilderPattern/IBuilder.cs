@@ -4,10 +4,10 @@ using System.Text;
 
 namespace PriateCardGame.BuilderPattern
 {
-    interface IBuilder
+    public interface IBuilder
     {
 
-        List<GameObject> GetResult();
+        List<CardBase> GetResult();
 
         void BuildEnemyDeck();
     }
