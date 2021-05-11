@@ -64,10 +64,15 @@ namespace PriateCardGame
                 enemySpaces.Add(new CardSpace(i));
             }
 
-            for (int i = 0; i < 8; i++)
-            {
-                enemySpaces[i].setCard(new Captain());
-            }
+            //for (int i = 0; i < 8; i++)
+            //{
+            //    enemySpaces[i].setCard(new Captain());
+            //}
+            //for (int i = 0; i < 8; i++)
+            //{
+            //    enemyDeck[i].
+            //}
+
             //for (int i = 0; i < 50; i++)
             //{
             //    PlayerDeck.Add(new Captain());
@@ -176,6 +181,10 @@ namespace PriateCardGame
             {
                 enemySpaces[i].setEnemyPos(i);
             }
+            //for (int i = 0; i < enemyDeck.Count; i++)
+            //{
+            //    enemyDeck[i].setEnemyPos(i);
+            //}
 
             // TODO: Add your update logic here
 

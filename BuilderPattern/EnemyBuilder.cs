@@ -17,12 +17,11 @@ namespace PriateCardGame.BuilderPattern
 
             GameWorld.repo.Open();
 
+            for (int i = 0; i < 8; i++)
+            {
+                GameWorld.repo.AddCard("Captain");
+            }
 
-            GameWorld.repo.AddCard("Captain");
-            GameWorld.repo.AddCard("Captain");
-            GameWorld.repo.AddCard("Captain");
-            GameWorld.repo.AddCard("Captain");
-            GameWorld.repo.AddCard("Captain");
 
             GameWorld.enemyDeck = GameWorld.repo.FindDeck();
 
