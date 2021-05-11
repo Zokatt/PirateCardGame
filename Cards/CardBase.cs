@@ -117,7 +117,7 @@ namespace PriateCardGame
         {
             if (this.spaceNumber <= 3)
             {
-                if (enemySpaces[this.spaceNumber+4] == null)
+                if (enemySpaces[this.spaceNumber+4].card == null)
                 {
                     if (playerSpaces[this.spaceNumber].card != null)
                     {

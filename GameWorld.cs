@@ -61,9 +61,9 @@ namespace PriateCardGame
                 enemySpaces.Add(new CardSpace(i));
             }
 
-            foreach (CardSpace item in enemySpaces)
+            for (int i = 0; i < 8; i++)
             {
-                item.setCard(new Captain());
+                enemySpaces[i].setCard(new Captain());
             }
             //for (int i = 0; i < 50; i++)
             //{
@@ -300,6 +300,10 @@ namespace PriateCardGame
                     if (item.card != null)
                     {
                         item.card.CardEffect(enemySpaces, playerSpaces);
+                        if (item.card.Health <= 0)
+                        {
+                            item.card = null;
+                        }
                     }
                 }
 
@@ -307,6 +311,7 @@ namespace PriateCardGame
                 {
                     if (item.card != null)
                     {
+                       item.card.CardEffect(enemySpaces, playerSpaces);
                         if (item.card.Health <= 0)
                         {
                             item.card = null;
