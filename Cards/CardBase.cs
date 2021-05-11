@@ -36,9 +36,40 @@ namespace PriateCardGame
 
         //Validate method?
 
-        public virtual void CardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
+        public void CardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
+            if (this.spaceNumber <= 3)
+            {
+                if (enemySpaces[this.spaceNumber + 4].card != null)
+                {
+                    enemySpaces[this.spaceNumber + 4].card.Health -= this.Damage;
+                }
+                else if (enemySpaces[this.spaceNumber].card != null)
+                {
+                    enemySpaces[this.spaceNumber].card.Health -= this.Damage;
+                }
+                else
+                {
+                    //attack enemy
+                }
+            }
+            else if (playerSpaces[this.spaceNumber - 4].card == null)
+            {
+                if (enemySpaces[this.spaceNumber].card != null)
+                {
+                    enemySpaces[this.spaceNumber].card.Health -= this.Damage;
+                }
+                else if (enemySpaces[this.spaceNumber - 4].card != null)
+                {
+                    enemySpaces[this.spaceNumber - 4].card.Health -= this.Damage;
+                }
+                else
+                {
+                    //attack enemy
+                }
+            }
 
+            AdditionalCardEffect(enemySpaces,playerSpaces);
         }
         public override void LoadContent(ContentManager contentManager)
         {
@@ -59,6 +90,11 @@ namespace PriateCardGame
         {
             spriteBatch.Draw(sprite, position, null, color, 0f,
             Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+
+        }
+
+        public virtual void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
+        {
 
         }
 
