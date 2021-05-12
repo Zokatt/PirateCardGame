@@ -13,10 +13,10 @@ namespace PriateCardGame.BuilderPattern
             this.builder = builder;
         }
 
-        public List<CardBase> ConstructEnemyDeck()
+        public List<CardBase> ConstructEnemyDeck(int diff)
         {
 
-            builder.BuildEnemyDeck();
+            builder.BuildEnemyDeck(diff);
 
             return builder.GetResult();
         }

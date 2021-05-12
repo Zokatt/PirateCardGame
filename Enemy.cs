@@ -6,11 +6,13 @@ using System.Text;
 
 namespace PriateCardGame
 {
-    class Enemy : GameObject
+    public class Enemy : GameObject
     {
         public int difficulty;
+        public List<CardBase> Deck;
         public Enemy(int diff)
         {
+            Deck = new List<CardBase>();
             this.difficulty = diff;
         }
 

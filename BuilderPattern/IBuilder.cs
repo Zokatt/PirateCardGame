@@ -9,6 +9,6 @@ namespace PriateCardGame.BuilderPattern
 
         List<CardBase> GetResult();
 
-        void BuildEnemyDeck();
+        void BuildEnemyDeck(int diff);
     }
 }

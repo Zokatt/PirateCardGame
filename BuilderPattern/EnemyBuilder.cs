@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PriateCardGame.Cards;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -6,31 +7,25 @@ namespace PriateCardGame.BuilderPattern
 {
     class EnemyBuilder : IBuilder
     {
-        
+        private List<CardBase> DeckList = new List<CardBase>();
         private Enemy enemy;
-        public void BuildEnemyDeck()
+        public void BuildEnemyDeck(int diff)
         {
+            DeckList.Clear();
 
-            GameWorld.repo.Open();
-            GameWorld.repo.DropTable();
-            GameWorld.repo.Close();
-
-            GameWorld.repo.Open();
-
-            for (int i = 0; i < 8; i++)
+            if (diff == 1)
             {
-                GameWorld.repo.AddCard("Captain");
+                for (int i = 0; i < 8; i++)
+                {
+                    DeckList.Add(new Captain());
+                }
             }
-
-
-            GameWorld.enemyDeck = GameWorld.repo.FindDeck();
-
-            GameWorld.repo.Close();
+            
         }
 
         public List<CardBase> GetResult()
         {
-            return GameWorld.enemyDeck;
+            return DeckList;
         }
     }
 }

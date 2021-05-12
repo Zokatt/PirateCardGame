@@ -33,6 +33,7 @@ namespace PriateCardGame
         public static bool bPress = false;
         public static bool tPress = false;
         public static bool playerTurn = false;
+        public static Enemy enemy;
 
         public static Director director = new Director(new EnemyBuilder());
 
@@ -61,6 +62,9 @@ namespace PriateCardGame
             GameUI.Add(new UI("EndTurnButton",new Vector2(1050 , 450)));
             enemyDeck = new List<CardBase>();
 
+            enemy = new Enemy(1);
+            enemy.Deck = director.ConstructEnemyDeck(enemy.difficulty);
+            
             for (int i = 0; i < 8; i++)
             {
                 playerSpaces.Add(new CardSpace(i));
@@ -136,7 +140,7 @@ namespace PriateCardGame
             {
                 item.LoadContent(this.Content);
             }
-            director.ConstructEnemyDeck();
+            
 
             foreach (var item in playerSpaces)
             {
