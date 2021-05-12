@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
+using PriateCardGame.BuilderPattern;
 using PriateCardGame.Cards;
 using PriateCardGame.Database;
 using System;
@@ -22,6 +23,7 @@ namespace PriateCardGame
         public static List<CardSpace> enemySpaces;
         public static List<CardBase> PlayerDeck;
         public static List<UI> GameUI;
+        public static List<CardBase> enemyDeck;
         public static CardBase refCard;
         private Texture2D background;
         public static SpriteFont font;
@@ -32,7 +34,7 @@ namespace PriateCardGame
         public static bool tPress = false;
         public static bool playerTurn = false;
 
-
+        public static Director director = new Director(new EnemyBuilder());
 
         public GameWorld()
         {
@@ -57,6 +59,8 @@ namespace PriateCardGame
             PlayerDeck = new List<CardBase>();
             GameUI = new List<UI>();
             GameUI.Add(new UI("EndTurnButton",new Vector2(1050 , 450)));
+            enemyDeck = new List<CardBase>();
+
             for (int i = 0; i < 8; i++)
             {
                 playerSpaces.Add(new CardSpace(i));
@@ -71,6 +75,11 @@ namespace PriateCardGame
             {
                 enemySpaces[i].setCard(new Captain());
             }
+            //for (int i = 0; i < 8; i++)
+            //{
+            //    enemyDeck[i].
+            //}
+
             //for (int i = 0; i < 50; i++)
             //{
             //    PlayerDeck.Add(new Captain());
@@ -127,6 +136,8 @@ namespace PriateCardGame
             {
                 item.LoadContent(this.Content);
             }
+            director.ConstructEnemyDeck();
+
             foreach (var item in playerSpaces)
             {
                 item.LoadContent(this.Content);
@@ -182,6 +193,10 @@ namespace PriateCardGame
             {
                 enemySpaces[i].setEnemyPos(i);
             }
+            //for (int i = 0; i < enemyDeck.Count; i++)
+            //{
+            //    enemyDeck[i].setEnemyPos(i);
+            //}
 
             // TODO: Add your update logic here
 
