@@ -70,19 +70,26 @@ namespace PriateCardGame
 
         public override void Draw(SpriteBatch spriteBatch)
         {
+            Vector2 origin = new Vector2(Collision.Width / 2f, Collision.Height / 2f);
+
             if (this.position.Y < 500)
             {
-                spriteBatch.Draw(sprite, position, null, color, 0f,
-                Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+                spriteBatch.Draw(sprite, new Vector2(position.X+90, position.Y+145), null, color, (float)Math.PI,
+                origin, 0.5f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(GameWorld.font, $"{this.Damage}", new Vector2(this.position.X + 42, this.position.Y - 65), Color.Black, 
+                    (float)Math.PI, origin, 1, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(GameWorld.font, $"{this.Health}", new Vector2(this.position.X - 42, this.position.Y - 65), Color.Goldenrod,
+                    (float)Math.PI, origin, 1, SpriteEffects.None, 0f);
             }
             else
             {
                 spriteBatch.Draw(sprite, position, null, color, 0f,
                 Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+                spriteBatch.DrawString(GameWorld.font, $"{this.Damage}", new Vector2(this.position.X + 17, this.position.Y + 160), Color.Black);
+                spriteBatch.DrawString(GameWorld.font, $"{this.Health}", new Vector2(this.position.X + 100, this.position.Y + 160), Color.Goldenrod);
             }
 
-            spriteBatch.DrawString(GameWorld.font, $"{this.Damage}", new Vector2(this.position.X+17, this.position.Y+160), Color.Black);
-            spriteBatch.DrawString(GameWorld.font, $"{this.Health}", new Vector2(this.position.X+100, this.position.Y+160), Color.Goldenrod);
+            
             
             if (tookDamage == true)
             {
