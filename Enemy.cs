@@ -8,6 +8,12 @@ namespace PriateCardGame
 {
     class Enemy : GameObject
     {
+        public int difficulty;
+        public Enemy(int diff)
+        {
+            this.difficulty = diff;
+        }
+
         public override void LoadContent(ContentManager contentManager)
         {
             
