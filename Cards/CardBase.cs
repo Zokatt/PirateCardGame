@@ -68,6 +68,11 @@ namespace PriateCardGame
             this.position = new Vector2(500 + (i*140), 800);
         }
 
+        public void SetDeckBuildingPosition(int i)
+        {
+            this.position = new Vector2(100 + (i * 100),800 );
+        }
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             Vector2 origin = new Vector2(Collision.Width / 2f, Collision.Height / 2f);
