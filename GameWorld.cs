@@ -30,10 +30,12 @@ namespace PriateCardGame
         public static Point mousePos;
         public static MouseState mouseState;
         public static bool cardInfo = false;
+        public static int cardInfoNumber;
         public static bool bPress = false;
         public static bool tPress = false;
         public static bool playerTurn = false;
         public static Enemy enemy;
+        public static CardBase infoCard;
 
         public static Director director = new Director(new EnemyBuilder());
 
@@ -98,15 +100,15 @@ namespace PriateCardGame
             repo.Open();
             
 
-            repo.AddCard("Captain");
-            repo.AddCard("Captain");
-            repo.AddCard("Captain");
-            repo.AddCard("Captain");
-            repo.AddCard("Captain");
-            repo.AddCard("Captain");
-            repo.AddCard("Captain");
-            repo.AddCard("Captain");
-            repo.AddCard("Captain");
+            repo.AddCard("Swapper");
+            repo.AddCard("Swapper");
+            repo.AddCard("Swapper");
+            repo.AddCard("Swapper");
+            repo.AddCard("Swapper");
+            repo.AddCard("Swapper");
+            repo.AddCard("Swapper");
+            repo.AddCard("Swapper");
+            repo.AddCard("Swapper");
             repo.AddCard("Captain");
 
             PlayerDeck = repo.FindDeck();
@@ -190,6 +192,11 @@ namespace PriateCardGame
             ListUpdate(playerCards);
             for (int i = 0; i < playerSpaces.Count; i++)
             {
+                if (playerSpaces[i].Collision.Contains(mousePos) && playerSpaces[i].card != null)
+                {
+                    cardInfo = true;
+                    infoCard = playerSpaces[i].card;
+                }
                 playerSpaces[i].setPos(i);
                 playerSpaces[i].CanPlace = false;
             }
@@ -260,6 +267,7 @@ namespace PriateCardGame
             {
                 if (refList[i].Collision.Contains(mousePos))
                 {
+                    infoCard = refList[i];
                     cardInfo = true;
                 }
                 if (refList[i].Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false)
@@ -286,17 +294,6 @@ namespace PriateCardGame
             foreach (CardBase item in playerCards)
             {
                 item.Draw(this._spriteBatch);
-
-                if (cardInfo == true)
-                {
-                    for (int i = 0; i < playerCards.Count; i++)
-                    {
-                        _spriteBatch.Draw(item.sprite, new Vector2(1300, 400), null, Color.White, 0f,
-                        Vector2.Zero, 1f, SpriteEffects.None, 0f);
-                        _spriteBatch.DrawString(GameWorld.font, $"{item.Damage}", new Vector2(1337, 730), Color.Black);
-                        _spriteBatch.DrawString(GameWorld.font, $"{item.Health}", new Vector2(1505, 727), Color.Goldenrod);
-                    }
-                }
             }
             foreach (var item in playerSpaces)
             {
@@ -313,7 +310,14 @@ namespace PriateCardGame
                     item.card.Draw(this._spriteBatch);
                 }
             }
-
+            if (cardInfo == true)
+            {
+                    _spriteBatch.Draw(infoCard.sprite, new Vector2(1300, 400), null, Color.White, 0f,
+                    Vector2.Zero, 1f, SpriteEffects.None, 0f);
+                    _spriteBatch.DrawString(GameWorld.font, $"{infoCard.Damage}", new Vector2(1337, 730), Color.Black);
+                    _spriteBatch.DrawString(GameWorld.font, $"{infoCard.Health}", new Vector2(1505, 727), Color.Goldenrod);
+                
+            }
 
             _spriteBatch.End();
             // TODO: Add your drawing code here
@@ -389,6 +393,10 @@ namespace PriateCardGame
 
         public void ThreadWork(GameTime gameTime)
         {
+
+
+
+            //playerTurn = !playerTurn;
             var WhileBool = true;
             while (WhileBool == true)
             {
@@ -406,7 +414,10 @@ namespace PriateCardGame
                         {
                             if (enemyItem.card!=null)
                             {
-                                enemyItem.card.tookDamage = true;
+                                if (enemyItem.card.damageTaken >0)
+                                {
+                                    enemyItem.card.tookDamage = true;
+                                }
                             }
                             
                         }
@@ -477,16 +488,57 @@ namespace PriateCardGame
                         {
                             if (playerItem.card != null)
                             {
-                                playerItem.card.tookDamage = true;
+                                if (playerItem.card.damageTaken >0)
+                                {
+                                    playerItem.card.tookDamage = true;
+                                }
                             }
 
                         }
+
+                        if (enemySpaces[tmp].card != null)
+                        {
+                            Thread.Sleep(1000);
+                        }
+
+                        foreach (CardSpace playerItem in playerSpaces)
+                        {
+                            if (playerItem.card != null)
+                            {
+                                playerItem.card.tookDamage = false;
+                                playerItem.card.damageTaken = 0;
+
+                                if (playerItem.card.Health <= 0)
+                                {
+                                    playerItem.card = null;
+                                }
+                            }
+                        }
+                        if (enemySpaces[tmp].card != null)
+                        {
+                            Thread.Sleep(500);
+                            enemySpaces[tmp].card.color = Color.White;
+                        }
+
                     }
+                    foreach (CardSpace item in playerSpaces)
+                    {
+                        if (item.card != null)
+                        {
+                            if (item.card.Health <= 0)
+                            {
+                                item.card = null;
+                            }
+                        }
+
+                    }
+                    WhileBool = false;
+                
                 }
 
                
             }
-            
+
         }
     }
 }

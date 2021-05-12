@@ -22,6 +22,9 @@ namespace PriateCardGame.Database
                     case "Captain":
                         result.Add(new Captain() { CardID = cardID, Name = Name, storageState = storageState });
                         break;
+                    case "Swapper":
+                        result.Add(new Swapper() { CardID = cardID, Name = Name, storageState = storageState });
+                        break;
                 }
 
              }

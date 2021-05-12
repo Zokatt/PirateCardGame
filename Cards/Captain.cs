@@ -12,7 +12,7 @@ namespace PriateCardGame.Cards
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             Random rnd = new Random();
-            var tmp = rnd.Next(0, 5);
+            var tmp = rnd.Next(0, 3);
             if (this.position.Y <500)
             {
                 foreach (CardSpace item in playerSpaces)
@@ -40,7 +40,7 @@ namespace PriateCardGame.Cards
         public Captain()
         {
             this.Damage = 4;
-            this.Health = 12;
+            this.Health = 3;
         }
 
         public override void LoadContent(ContentManager contentManager)
