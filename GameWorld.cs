@@ -409,7 +409,10 @@ namespace PriateCardGame
                                 }
                             }
                         }
-
+                        if (item.card != null)
+                        {
+                            Thread.Sleep(500);
+                        }
                         if (item.card != null)
                         {
                             item.card.color = Color.White;
@@ -431,26 +434,35 @@ namespace PriateCardGame
                 }
                 else
                 {
-                    foreach (CardSpace item in enemySpaces)
+                    for (int i = 0; i < 8; i++)
                     {
-                        if (item.card != null)
+                        var tmp = 0;
+                        
+                        if (i <=3)
                         {
-                            item.card.CardEffect(enemySpaces, playerSpaces);
 
+                            tmp = (i + 4);
                         }
-                    }
-
-                    foreach (CardSpace item in playerSpaces)
-                    {
-                        if (item.card !=null)
+                        else
                         {
-                            if (item.card.Health <= 0)
+                            tmp = (i - 4);
+                        }
+
+                        if (enemySpaces[tmp].card!=null)
+                        {
+                            enemySpaces[tmp].card.color = Color.LawnGreen;
+                            enemySpaces[tmp].card.CardEffect(enemySpaces, playerSpaces);
+                        }
+
+                        foreach (CardSpace playerItem in playerSpaces)
+                        {
+                            if (playerItem.card != null)
                             {
-                                item.card = null;
+                                playerItem.card.tookDamage = true;
                             }
+
                         }
                     }
-                    WhileBool = false;
                 }
 
                
