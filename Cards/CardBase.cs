@@ -70,8 +70,16 @@ namespace PriateCardGame
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(sprite, position, null, color, 0f,
-            Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+            if (this.position.Y < 500)
+            {
+                spriteBatch.Draw(sprite, position, null, color, 0f,
+                Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+            }
+            else
+            {
+                spriteBatch.Draw(sprite, position, null, color, 0f,
+                Vector2.Zero, 0.5f, SpriteEffects.None, 0f);
+            }
 
             spriteBatch.DrawString(GameWorld.font, $"{this.Damage}", new Vector2(this.position.X+17, this.position.Y+160), Color.Black);
             spriteBatch.DrawString(GameWorld.font, $"{this.Health}", new Vector2(this.position.X+100, this.position.Y+160), Color.Goldenrod);
