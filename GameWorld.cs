@@ -34,6 +34,7 @@ namespace PriateCardGame
         public static CardBase refCard;
         private Texture2D background;
         private Texture2D deckBuildingBackground;
+        private Texture2D StageSelectBackground;
         public static SpriteFont font;
         public static Point mousePos;
         public static MouseState mouseState;
@@ -44,7 +45,7 @@ namespace PriateCardGame
         public static bool playerTurn = false;
         public static Enemy enemy;
         public static CardBase infoCard;
-        public static GameState gameState = GameState.CardBoard;
+        public static GameState gameState = GameState.StageSelect;
         public static int pageNumber = 0;
         public static int ScrollValue = 0;
         public int scroll;
@@ -65,6 +66,8 @@ namespace PriateCardGame
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
+            
+            
 
             if (gameState == GameState.CardBoard)
             {
@@ -132,7 +135,7 @@ namespace PriateCardGame
                 //}
 
                 DrawHand();
-                playerTurn = true;
+                playerTurn = false;
             }
             else if (gameState == GameState.DeckBuilding)
             {
@@ -141,6 +144,8 @@ namespace PriateCardGame
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 repo = new CardRepository(provider, mapper);
 
+                GameUI = new List<UI>();
+                GameUI.Add(new UI("MenuButton", new Vector2(800, 600)));
 
 
                 PlayerDeck = new List<CardBase>();
@@ -162,7 +167,12 @@ namespace PriateCardGame
                 SetDeckBuildingCardCount();
                 
             }
-            
+            else if (gameState == GameState.StageSelect)
+            {
+                GameUI = new List<UI>();
+                GameUI.Add(new UI("StageSelectButtons/Enemy1",new Vector2(100,100)));
+                GameUI.Add(new UI("StageSelectButtons/DeckBuilder", new Vector2(0, 200)));
+            }
 
             base.Initialize();
         }
@@ -170,11 +180,11 @@ namespace PriateCardGame
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
+            font = Content.Load<SpriteFont>("Font");
 
             if (gameState == GameState.CardBoard)
             {
                 background = Content.Load<Texture2D>("Background");
-                font = Content.Load<SpriteFont>("Font");
 
                 foreach (UI item in GameUI)
                 {
@@ -207,6 +217,11 @@ namespace PriateCardGame
             {
                 deckBuildingBackground = Content.LoadLocalized<Texture2D>("DeckManager");
 
+                foreach (UI item in GameUI)
+                {
+                    item.LoadContent(this.Content);
+                }
+
                 foreach (CardBase item in PlayerDeck)
                 {
                     item.LoadContent(this.Content);
@@ -217,8 +232,16 @@ namespace PriateCardGame
                     item.LoadContent(this.Content);
                 }
             }
+            else if (gameState == GameState.StageSelect)
+            {
+                StageSelectBackground = Content.Load<Texture2D>("StageSelectBackGround");
 
-           
+                foreach (UI item in GameUI)
+                {
+                    item.LoadContent(this.Content);
+                }
+            }
+
 
             // TODO: use this.Content to load your game content here
         }
@@ -247,6 +270,10 @@ namespace PriateCardGame
             else if (gameState == GameState.DeckBuilding)
             {
                 UpdateDeckBuilding(gameTime);
+            }
+            else if (gameState == GameState.StageSelect)
+            {
+                UpdateStageSelect(gameTime);
             }
            
 
@@ -280,6 +307,7 @@ namespace PriateCardGame
             GraphicsDevice.Clear(Color.CornflowerBlue);
             _spriteBatch.Begin();
 
+
             if (gameState == GameState.CardBoard)
             {
                 drawCardBoard(gameTime);
@@ -287,6 +315,10 @@ namespace PriateCardGame
             else if (gameState == GameState.DeckBuilding)
             {
                 drawDeckBuilding(gameTime);
+            }
+            else if (gameState == GameState.StageSelect)
+            {
+                drawStageSelect();
             }
             
 
@@ -366,6 +398,23 @@ namespace PriateCardGame
         {
             cardInfo = false;
 
+
+            foreach (UI item in GameUI)
+            {
+                item.color = Color.White;
+                if (item.Collision.Contains(mousePos))
+                {
+                    item.color = Color.Green;
+                    if (mouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        gameState = GameState.StageSelect;
+                        Initialize();
+                        LoadContent();
+                    }
+                }
+            }
+
+
             if (mouseState.ScrollWheelValue > scroll)
             {
                 scrollUp();
@@ -432,6 +481,34 @@ namespace PriateCardGame
             if (mouseState.LeftButton == ButtonState.Released && bPress == true)
             {
                 bPress = false;
+            }
+        }
+
+        public void UpdateStageSelect(GameTime gameTime)
+        {
+            foreach (UI item in GameUI)
+            {
+                item.color = Color.White;
+                if (item.Collision.Contains(mousePos))
+                {
+                    item.color = Color.Green;
+                    if (mouseState.LeftButton == ButtonState.Pressed)
+                    {
+                        switch (item.spritePick)
+                        {
+                            case "StageSelectButtons/Enemy1":
+                                gameState = GameState.CardBoard;
+                                Initialize();
+                                LoadContent();
+                                break;
+                            case "StageSelectButtons/DeckBuilder":
+                                gameState = GameState.DeckBuilding;
+                                Initialize();
+                                LoadContent();
+                                break;
+                        }
+                    }
+                }
             }
         }
         public void RefresDeckBuildingLists()
@@ -527,7 +604,7 @@ namespace PriateCardGame
                     }
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "TestButton" && bPress == false)
                     {
-                        gameState = GameState.DeckBuilding;
+                        gameState = GameState.StageSelect;
                         Initialize();
                         LoadContent();
                         bPress = true;
@@ -574,6 +651,11 @@ namespace PriateCardGame
             for (int i = ScrollValue; i < max; i++)
             {
                 PlayerDeck[i].Draw(this._spriteBatch);
+            }
+
+            foreach (UI item in GameUI)
+            {
+                item.Draw(this._spriteBatch);
             }
 
             foreach (var item in storageSpaces)
@@ -624,6 +706,16 @@ namespace PriateCardGame
                 _spriteBatch.DrawString(GameWorld.font, $"{infoCard.Damage}", new Vector2(1337, 730), Color.Black);
                 _spriteBatch.DrawString(GameWorld.font, $"{infoCard.Health}", new Vector2(1505, 727), Color.Goldenrod);
 
+            }
+        }
+
+        public void drawStageSelect()
+        {
+            _spriteBatch.Draw(StageSelectBackground, new Vector2(0, 0), Color.White);
+
+            foreach (UI item in GameUI)
+            {
+                item.Draw(this._spriteBatch);
             }
         }
 
