@@ -68,9 +68,9 @@ namespace PriateCardGame
             this.position = new Vector2(500 + (i*140), 800);
         }
 
-        public void SetDeckBuildingPosition(int i)
+        public void SetDeckBuildingPosition(int i,int scrollValue)
         {
-            this.position = new Vector2(50 + (i * 100),800 );
+            this.position = new Vector2(50 + ((i-scrollValue) * 120),800 );
         }
 
 

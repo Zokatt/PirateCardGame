@@ -46,6 +46,8 @@ namespace PriateCardGame
         public static CardBase infoCard;
         public static GameState gameState = GameState.CardBoard;
         public static int pageNumber = 0;
+        public static int ScrollValue = 0;
+        public int scroll;
         
 
         //public static GameState gameState = GameState.CardBoard;
@@ -97,7 +99,7 @@ namespace PriateCardGame
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 repo = new CardRepository(provider, mapper);
 
-                dropRepoTable();
+                //dropRepoTable();
 
                 repo.Open();
 
@@ -363,12 +365,24 @@ namespace PriateCardGame
         public void UpdateDeckBuilding(GameTime gameTime)
         {
             cardInfo = false;
-            for (int i = 0; i < PlayerDeck.Count; i++)
+
+            if (mouseState.ScrollWheelValue > scroll)
+            {
+                scrollUp();
+                scroll = mouseState.ScrollWheelValue;
+            }
+            else if (mouseState.ScrollWheelValue < scroll)
+            {
+                scrollDown();
+                scroll = mouseState.ScrollWheelValue;
+            }
+
+
+
+            for (int i = ScrollValue; i < PlayerDeck.Count; i++)
             {
                 if (PlayerDeck[i]!= null)
                 {
-                    PlayerDeck[i].color = Color.White;
-
                     if (PlayerDeck[i].Collision.Contains(mousePos))
                     {
                         cardInfo = true;
@@ -383,6 +397,10 @@ namespace PriateCardGame
                         }
 
                     }
+                    else
+                    {
+                        PlayerDeck[i].color = Color.White;
+                    }
                 }
             }
             for (int i = 0; i < storageSpaces.Count; i++)
@@ -396,7 +414,7 @@ namespace PriateCardGame
                         cardInfo = true;
                         infoCard = storageSpaces[i].card;
                         storageSpaces[i].card.color = Color.Green;
-                        if (mouseState.LeftButton == ButtonState.Pressed && bPress == false)
+                        if (mouseState.LeftButton == ButtonState.Pressed && bPress == false && PlayerDeck.Count < 30)
                         {
                             bPress = true;
                             AddCardToDeck(storageSpaces[i].card.Name);
@@ -408,21 +426,13 @@ namespace PriateCardGame
             }
             for (int i = 0; i < PlayerDeck.Count; i++)
             {
-                PlayerDeck[i].SetDeckBuildingPosition(i);
+                PlayerDeck[i].SetDeckBuildingPosition(i,ScrollValue);
             }
 
             if (mouseState.LeftButton == ButtonState.Released && bPress == true)
             {
                 bPress = false;
             }
-        }
-        public void RefreshLists()
-        {
-            Thread RefreshingLists = new Thread(() => RefresDeckBuildingLists())
-            {
-                IsBackground = true
-            };
-            RefreshingLists.Start();
         }
         public void RefresDeckBuildingLists()
         {
@@ -445,7 +455,20 @@ namespace PriateCardGame
             repo.removeCard(cardName);
             repo.Close();
         }
-
+        public void scrollDown()
+        {
+            if (ScrollValue <= PlayerDeck.Count - 13)
+            {
+                ScrollValue += 1;
+            }
+        }
+        public void scrollUp()
+        {
+            if (ScrollValue >= 1)
+            {
+                ScrollValue -= 1;
+            }
+        }
         public void AddCardToDeck(string cardName)
         {
             repo.Open();
@@ -541,9 +564,16 @@ namespace PriateCardGame
         {
             _spriteBatch.Draw(deckBuildingBackground, new Vector2(0, 0), Color.White);
 
-            foreach (CardBase item in PlayerDeck)
+            _spriteBatch.DrawString(font, $"Deck: {PlayerDeck.Count}/30", new Vector2(980 , 710), Color.Black);
+
+            var max = 12 + ScrollValue;
+            if (max >=PlayerDeck.Count)
             {
-                item.Draw(this._spriteBatch);
+                max = PlayerDeck.Count;
+            }
+            for (int i = ScrollValue; i < max; i++)
+            {
+                PlayerDeck[i].Draw(this._spriteBatch);
             }
 
             foreach (var item in storageSpaces)
