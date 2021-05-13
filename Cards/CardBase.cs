@@ -12,9 +12,9 @@ namespace PriateCardGame
         public bool tookDamage;
         public int damageTaken;
         protected Texture2D DamageBox;
+
         public override Rectangle Collision
-        {
-            get
+        {     get
             {
                 return new Rectangle(
                        (int)position.X,
@@ -70,7 +70,7 @@ namespace PriateCardGame
 
         public void SetDeckBuildingPosition(int i)
         {
-            this.position = new Vector2(100 + (i * 100),800 );
+            this.position = new Vector2(50 + (i * 100),800 );
         }
 
 

@@ -27,6 +27,7 @@ namespace PriateCardGame.Cards
 
         public Thief()
         {
+            this.Name = "Thief";
             this.Damage = 1;
             this.Health = 6;
         }

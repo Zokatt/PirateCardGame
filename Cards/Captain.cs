@@ -39,6 +39,7 @@ namespace PriateCardGame.Cards
 
         public Captain()
         {
+            this.Name = "Captain";
             this.Damage = 4;
             this.Health = 3;
         }

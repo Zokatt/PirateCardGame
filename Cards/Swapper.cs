@@ -15,6 +15,7 @@ namespace PriateCardGame.Cards
 
         public Swapper()
         {
+            this.Name = "Swapper";
             this.Damage = 1;
             this.Health = 2;
         }

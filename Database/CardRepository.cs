@@ -67,9 +67,10 @@ namespace PriateCardGame.Database
         {
             //Update card set storageState = "deck"  where cardID IN(select cardID from card where storageState = "storage" LIMIT 1)
 
-            var cmd = new SQLiteCommand($"Update Cards set StorageState = '{GameWorld.Deck}' where cardID IN(select cardID from cards were Name ={cardName} LIMIT 1)", (SQLiteConnection)connection);
+            var cmd = new SQLiteCommand($"Update Cards set StorageState = '{GameWorld.Deck}' where cardID IN(select cardID from cards where Name ='{cardName}' and StorageState = '{GameWorld.Storage}' LIMIT 1)", (SQLiteConnection)connection);
             cmd.ExecuteNonQuery();
         }
+
 
         public void DropTable()
         {
@@ -77,16 +78,24 @@ namespace PriateCardGame.Database
             cmd.ExecuteNonQuery();
         }
         
-        public void removeCard(int cardID)
+        public void removeCard(string cardName)
         {
-            
+            var cmd = new SQLiteCommand($"Update Cards set StorageState = '{GameWorld.Storage}' where cardID IN(select cardID from cards where Name ='{cardName}' and StorageState = '{GameWorld.Deck}' LIMIT 1)", (SQLiteConnection)connection);
+            cmd.ExecuteNonQuery();
         }
 
-        public List<CardBase> FindAllCardsWtthThisName(string name)
+        public List<CardBase> FindAllCardsInStorageWithThisName(string name)
         {
-            var cmd = new SQLiteCommand($"Select * from Cards where Name = '{name}'", (SQLiteConnection)connection);
+            var cmd = new SQLiteCommand($"Select * from Cards where Name = '{name}' and StorageState = '{GameWorld.Storage}'", (SQLiteConnection)connection);
             var reader = cmd.ExecuteReader();
+            var result = mapper.MapCardsFromReader(reader);
+            return result;
+        }
 
+        public List<CardBase> FindAllCardsInDeckWithThisName(string name)
+        {
+            var cmd = new SQLiteCommand($"Select * from Cards where Name = '{name}' and StorageState = '{GameWorld.Deck}'", (SQLiteConnection)connection);
+            var reader = cmd.ExecuteReader();
             var result = mapper.MapCardsFromReader(reader);
             return result;
         }

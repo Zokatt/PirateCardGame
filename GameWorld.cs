@@ -18,8 +18,8 @@ namespace PriateCardGame
         private GraphicsDeviceManager _graphics;
         private SpriteBatch _spriteBatch;
         public static Rectangle screenBounds = new Rectangle(0, 0, 1600, 1000);
-        public static string Deck;
-        public static string Storage;
+        public static string Deck = "Deck";
+        public static string Storage = "Storage";
         public static CardRepository repo;
         public static List<CardBase> playerCards;
         public static List<CardSpace> playerSpaces;
@@ -27,6 +27,7 @@ namespace PriateCardGame
         public static List<CardBase> PlayerDeck;
         public static List<CardBase> AllOwnedCards;
         public static List<CardBase> checkCardCount;
+        public List<StorageSpace> storageSpaces;
         public int owned;
         public static List<UI> GameUI;
         public static List<CardBase> enemyDeck;
@@ -44,6 +45,8 @@ namespace PriateCardGame
         public static Enemy enemy;
         public static CardBase infoCard;
         public static GameState gameState = GameState.CardBoard;
+        public static int pageNumber = 0;
+        
 
         //public static GameState gameState = GameState.CardBoard;
         public static Director director = new Director(new EnemyBuilder());
@@ -94,7 +97,7 @@ namespace PriateCardGame
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 repo = new CardRepository(provider, mapper);
 
-                //dropRepoTable();
+                dropRepoTable();
 
                 repo.Open();
 
@@ -140,11 +143,22 @@ namespace PriateCardGame
 
                 PlayerDeck = new List<CardBase>();
                 AllOwnedCards = new List<CardBase>();
+                storageSpaces = new List<StorageSpace>();
 
                 repo.Open();
                 PlayerDeck = repo.FindDeck();
                 AllOwnedCards = repo.FindAllCards();
                 repo.Close();
+
+                for (int i = 0; i < 3; i++)
+                {
+                    storageSpaces.Add(new StorageSpace());
+                    storageSpaces[i].SetCard(i);
+                    storageSpaces[i].SetCardPos(i);
+                    
+                }
+                SetDeckBuildingCardCount();
+                
             }
             
 
@@ -192,6 +206,11 @@ namespace PriateCardGame
                 deckBuildingBackground = Content.LoadLocalized<Texture2D>("DeckManager");
 
                 foreach (CardBase item in PlayerDeck)
+                {
+                    item.LoadContent(this.Content);
+                }
+
+                foreach (var item in storageSpaces)
                 {
                     item.LoadContent(this.Content);
                 }
@@ -344,23 +363,95 @@ namespace PriateCardGame
         public void UpdateDeckBuilding(GameTime gameTime)
         {
             cardInfo = false;
-            foreach (CardBase item in PlayerDeck)
+            for (int i = 0; i < PlayerDeck.Count; i++)
             {
-                item.color = Color.White;
-
-                if (item.Collision.Contains(mousePos))
+                if (PlayerDeck[i]!= null)
                 {
-                    cardInfo = true;
-                    infoCard = item;
-                    item.color = Color.Green;
+                    PlayerDeck[i].color = Color.White;
+
+                    if (PlayerDeck[i].Collision.Contains(mousePos))
+                    {
+                        cardInfo = true;
+                        infoCard = PlayerDeck[i];
+                        PlayerDeck[i].color = Color.Green;
+
+                        if (mouseState.LeftButton == ButtonState.Pressed && bPress == false)
+                        {
+                            bPress = true;
+                            RemoveCardFromDeck(PlayerDeck[i].Name);
+                            RefresDeckBuildingLists();
+                        }
+
+                    }
                 }
+            }
+            for (int i = 0; i < storageSpaces.Count; i++)
+            {
+                if (storageSpaces[i].card != null)
+                {
+                    storageSpaces[i].card.color = Color.White;
+
+                    if (storageSpaces[i].Collision.Contains(mousePos))
+                    {
+                        cardInfo = true;
+                        infoCard = storageSpaces[i].card;
+                        storageSpaces[i].card.color = Color.Green;
+                        if (mouseState.LeftButton == ButtonState.Pressed && bPress == false)
+                        {
+                            bPress = true;
+                            AddCardToDeck(storageSpaces[i].card.Name);
+                            RefresDeckBuildingLists();
+                        }
+                    }
+                }
+                
             }
             for (int i = 0; i < PlayerDeck.Count; i++)
             {
                 PlayerDeck[i].SetDeckBuildingPosition(i);
             }
+
+            if (mouseState.LeftButton == ButtonState.Released && bPress == true)
+            {
+                bPress = false;
+            }
+        }
+        public void RefreshLists()
+        {
+            Thread RefreshingLists = new Thread(() => RefresDeckBuildingLists())
+            {
+                IsBackground = true
+            };
+            RefreshingLists.Start();
+        }
+        public void RefresDeckBuildingLists()
+        {
+                repo.Open();
+                PlayerDeck = repo.FindDeck();
+                AllOwnedCards = repo.FindAllCards();
+                repo.Close();
+
+                LoadContent();
+
+                SetDeckBuildingCardCount();
+
+                
+            
         }
 
+        public void RemoveCardFromDeck(string cardName)
+        {
+            repo.Open();
+            repo.removeCard(cardName);
+            repo.Close();
+        }
+
+        public void AddCardToDeck(string cardName)
+        {
+            repo.Open();
+            repo.AddToDeck(cardName);
+            repo.Close();
+        }
         public void UpdateCardBoard(GameTime gameTime)
         {
             if (cardInfo == true)
@@ -455,6 +546,10 @@ namespace PriateCardGame
                 item.Draw(this._spriteBatch);
             }
 
+            foreach (var item in storageSpaces)
+            {
+                item.Draw(this._spriteBatch);
+            }
 
             if (cardInfo == true)
             {
@@ -499,6 +594,24 @@ namespace PriateCardGame
                 _spriteBatch.DrawString(GameWorld.font, $"{infoCard.Damage}", new Vector2(1337, 730), Color.Black);
                 _spriteBatch.DrawString(GameWorld.font, $"{infoCard.Health}", new Vector2(1505, 727), Color.Goldenrod);
 
+            }
+        }
+
+        public void SetDeckBuildingCardCount()
+        {
+            var storage = 0;
+            var deck = 0;
+            foreach (var item in storageSpaces)
+            {
+                if (item.card != null)
+                {
+                    repo.Open();
+                    storage = repo.FindAllCardsInStorageWithThisName(item.card.Name).Count;
+                    deck = repo.FindAllCardsInDeckWithThisName(item.card.Name).Count;
+                    repo.Close();
+
+                    item.SetCardCount(storage, deck);
+                }
             }
         }
 
