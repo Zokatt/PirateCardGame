@@ -36,6 +36,7 @@ namespace PriateCardGame
         private Texture2D deckBuildingBackground;
         private Texture2D StageSelectBackground;
         public static SpriteFont font;
+        public static SpriteFont Bigfont;
         public static Point mousePos;
         public static MouseState mouseState;
         public static bool cardInfo = false;
@@ -49,6 +50,7 @@ namespace PriateCardGame
         public static int pageNumber = 0;
         public static int ScrollValue = 0;
         public int scroll;
+        public static int enemyHealth = 0;
         
 
         //public static GameState gameState = GameState.CardBoard;
@@ -71,6 +73,7 @@ namespace PriateCardGame
 
             if (gameState == GameState.CardBoard)
             {
+                enemyHealth = 50;
                 playerCards = new List<CardBase>();
                 playerSpaces = new List<CardSpace>();
                 enemySpaces = new List<CardSpace>();
@@ -93,10 +96,10 @@ namespace PriateCardGame
                     enemySpaces.Add(new CardSpace(i));
                 }
 
-                for (int i = 0; i < 8; i++)
-                {
-                    enemySpaces[i].setCard(new Captain());
-                }
+                //for (int i = 0; i < 8; i++)
+                //{
+                //    enemySpaces[i].setCard(new Captain());
+                //}
 
                 var mapper = new CardMapper();
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
@@ -181,6 +184,7 @@ namespace PriateCardGame
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Font");
+            Bigfont = Content.Load<SpriteFont>("BigFont");
 
             if (gameState == GameState.CardBoard)
             {
@@ -676,6 +680,7 @@ namespace PriateCardGame
         public void drawCardBoard(GameTime gameTime)
         {
             _spriteBatch.Draw(background, new Vector2(-150, 0), Color.White);
+            _spriteBatch.DrawString(Bigfont, $"Enemy Health {enemyHealth}", new Vector2(0, 0), Color.Black);
             foreach (UI item in GameUI)
             {
                 item.Draw(this._spriteBatch);

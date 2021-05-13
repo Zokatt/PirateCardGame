@@ -122,6 +122,7 @@ namespace PriateCardGame
                 }
                 else
                 {
+                    GameWorld.enemyHealth -= this.Damage;
                     //attack enemy
                 }
             }
@@ -139,6 +140,7 @@ namespace PriateCardGame
                 }
                 else
                 {
+                    GameWorld.enemyHealth -= this.Damage;
                     //attack enemy
                 }
             }
@@ -160,11 +162,12 @@ namespace PriateCardGame
                         playerSpaces[this.spaceNumber+4].card.Health -= this.Damage;
                         playerSpaces[this.spaceNumber + 4].card.damageTaken += this.Damage;
                     }
+                    else
+                    {
+                        //attack player
+                    }
                 }
-                else
-                {
-                    //attack enemy
-                }
+                
             }
             else
             {
@@ -180,7 +183,7 @@ namespace PriateCardGame
                 }
                 else
                 {
-                    //attack enemy
+                    //attack player
                 }
             }
         }
