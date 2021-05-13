@@ -51,6 +51,7 @@ namespace PriateCardGame
         public static int ScrollValue = 0;
         public int scroll;
         public static int enemyHealth = 0;
+        public bool drawnCards = false;
         
 
         //public static GameState gameState = GameState.CardBoard;
@@ -352,6 +353,7 @@ namespace PriateCardGame
                     PlayerDeck.RemoveAt(temp);
                 }
             }
+
         }
 
         public void Input(GameTime gametime)
@@ -564,6 +566,18 @@ namespace PriateCardGame
             if (cardInfo == true)
             {
                 cardInfo = false;
+            }
+
+
+            if (playerTurn == true)
+            {
+                drawnCards = false; 
+            }
+
+            if (drawnCards == false)
+            {
+                DrawHand();
+                drawnCards = true;
             }
 
             ListUpdate(playerCards);
