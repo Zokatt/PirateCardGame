@@ -342,12 +342,15 @@ namespace PriateCardGame
         public void DrawHand()
         {
             Random rnd = new Random();
-            while (playerCards.Count < 5)
+            for (int i = 0; i < 5; i++)
             {
-                int temp = rnd.Next(0, PlayerDeck.Count);
+                if (PlayerDeck.Count>=1)
+                {
+                    int temp = rnd.Next(0, PlayerDeck.Count);
 
-                playerCards.Add(PlayerDeck[temp]);
-                PlayerDeck.RemoveAt(temp);
+                    playerCards.Add(PlayerDeck[temp]);
+                    PlayerDeck.RemoveAt(temp);
+                }
             }
         }
 
