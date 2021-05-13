@@ -73,11 +73,12 @@ namespace PriateCardGame
             this.position = new Vector2(100 + (i * 100),800 );
         }
 
+
         public override void Draw(SpriteBatch spriteBatch)
         {
             Vector2 origin = new Vector2(Collision.Width / 2f, Collision.Height / 2f);
 
-            if (this.position.Y < 500)
+            if (this.position.Y < 500 && GameWorld.gameState == GameState.CardBoard)
             {
                 spriteBatch.Draw(sprite, new Vector2(position.X+90, position.Y+145), null, color, (float)Math.PI,
                 origin, 0.5f, SpriteEffects.None, 0f);

@@ -25,6 +25,9 @@ namespace PriateCardGame
         public static List<CardSpace> playerSpaces;
         public static List<CardSpace> enemySpaces;
         public static List<CardBase> PlayerDeck;
+        public static List<CardBase> AllOwnedCards;
+        public static List<CardBase> checkCardCount;
+        public int owned;
         public static List<UI> GameUI;
         public static List<CardBase> enemyDeck;
         public static CardBase refCard;
@@ -134,8 +137,13 @@ namespace PriateCardGame
                 repo = new CardRepository(provider, mapper);
 
 
+
+                PlayerDeck = new List<CardBase>();
+                AllOwnedCards = new List<CardBase>();
+
                 repo.Open();
                 PlayerDeck = repo.FindDeck();
+                AllOwnedCards = repo.FindAllCards();
                 repo.Close();
             }
             
@@ -351,7 +359,6 @@ namespace PriateCardGame
             {
                 PlayerDeck[i].SetDeckBuildingPosition(i);
             }
-
         }
 
         public void UpdateCardBoard(GameTime gameTime)
@@ -447,6 +454,7 @@ namespace PriateCardGame
             {
                 item.Draw(this._spriteBatch);
             }
+
 
             if (cardInfo == true)
             {
