@@ -162,7 +162,7 @@ namespace PriateCardGame
                 AllOwnedCards = repo.FindAllCards();
                 repo.Close();
 
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     storageSpaces.Add(new StorageSpace());
                     storageSpaces[i].SetCard(i);

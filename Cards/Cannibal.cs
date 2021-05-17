@@ -12,6 +12,7 @@ namespace PriateCardGame.Cards
 
         public Cannibal()
         {
+            this.Name = "Cannibal";
             this.Damage = 1;
             this.Health = 5;
         }
