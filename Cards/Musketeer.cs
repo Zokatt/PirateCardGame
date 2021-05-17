@@ -24,6 +24,7 @@ namespace PriateCardGame.Cards
 
         public Musketeer()
         {
+            this.Name = "Musketeer";
             this.Damage = 1;
             this.Health = 5;
         }

@@ -114,14 +114,14 @@ namespace PriateCardGame
 
                 if (repo.FindDeck().Count == 0)
                 {
-                    //repo.AddCard("Swapper");
-                    //repo.AddCard("Swapper");
-                    //repo.AddCard("Swapper");
-                    //repo.AddCard("Swapper");
-                    //repo.AddCard("Swapper");
-                    //repo.AddCard("Swapper");
-                    //repo.AddCard("Cannibal");
-                    //repo.AddCard("Captain");
+                    repo.AddCard("Swapper");
+                    repo.AddCard("Swapper");
+                    repo.AddCard("Swapper");
+                    repo.AddCard("Swapper");
+                    repo.AddCard("Swapper");
+                    repo.AddCard("Musketeer");
+                    repo.AddCard("Cannibal");
+                    repo.AddCard("Captain");
                 }
 
                 PlayerDeck = repo.FindDeck();

@@ -84,7 +84,7 @@ namespace PriateCardGame
                     this.card = new Cannon();
                     break;
                 case 5:
-                    this.card = new Cannon();
+                    this.card = new Musketeer();
                     break;
                 case 6:
                     this.card = new Cannon();
