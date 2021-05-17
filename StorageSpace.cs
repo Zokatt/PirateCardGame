@@ -75,7 +75,7 @@ namespace PriateCardGame
                     this.card = new Captain();
                     break;
                 case 2:
-                    this.card = new Thief();
+                    this.card = new Cannibal();
                     break;
             }
         }

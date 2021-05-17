@@ -122,7 +122,7 @@ namespace PriateCardGame
                     repo.AddCard("Swapper");
                     repo.AddCard("Swapper");
                     repo.AddCard("Swapper");
-                    repo.AddCard("Swapper");
+                    repo.AddCard("Cannibal");
                     repo.AddCard("Captain");
                 }
 
