@@ -2,7 +2,6 @@
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PriateCardGame.BuilderPattern;
-using PriateCardGame.Cards;
 using PriateCardGame.Database;
 using System;
 using System.Collections.Generic;
@@ -830,7 +829,7 @@ namespace PriateCardGame
                         }
                         if (item.card!=null)
                         {
-                            Thread.Sleep(1000);
+                            Thread.Sleep(500);
                         }
 
                         foreach (CardSpace enemyItem in enemySpaces)
@@ -955,7 +954,6 @@ namespace PriateCardGame
             }
             CardBase pivot = ListOfCards[0];
 
-            Thread.Sleep(1000);
 
             List<CardBase> before = new List<CardBase>();
             List<CardBase> after = new List<CardBase>();
