@@ -48,13 +48,13 @@ namespace PriateCardGame
 
         public void SetCardPos(int i)
         {
-            if (i <= 3)
+            if (i <= 4)
             {
                 this.position = new Vector2(31+(200*i) , 37);
             }
-            else if (i >= 4)
+            else if (i >= 5)
             {
-                this.position = new Vector2(31 + (200 * i), 237);
+                this.position = new Vector2(31 + (200 * (i-5)), 320);
             }
 
             if (this.card != null)
@@ -79,6 +79,27 @@ namespace PriateCardGame
                     break;
                 case 3:
                     this.card = new Thief();
+                    break;
+                case 4:
+                    this.card = new Cannon();
+                    break;
+                case 5:
+                    this.card = new Cannon();
+                    break;
+                case 6:
+                    this.card = new Cannon();
+                    break;
+                case 7:
+                    this.card = new Cannon();
+                    break;
+                case 8:
+                    this.card = new Cannon();
+                    break;
+                case 9:
+                    this.card = new Cannon();
+                    break;
+                case 10:
+                    this.card = new Cannon();
                     break;
             }
         }
