@@ -52,6 +52,7 @@ namespace PriateCardGame
         public int scroll;
         public static int enemyHealth = 0;
         public bool drawnCards = false;
+        private int turn = 0;
         
 
         //public static GameState gameState = GameState.CardBoard;
@@ -83,6 +84,7 @@ namespace PriateCardGame
                 GameUI.Add(new UI("EndTurnButton", new Vector2(1050, 450)));
                 GameUI.Add(new UI("TestButton", new Vector2(450, 450)));
                 enemyDeck = new List<CardBase>();
+                turn = 0;
 
                 enemy = new Enemy(1);
                 enemy.Deck = director.ConstructEnemyDeck(enemy.difficulty);
@@ -343,16 +345,35 @@ namespace PriateCardGame
         public void DrawHand()
         {
             Random rnd = new Random();
-            for (int i = 0; i < 5; i++)
+            if (turn <=1)
             {
-                if (PlayerDeck.Count>=1)
+                for (int i = 0; i < 5; i++)
                 {
-                    int temp = rnd.Next(0, PlayerDeck.Count);
+                    if (PlayerDeck.Count >= 1 && playerCards.Count < 5)
+                    {
+                        int temp = rnd.Next(0, PlayerDeck.Count);
 
-                    playerCards.Add(PlayerDeck[temp]);
-                    PlayerDeck.RemoveAt(temp);
+                        playerCards.Add(PlayerDeck[temp]);
+                        PlayerDeck.RemoveAt(temp);
+                    }
                 }
             }
+            else
+            {
+
+                for (int i = 0; i < 2; i++)
+                {
+                    if (PlayerDeck.Count >= 1 && playerCards.Count < 5)
+                    {
+                        int temp = rnd.Next(0, PlayerDeck.Count);
+
+                        playerCards.Add(PlayerDeck[temp]);
+                        PlayerDeck.RemoveAt(temp);
+                    }
+                }
+            }
+
+            LoadContent();
 
         }
 
@@ -569,16 +590,7 @@ namespace PriateCardGame
             }
 
 
-            if (playerTurn == true)
-            {
-                drawnCards = false; 
-            }
-
-            if (drawnCards == false)
-            {
-                DrawHand();
-                drawnCards = true;
-            }
+            
 
             ListUpdate(playerCards);
             for (int i = 0; i < playerSpaces.Count; i++)
@@ -622,6 +634,20 @@ namespace PriateCardGame
                     {
                         bPress = true;
                         endTurn(gameTime);
+                        turn += 1;
+
+                        if (playerTurn == false)
+                        {
+                            drawnCards = false;
+                        }
+
+                        if (playerTurn == true)
+                        {
+                            DrawHand();
+                            drawnCards = true;
+                        }
+
+
                     }
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "TestButton" && bPress == false)
                     {
