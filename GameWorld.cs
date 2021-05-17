@@ -738,10 +738,6 @@ namespace PriateCardGame
             {
                 item.Draw(this._spriteBatch);
             }
-            foreach (CardBase item in playerCards)
-            {
-                item.Draw(this._spriteBatch);
-            }
             foreach (var item in playerSpaces)
             {
                 item.DrawCanPlaceHere(this._spriteBatch);
@@ -749,6 +745,10 @@ namespace PriateCardGame
                 {
                     item.card.Draw(this._spriteBatch);
                 }
+            }
+            foreach (CardBase item in playerCards)
+            {
+                item.Draw(this._spriteBatch);
             }
             foreach (var item in enemySpaces)
             {

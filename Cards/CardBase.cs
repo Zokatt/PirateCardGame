@@ -65,7 +65,14 @@ namespace PriateCardGame
 
         public void UpdatePlayerCardPos(int i)
         {
-            this.position = new Vector2(500 + (i*140), 800);
+            if (GameWorld.mousePos.Y < 840 || GameWorld.refCard !=null)
+            {
+                this.position = new Vector2(500 + (i * 140), 890);
+            }
+            else
+            {
+                this.position = new Vector2(500 + (i * 140), 800);
+            }
         }
 
         public void SetDeckBuildingPosition(int i,int scrollValue)
