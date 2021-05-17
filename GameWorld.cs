@@ -120,10 +120,8 @@ namespace PriateCardGame
                     //repo.AddCard("Swapper");
                     //repo.AddCard("Swapper");
                     //repo.AddCard("Swapper");
-                    repo.AddCard("Cannon");
-                    repo.AddCard("Thief");
-                    repo.AddCard("Cannibal");
-                    repo.AddCard("Captain");
+                    //repo.AddCard("Cannibal");
+                    //repo.AddCard("Captain");
                 }
 
                 PlayerDeck = repo.FindDeck();
