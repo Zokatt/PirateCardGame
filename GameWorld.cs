@@ -356,6 +356,8 @@ namespace PriateCardGame
                         playerCards.Add(PlayerDeck[temp]);
                         PlayerDeck.RemoveAt(temp);
                     }
+
+
                 }
             }
             else
@@ -372,7 +374,7 @@ namespace PriateCardGame
                     }
                 }
             }
-
+            SortHand();
             LoadContent();
 
         }
@@ -422,6 +424,14 @@ namespace PriateCardGame
                 IsBackground = true
             };
             newRoundEndThread.Start();
+        }
+        public void SortHand()
+        {
+            Thread sortHandEndThread = new Thread(() => ThreadWorkSorting())
+            {
+                IsBackground = true
+            };
+            sortHandEndThread.Start();
         }
 
         public void UpdateDeckBuilding(GameTime gameTime)
@@ -785,6 +795,10 @@ namespace PriateCardGame
             }
         }
 
+        public void ThreadWorkSorting()
+        {
+            SortByNameAlgoByQuickSort(ref playerCards);
+        }
         public void ThreadWork(GameTime gameTime)
         {
 
@@ -932,6 +946,37 @@ namespace PriateCardGame
                
             }
 
+        }
+        public List<CardBase> SortByNameAlgoByQuickSort(ref List<CardBase> ListOfCards)
+        {
+            if (ListOfCards.Count <= 1)
+            {
+                return ListOfCards;
+            }
+            CardBase pivot = ListOfCards[0];
+
+            Thread.Sleep(1000);
+
+            List<CardBase> before = new List<CardBase>();
+            List<CardBase> after = new List<CardBase>();
+
+            for (int i = 1; i < ListOfCards.Count; i++)
+            {
+                if (ListOfCards[i].Name[0] < pivot.Name[0])
+                {
+                    before.Add(ListOfCards[i]);
+                }
+                else
+                {
+                    after.Add(ListOfCards[i]);
+                }
+            }
+            List<CardBase> result = new List<CardBase>();
+            result.AddRange(SortByNameAlgoByQuickSort(ref before));
+            result.Add(pivot);
+            result.AddRange(SortByNameAlgoByQuickSort(ref after));
+            ListOfCards = result;
+            return ListOfCards;
         }
     }
 }
