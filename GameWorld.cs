@@ -99,10 +99,10 @@ namespace PriateCardGame
                     enemySpaces.Add(new CardSpace(i));
                 }
 
-                //for (int i = 0; i < 8; i++)
-                //{
-                //    enemySpaces[i].setCard(new Captain());
-                //}
+                for (int i = 0; i < 8; i++)
+                {
+                    enemySpaces[i].setCard(new Musketeer());
+                }
 
                 var mapper = new CardMapper();
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
@@ -116,11 +116,11 @@ namespace PriateCardGame
                 {
                     repo.AddCard("Swapper");
                     repo.AddCard("Swapper");
-                    repo.AddCard("Swapper");
-                    repo.AddCard("Swapper");
-                    repo.AddCard("Swapper");
-                    repo.AddCard("Swapper");
-                    repo.AddCard("Swapper");
+                    repo.AddCard("Musketeer");
+                    repo.AddCard("Musketeer");
+                    repo.AddCard("Musketeer");
+                    repo.AddCard("Musketeer");
+                    repo.AddCard("Musketeer");
                     repo.AddCard("Swapper");
                     repo.AddCard("Cannibal");
                     repo.AddCard("Captain");

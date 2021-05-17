@@ -34,6 +34,9 @@ namespace PriateCardGame.Database
                     case "Cannibal":
                         result.Add(new Cannibal() { CardID = cardID, Name = Name, storageState = storageState });
                         break;
+                    case "Musketeer":
+                        result.Add(new Musketeer() { CardID = cardID, Name = Name, storageState = storageState });
+                        break;
 
                 }
 
