@@ -108,7 +108,7 @@ namespace PriateCardGame
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 repo = new CardRepository(provider, mapper);
 
-                //dropRepoTable();
+                dropRepoTable();
 
                 repo.Open();
 
@@ -121,7 +121,7 @@ namespace PriateCardGame
                     repo.AddCard("Swapper");
                     repo.AddCard("Swapper");
                     repo.AddCard("Swapper");
-                    repo.AddCard("Swapper");
+                    repo.AddCard("Thief");
                     repo.AddCard("Cannibal");
                     repo.AddCard("Captain");
                 }

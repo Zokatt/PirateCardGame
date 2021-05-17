@@ -9,20 +9,94 @@ namespace PriateCardGame.Cards
 {
     class Thief : CardBase
     {
+        delegate void StealEventHandler(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces);
+        event StealEventHandler StealAbilityEvent;
+        private CardBase stealTarget;
+
+
+        private void OnStealEvent(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
+        {
+            if (StealAbilityEvent!=null)
+            {
+                StealAbilityEvent(enemySpaces,playerSpaces);
+            }
+        }
+
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             if (this.position.Y < 500)
-            {
-                ThiefAttackPlayer(enemySpaces, playerSpaces);
+               {
+                if (this.spaceNumber <= 3)
+                {
+                    if (enemySpaces[this.spaceNumber + 4].card == null)
+                    {
+                        if (playerSpaces[this.spaceNumber].card !=null)
+                        {
+                            stealTarget = playerSpaces[this.spaceNumber].card;
 
-
+                        }
+                        else
+                        {
+                            stealTarget = playerSpaces[this.spaceNumber + 4].card;
+                        }
+                    }
+                    else
+                    {
+                        stealTarget = enemySpaces[this.spaceNumber + 4].card;
+                    }
+                }
+                else if (this.spaceNumber >= 4)
+                {
+                        if (playerSpaces[this.spaceNumber-4].card != null)
+                        {
+                        stealTarget = playerSpaces[this.spaceNumber - 4].card;
+                        }
+                        else
+                        {
+                        stealTarget = playerSpaces[this.spaceNumber].card;
+                        }
+                    
+                }
             }
-            else if (this.position.Y > 500)
+            else
             {
-                ThiefAttackEnemy(enemySpaces, playerSpaces);
+                if (this.spaceNumber <= 3)
+                {
+                        if (enemySpaces[this.spaceNumber+4].card != null)
+                        {
+                            stealTarget = enemySpaces[this.spaceNumber + 4].card;
+                        }
+                        else
+                        {
+                        stealTarget = enemySpaces[this.spaceNumber].card;
+                        }
+                }
+                else if (this.spaceNumber >= 4)
+                {
+                    if (playerSpaces[this.spaceNumber-4].card == null)
+                    {
+                        if (enemySpaces[this.spaceNumber].card != null)
+                        {
+                            stealTarget = enemySpaces[this.spaceNumber].card;
+                        }
+                        else
+                        {
+                            stealTarget = enemySpaces[this.spaceNumber - 4].card;
+                        }
+                    }
+                    else
+                    {
+                        stealTarget = playerSpaces[this.spaceNumber - 4].card;
+                    }
 
+                }
             }
 
+            stealTarget.position = this.position;
+            stealTarget.spaceNumber = this.spaceNumber;
+            StealAbilityEvent += stealTarget.AdditionalCardEffect;
+            OnStealEvent(enemySpaces,playerSpaces);
+            stealTarget = null;
         }
 
         public Thief()
@@ -39,96 +113,7 @@ namespace PriateCardGame.Cards
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
 
-        private void ThiefAttackEnemy(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
-        {
-            Random rnd = new Random();
-            int lifeSteal = rnd.Next(1, 4);
-            if (this.spaceNumber <= 3)
-            {
-                if (enemySpaces[this.spaceNumber + 4].card != null)
-                {
-                    enemySpaces[this.spaceNumber + 4].card.Health -= lifeSteal;
-                    enemySpaces[this.spaceNumber + 4].card.damageTaken += lifeSteal;
-                    playerSpaces[this.spaceNumber].card.Health += lifeSteal;
-                }
-                else if (enemySpaces[this.spaceNumber].card != null)
-                {
-                    enemySpaces[this.spaceNumber].card.Health -= lifeSteal;
-                    enemySpaces[this.spaceNumber].card.damageTaken += lifeSteal;
-                    playerSpaces[this.spaceNumber].card.Health += lifeSteal;
-                }
-                else
-                {
-                    //attack enemy
-                }
-            }
-            else if (playerSpaces[this.spaceNumber - 4].card == null)
-            {
-                if (enemySpaces[this.spaceNumber].card != null)
-                {
-                    enemySpaces[this.spaceNumber].card.Health -= lifeSteal;
-                    enemySpaces[this.spaceNumber].card.damageTaken += lifeSteal;
-                    playerSpaces[this.spaceNumber].card.Health += lifeSteal;
-                }
-                else if (enemySpaces[this.spaceNumber - 4].card != null)
-                {
-                    enemySpaces[this.spaceNumber - 4].card.Health -= lifeSteal;
-                    enemySpaces[this.spaceNumber - 4].card.damageTaken += lifeSteal;
-                    playerSpaces[this.spaceNumber].card.Health += lifeSteal;
-                }
-                else
-                {
-                    //attack enemy
-                }
-            }
-        }
-
-        private void ThiefAttackPlayer(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
-        {
-            Random rnd = new Random();
-            int lifeSteal = rnd.Next(1, 4);
-            if (this.spaceNumber <= 3)
-            {
-                if (enemySpaces[this.spaceNumber + 4].card == null)
-                {
-                    if (playerSpaces[this.spaceNumber].card != null)
-                    {
-                        playerSpaces[this.spaceNumber].card.Health -= lifeSteal;
-                        playerSpaces[this.spaceNumber].card.damageTaken += lifeSteal;
-                        enemySpaces[this.spaceNumber].card.Health += lifeSteal;
-                    }
-                    else if (playerSpaces[this.spaceNumber + 4].card != null)
-                    {
-                        playerSpaces[this.spaceNumber + 4].card.Health -= lifeSteal;
-                        playerSpaces[this.spaceNumber + 4].card.damageTaken += lifeSteal;
-                        enemySpaces[this.spaceNumber].card.Health += lifeSteal;
-                    }
-                }
-                else
-                {
-                    //attack enemy
-                }
-            }
-            else
-            {
-                if (playerSpaces[this.spaceNumber - 4].card != null)
-                {
-                    playerSpaces[this.spaceNumber - 4].card.Health -= this.Damage;
-                    playerSpaces[this.spaceNumber - 4].card.damageTaken += this.Damage;
-                    enemySpaces[this.spaceNumber].card.Health += lifeSteal;
-                }
-                else if (playerSpaces[this.spaceNumber].card != null)
-                {
-                    playerSpaces[this.spaceNumber].card.Health -= this.Damage;
-                    playerSpaces[this.spaceNumber].card.damageTaken += this.Damage;
-                    enemySpaces[this.spaceNumber].card.Health += lifeSteal;
-                }
-                else
-                {
-                    //attack enemy
-                }
-            }
-        }
+       
 
     }
 }
