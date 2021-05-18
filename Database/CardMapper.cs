@@ -40,6 +40,9 @@ namespace PriateCardGame.Database
                     case "Whale":
                         result.Add(new Whale() { CardID = cardID, Name = Name, storageState = storageState });
                         break;
+                    case "FatPirate":
+                        result.Add(new FatPirate() { CardID = cardID, Name = Name, storageState = storageState });
+                        break;
 
                 }
 
