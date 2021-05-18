@@ -22,7 +22,7 @@ namespace PriateCardGame.Cards
 
         public override void LoadContent(ContentManager contentManager)
         {
-            this.sprite = contentManager.Load<Texture2D>("FatPirate"); //Needs a farpirate sprite
+            this.sprite = contentManager.Load<Texture2D>("FatPirate");
             this.color = Color.White;
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
