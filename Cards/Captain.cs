@@ -41,7 +41,7 @@ namespace PriateCardGame.Cards
         {
             this.Name = "Captain";
             this.Damage = 4;
-            this.Health = 3;
+            this.Health = 50;
         }
 
         public override void LoadContent(ContentManager contentManager)
