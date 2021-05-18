@@ -614,12 +614,11 @@ namespace PriateCardGame
 
             if (playerTurn == false)
             {
-                enemy.DrawHand();
-                enemy.AITurn(enemySpaces);
-                EnemyCardsLoadContent();
-
                 if (endTurnOnlyOnce == true)
                 {
+                    enemy.DrawHand();
+                    enemy.AITurn(enemySpaces);
+                    EnemyCardsLoadContent();
                     endTurn(gameTime);
                     endTurnOnlyOnce = false;
                 }
