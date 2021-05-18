@@ -52,7 +52,7 @@ namespace PriateCardGame
         public int scroll;
         public static int enemyHealth = 0;
         public bool drawnCards = false;
-        private int turn = 0;
+        public static int turn = 0;
         
 
         //public static GameState gameState = GameState.CardBoard;
@@ -139,7 +139,7 @@ namespace PriateCardGame
                 //}
 
                 DrawHand();
-                playerTurn = false;
+                playerTurn = true;
             }
             else if (gameState == GameState.DeckBuilding)
             {
@@ -598,6 +598,8 @@ namespace PriateCardGame
             }
 
 
+
+
             
 
             ListUpdate(playerCards);
@@ -801,7 +803,6 @@ namespace PriateCardGame
         {
 
 
-            playerTurn = !playerTurn;
             var WhileBool = true;
             while (WhileBool == true)
             {
@@ -937,11 +938,13 @@ namespace PriateCardGame
                         }
 
                     }
+                    playerTurn = !playerTurn;
+
                     WhileBool = false;
                 
                 }
 
-               
+
             }
 
         }
