@@ -174,8 +174,14 @@ namespace PriateCardGame
             else if (gameState == GameState.StageSelect)
             {
                 GameUI = new List<UI>();
-                GameUI.Add(new UI("StageSelectButtons/Enemy1",new Vector2(100,100)));
-                GameUI.Add(new UI("StageSelectButtons/DeckBuilder", new Vector2(0, 200)));
+
+                for (int i = 1; i < 5; i++)
+                {
+                    GameUI.Add(new UI($"StageSelectButtons/Enemy{i}", new Vector2(-350+(i*400), 50)));
+                }
+
+                
+                GameUI.Add(new UI("StageSelectButtons/DeckBuilder", new Vector2(1200, 850)));
             }
 
             base.Initialize();
