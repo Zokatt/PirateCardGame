@@ -117,8 +117,8 @@ namespace PriateCardGame
                     repo.AddCard("Swapper");
                     repo.AddCard("Swapper");
                     repo.AddCard("Swapper");
-                    repo.AddCard("Swapper");
-                    repo.AddCard("Swapper");
+                    repo.AddCard("Whale");
+                    repo.AddCard("Whale");
                     repo.AddCard("Musketeer");
                     repo.AddCard("Cannibal");
                     repo.AddCard("Captain");
