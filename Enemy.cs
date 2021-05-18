@@ -16,10 +16,6 @@ namespace PriateCardGame
         public void AITurn(List<CardSpace>EnemySpaces)
         {
             Random rnd = new Random();
-
-
-
-
             for (int i = 0; i < EnemyHand.Count; i++)
             {
                 var temp = rnd.Next(0, EnemySpaces.Count);
@@ -28,9 +24,6 @@ namespace PriateCardGame
                     EnemySpaces[temp].card = EnemyHand[i];
                     EnemyHand.RemoveAt(i);
                 }
-
-
-
             }
         }
 
@@ -70,6 +63,7 @@ namespace PriateCardGame
         public Enemy(int diff)
         {
             Deck = new List<CardBase>();
+            EnemyHand = new List<CardBase>();
             this.difficulty = diff;
         }
 

@@ -53,6 +53,7 @@ namespace PriateCardGame
         public static int enemyHealth = 0;
         public bool drawnCards = false;
         public static int turn = 0;
+        public static bool endTurnOnlyOnce = true;
         
 
         //public static GameState gameState = GameState.CardBoard;
@@ -99,10 +100,10 @@ namespace PriateCardGame
                     enemySpaces.Add(new CardSpace(i));
                 }
 
-                for (int i = 0; i < 8; i++)
-                {
-                    enemySpaces[i].setCard(new Captain());
-                }
+                //for (int i = 0; i < 8; i++)
+                //{
+                //    enemySpaces[i].setCard(new Captain());
+                //}
 
                 var mapper = new CardMapper();
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
@@ -301,8 +302,11 @@ namespace PriateCardGame
             {
                 if (refList[i].Collision.Contains(mousePos))
                 {
-                    infoCard = refList[i];
-                    cardInfo = true;
+                    if (refList[i].sprite != null)
+                    {
+                        infoCard = refList[i];
+                        cardInfo = true;
+                    }
                 }
                 if (refList[i].Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false)
                 {
@@ -604,7 +608,18 @@ namespace PriateCardGame
             }
 
 
+            if (playerTurn == false)
+            {
+                enemy.DrawHand();
+                enemy.AITurn(enemySpaces);
+                EnemyCardsLoadContent();
 
+                if (endTurnOnlyOnce == true)
+                {
+                    endTurn(gameTime);
+                    endTurnOnlyOnce = false;
+                }
+            }
 
             
 
@@ -740,6 +755,7 @@ namespace PriateCardGame
         {
             _spriteBatch.Draw(background, new Vector2(-150, 0), Color.White);
             _spriteBatch.DrawString(Bigfont, $"Enemy Health {enemyHealth}", new Vector2(0, 0), Color.Black);
+            _spriteBatch.DrawString(Bigfont, $"Turn : {playerTurn}", new Vector2(0, 100), Color.Black);
             foreach (UI item in GameUI)
             {
                 item.Draw(this._spriteBatch);
@@ -754,7 +770,10 @@ namespace PriateCardGame
             }
             foreach (CardBase item in playerCards)
             {
-                item.Draw(this._spriteBatch);
+                if (item.sprite !=null)
+                {
+                    item.Draw(this._spriteBatch);
+                }
             }
             foreach (var item in enemySpaces)
             {
@@ -807,7 +826,6 @@ namespace PriateCardGame
         }
         public void ThreadWork(GameTime gameTime)
         {
-
 
             var WhileBool = true;
             while (WhileBool == true)
@@ -910,7 +928,7 @@ namespace PriateCardGame
 
                         if (enemySpaces[tmp].card != null)
                         {
-                            Thread.Sleep(1000);
+                            Thread.Sleep(500);
                         }
 
                         foreach (CardSpace playerItem in playerSpaces)
@@ -929,6 +947,9 @@ namespace PriateCardGame
                         if (enemySpaces[tmp].card != null)
                         {
                             Thread.Sleep(500);
+                        }
+                        if (enemySpaces[tmp].card != null)
+                        {
                             enemySpaces[tmp].card.color = Color.White;
                         }
 
@@ -944,15 +965,29 @@ namespace PriateCardGame
                         }
 
                     }
-                    playerTurn = !playerTurn;
+                    
 
-                    WhileBool = false;
+                    
                 
                 }
-
+                WhileBool = false;
+                playerTurn = !playerTurn;
+                endTurnOnlyOnce = true;
 
             }
 
+        }
+
+        public void EnemyCardsLoadContent()
+        {
+            foreach (var item in enemySpaces)
+            {
+                item.LoadContent(this.Content);
+                if (item.card != null)
+                {
+                    item.card.LoadContent(this.Content);
+                }
+            }
         }
         public List<CardBase> SortByNameAlgoByQuickSort(ref List<CardBase> ListOfCards)
         {
