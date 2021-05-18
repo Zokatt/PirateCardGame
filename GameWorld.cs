@@ -300,20 +300,24 @@ namespace PriateCardGame
             }
             for (int i = 0; i < refList.Count; i++)
             {
-                if (refList[i].Collision.Contains(mousePos))
+                if (refList[i].sprite!=null)
                 {
-                    if (refList[i].sprite != null)
+                    if (refList[i].Collision.Contains(mousePos))
                     {
                         infoCard = refList[i];
                         cardInfo = true;
+
+                    }
+
+                    if (refList[i].Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false)
+                    {
+                        refCard = refList[i];
+                        //playerCards.RemoveAt(i);
+                        bPress = true;
                     }
                 }
-                if (refList[i].Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false)
-                {
-                    refCard = refList[i];
-                    //playerCards.RemoveAt(i);
-                    bPress = true;
-                }
+
+
             }
         }
 
@@ -661,7 +665,7 @@ namespace PriateCardGame
                 if (item.Collision.Contains(mousePos))
                 {
                     item.color = Color.Goldenrod;
-                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "EndTurnButton" && bPress == false)
+                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "EndTurnButton" && bPress == false && playerTurn == true)
                     {
                         bPress = true;
                         endTurn(gameTime);
@@ -894,6 +898,7 @@ namespace PriateCardGame
                 }
                 else
                 {
+                    Thread.Sleep(499);
                     for (int i = 0; i < 8; i++)
                     {
                         var tmp = 0;

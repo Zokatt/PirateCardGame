@@ -21,7 +21,7 @@ namespace PriateCardGame
                 var temp = rnd.Next(0, EnemySpaces.Count);
                 if (EnemySpaces[temp].card == null)
                 {
-                    EnemySpaces[temp].card = EnemyHand[i];
+                    EnemySpaces[temp].setCard(EnemyHand[i]);
                     EnemyHand.RemoveAt(i);
                 }
             }

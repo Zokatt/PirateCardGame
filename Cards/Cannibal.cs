@@ -12,6 +12,8 @@ namespace PriateCardGame.Cards
 
         public Cannibal()
         {
+
+            this.color = Color.White;
             this.Name = "Cannibal";
             this.Damage = 1;
             this.Health = 5;
@@ -51,7 +53,6 @@ namespace PriateCardGame.Cards
         public override void LoadContent(ContentManager contentManager)
         {
             this.sprite = contentManager.Load<Texture2D>("Cannibal");
-            this.color = Color.White;
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
     }

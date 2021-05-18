@@ -24,6 +24,8 @@ namespace PriateCardGame.Cards
 
         public Musketeer()
         {
+
+            this.color = Color.White;
             this.Name = "Musketeer";
             this.Damage = 1;
             this.Health = 5;
@@ -32,7 +34,6 @@ namespace PriateCardGame.Cards
         public override void LoadContent(ContentManager contentManager)
         {
             this.sprite = contentManager.Load<Texture2D>("Musketeer");
-            this.color = Color.White;
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
 

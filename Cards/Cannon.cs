@@ -62,6 +62,8 @@ namespace PriateCardGame.Cards
 
         public Cannon()
         {
+
+            this.color = Color.White;
             this.Name = "Cannon";
             this.Damage = 0;
             this.Health = 5;
@@ -70,7 +72,6 @@ namespace PriateCardGame.Cards
         public override void LoadContent(ContentManager contentManager)
         {
             this.sprite = contentManager.Load<Texture2D>("Cannon");
-            this.color = Color.White;
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
 

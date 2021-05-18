@@ -15,6 +15,8 @@ namespace PriateCardGame.Cards
 
         public Swapper()
         {
+
+            this.color = Color.White;
             this.Name = "Swapper";
             this.Damage = 1;
             this.Health = 2;
@@ -23,7 +25,6 @@ namespace PriateCardGame.Cards
         public override void LoadContent(ContentManager contentManager)
         {
             this.sprite = contentManager.Load<Texture2D>("Swapper");
-            this.color = Color.White;
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
     }

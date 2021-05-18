@@ -32,6 +32,8 @@ namespace PriateCardGame.Cards
 
         public Whale()
         {
+
+            this.color = Color.White;
             this.Name = "Whale";
             this.Damage = 0;
             this.Health = 10;
@@ -40,7 +42,6 @@ namespace PriateCardGame.Cards
         public override void LoadContent(ContentManager contentManager)
         {
             this.sprite = contentManager.Load<Texture2D>("Whale");
-            this.color = Color.White;
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
     }

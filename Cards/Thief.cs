@@ -101,6 +101,8 @@ namespace PriateCardGame.Cards
 
         public Thief()
         {
+
+            this.color = Color.White;
             this.Name = "Thief";
             this.Damage = 1;
             this.Health = 6;
@@ -109,7 +111,6 @@ namespace PriateCardGame.Cards
         public override void LoadContent(ContentManager contentManager)
         {
             this.sprite = contentManager.Load<Texture2D>("Thief");
-            this.color = Color.White;
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
 
