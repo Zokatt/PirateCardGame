@@ -24,6 +24,10 @@ namespace PriateCardGame
         public override void Update(GameTime gameTime)
         {
             
+                
+
+            
+            
         }
     }
 }
