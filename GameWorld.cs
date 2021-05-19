@@ -702,7 +702,7 @@ namespace PriateCardGame
                 {
                     item.CanPlace = true;
                 }
-                if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null)
+                if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null && playerTurn == true)
                 {
                     item.setCard(refCard);
                     playerCards.Remove(refCard);

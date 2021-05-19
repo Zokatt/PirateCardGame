@@ -37,7 +37,6 @@ namespace PriateCardGame
                     if (Deck.Count >= 1 && EnemyHand.Count < 5)
                     {
                         int temp = rnd.Next(0, Deck.Count);
-
                         EnemyHand.Add(Deck[temp]);
                         Deck.RemoveAt(temp);
                     }
