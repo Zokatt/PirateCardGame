@@ -15,9 +15,21 @@ namespace PriateCardGame.BuilderPattern
 
             if (diff == 1)
             {
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 20; i++)
                 {
-                    DeckList.Add(new Captain());
+                    DeckList.Add(new Swapper());
+                }
+                for (int i = 0; i < 5; i++)
+                {
+                    DeckList.Add(new Cannibal());
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    DeckList.Add(new FatPirate());
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    DeckList.Add(new Musketeer());
                 }
             }
             

@@ -51,6 +51,7 @@ namespace PriateCardGame
         public static int ScrollValue = 0;
         public int scroll;
         public static int enemyHealth = 0;
+        public static int playerHealth = 0;
         public bool drawnCards = false;
         public static int turn = 0;
         public static bool endTurnOnlyOnce = true;
@@ -77,6 +78,7 @@ namespace PriateCardGame
             if (gameState == GameState.CardBoard)
             {
                 enemyHealth = 50;
+                playerHealth = 50;
                 playerCards = new List<CardBase>();
                 playerSpaces = new List<CardSpace>();
                 enemySpaces = new List<CardSpace>();
@@ -220,9 +222,9 @@ namespace PriateCardGame
                         item.card.LoadContent(this.Content);
                     }
                 }
-                for (int i = 0; i < playerCards.Count; i++)
+                foreach (var item in playerCards)
                 {
-                    playerCards[i].LoadContent(this.Content);
+                    item.LoadContent(this.Content);
                 }
             }
             else if (gameState == GameState.DeckBuilding)
@@ -621,6 +623,7 @@ namespace PriateCardGame
                     EnemyCardsLoadContent();
                     endTurn(gameTime);
                     endTurnOnlyOnce = false;
+                    turn += 1;
                 }
             }
 
@@ -661,27 +664,19 @@ namespace PriateCardGame
             }
             foreach (UI item in GameUI)
             {
+                if (item.spritePick == "EndTurnButton" && playerTurn == false && item.clicked == true)
+                {
+                    item.clicked = false;
+                }
                 if (item.Collision.Contains(mousePos))
                 {
                     item.color = Color.Goldenrod;
-                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "EndTurnButton" && bPress == false && playerTurn == true)
+                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "EndTurnButton" && bPress == false && playerTurn == true && item.clicked == false)
                     {
                         bPress = true;
                         endTurn(gameTime);
                         turn += 1;
-
-                        if (playerTurn == false)
-                        {
-                            drawnCards = false;
-                        }
-
-                        if (playerTurn == true)
-                        {
-                            DrawHand();
-                            drawnCards = true;
-                        }
-
-
+                        item.clicked = true;
                     }
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "TestButton" && bPress == false)
                     {
@@ -710,6 +705,12 @@ namespace PriateCardGame
 
                     bPress = true;
                 }
+            }
+
+            if (playerTurn == true && drawnCards == false)
+            {
+                DrawHand();
+                drawnCards = true;
             }
 
             if (mouseState.LeftButton == ButtonState.Released) //so that the player can click the mouse again
@@ -758,7 +759,9 @@ namespace PriateCardGame
         {
             _spriteBatch.Draw(background, new Vector2(-150, 0), Color.White);
             _spriteBatch.DrawString(Bigfont, $"Enemy Health {enemyHealth}", new Vector2(0, 0), Color.Black);
+            _spriteBatch.DrawString(Bigfont, $"Player Health {playerHealth}", new Vector2(0, 900), Color.Black);
             _spriteBatch.DrawString(Bigfont, $"Turn : {playerTurn}", new Vector2(0, 100), Color.Black);
+            _spriteBatch.DrawString(Bigfont, $"Turn : {turn}", new Vector2(0, 200), Color.Black);
             foreach (UI item in GameUI)
             {
                 item.Draw(this._spriteBatch);
@@ -837,6 +840,15 @@ namespace PriateCardGame
                 {
                     foreach (CardSpace item in playerSpaces)
                     {
+                        if (item.card !=null)
+                        {
+                            if (item.card.Health <= 0)
+                            {
+                                item.card = null;
+                            }
+                        }
+
+
                         if (item.card != null)
                         {
                             item.card.color = Color.LawnGreen;
@@ -879,7 +891,10 @@ namespace PriateCardGame
                         if (item.card != null)
                         {
                             item.card.color = Color.White;
+
+                            
                         }
+
 
                     }
                     foreach (CardSpace item in enemySpaces)
@@ -977,6 +992,7 @@ namespace PriateCardGame
                 WhileBool = false;
                 playerTurn = !playerTurn;
                 endTurnOnlyOnce = true;
+                drawnCards = false;
 
             }
 
