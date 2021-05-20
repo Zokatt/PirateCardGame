@@ -10,6 +10,7 @@ namespace PriateCardGame
     public class UI : GameObject
     {
         public string spritePick;
+        public bool clicked;
         public UI(string whichUI,Vector2 pos)
         {
             this.spritePick = whichUI;

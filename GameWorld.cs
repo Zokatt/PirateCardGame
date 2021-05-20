@@ -661,25 +661,21 @@ namespace PriateCardGame
             }
             foreach (UI item in GameUI)
             {
+                if (item.spritePick == "EndTurnButton" && playerTurn == false && item.clicked == true)
+                {
+                    item.clicked = false;
+                }
                 if (item.Collision.Contains(mousePos))
                 {
                     item.color = Color.Goldenrod;
-                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "EndTurnButton" && bPress == false && playerTurn == true)
+                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "EndTurnButton" && bPress == false && playerTurn == true && item.clicked == false)
                     {
                         bPress = true;
                         endTurn(gameTime);
                         turn += 1;
+                        item.clicked = true;
 
-                        if (playerTurn == false)
-                        {
-                            drawnCards = false;
-                        }
-
-                        if (playerTurn == true)
-                        {
-                            DrawHand();
-                            drawnCards = true;
-                        }
+                        
 
 
                     }
@@ -710,6 +706,12 @@ namespace PriateCardGame
 
                     bPress = true;
                 }
+            }
+
+            if (playerTurn == true && drawnCards == false)
+            {
+                DrawHand();
+                drawnCards = true;
             }
 
             if (mouseState.LeftButton == ButtonState.Released) //so that the player can click the mouse again
@@ -977,6 +979,7 @@ namespace PriateCardGame
                 WhileBool = false;
                 playerTurn = !playerTurn;
                 endTurnOnlyOnce = true;
+                drawnCards = false;
 
             }
 
