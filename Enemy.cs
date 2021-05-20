@@ -18,19 +18,26 @@ namespace PriateCardGame
             Random rnd = new Random();
             for (int i = 0; i < EnemyHand.Count; i++)
             {
-                var temp = rnd.Next(0, EnemySpaces.Count);
-                if (EnemySpaces[temp].card == null)
+                var placed = false;
+
+                while (placed == false)
                 {
-                    EnemySpaces[temp].setCard(EnemyHand[i]);
-                    EnemyHand.RemoveAt(i);
-                }
+                    var temp = rnd.Next(0, EnemySpaces.Count);
+                    if (EnemySpaces[temp].card == null)
+                    {
+                        EnemySpaces[temp].setCard(EnemyHand[i]);
+                        placed = true;
+                    }
+                }  
             }
+
+            EnemyHand.Clear();
         }
 
         public void DrawHand()
         {
             Random rnd = new Random();
-            if (GameWorld.turn <= 1)
+            if (GameWorld.turn <= 2)
             {
                 for (int i = 0; i < 5; i++)
                 {
