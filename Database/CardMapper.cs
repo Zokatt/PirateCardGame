@@ -43,6 +43,9 @@ namespace PriateCardGame.Database
                     case "FatPirate":
                         result.Add(new FatPirate() { CardID = cardID, Name = Name, storageState = storageState });
                         break;
+                    case "DavyJonesLocker":
+                        result.Add(new DavyJonesLocker() { CardID = cardID, Name = Name, storageState = storageState });
+                        break;
 
                 }
 

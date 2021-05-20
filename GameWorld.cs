@@ -122,7 +122,7 @@ namespace PriateCardGame
                     repo.AddCard("Whale");
                     repo.AddCard("Musketeer");
                     repo.AddCard("Cannibal");
-                    repo.AddCard("Captain");
+                    repo.AddCard("DavyJonesLocker");
                 }
 
                 PlayerDeck = repo.FindDeck();

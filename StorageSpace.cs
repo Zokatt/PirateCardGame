@@ -93,7 +93,7 @@ namespace PriateCardGame
                     this.card = new FatPirate();
                     break;
                 case 8:
-                    this.card = new Cannon();
+                    this.card = new DavyJonesLocker();
                     break;
                 case 9:
                     this.card = new Cannon();
