@@ -46,6 +46,9 @@ namespace PriateCardGame.Database
                     case "DavyJonesLocker":
                         result.Add(new DavyJonesLocker() { CardID = cardID, Name = Name, storageState = storageState });
                         break;
+                    case "SniperParrot":
+                        result.Add(new SniperParrot() { CardID = cardID, Name = Name, storageState = storageState });
+                        break;
 
                 }
 

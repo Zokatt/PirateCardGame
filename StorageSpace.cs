@@ -96,7 +96,7 @@ namespace PriateCardGame
                     this.card = new DavyJonesLocker();
                     break;
                 case 9:
-                    this.card = new Cannon();
+                    this.card = new SniperParrot();
                     break;
                 case 10:
                     this.card = new Cannon();

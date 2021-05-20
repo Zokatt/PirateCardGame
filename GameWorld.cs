@@ -117,7 +117,7 @@ namespace PriateCardGame
 
                 if (repo.FindDeck().Count == 0)
                 {
-                    repo.AddCard("FatPirate");
+                    repo.AddCard("SniperParrot");
                     repo.AddCard("FatPirate");
                     repo.AddCard("Swapper");
                     repo.AddCard("FatPirate");
