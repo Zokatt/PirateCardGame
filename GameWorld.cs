@@ -27,6 +27,8 @@ namespace PriateCardGame
         public static List<CardBase> PlayerDeck;
         public static List<CardBase> AllOwnedCards;
         public static List<CardBase> checkCardCount;
+        public List<UI> WinOrLoseScreenList;
+        public bool endScreen;
         public List<StorageSpace> storageSpaces;
         public int owned;
         public static List<UI> GameUI;
@@ -77,12 +79,14 @@ namespace PriateCardGame
 
             if (gameState == GameState.CardBoard)
             {
-                enemyHealth = 50;
-                playerHealth = 50;
+                endScreen = false;
+                enemyHealth = 25;
+                playerHealth = 25;
                 playerCards = new List<CardBase>();
                 playerSpaces = new List<CardSpace>();
                 enemySpaces = new List<CardSpace>();
                 PlayerDeck = new List<CardBase>();
+                WinOrLoseScreenList = new List<UI>();
                 GameUI = new List<UI>();
                 GameUI.Add(new UI("EndTurnButton", new Vector2(1050, 450)));
                 GameUI.Add(new UI("TestButton", new Vector2(450, 450)));
@@ -189,7 +193,6 @@ namespace PriateCardGame
 
             base.Initialize();
         }
-
         protected override void LoadContent()
         {
             _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -199,6 +202,11 @@ namespace PriateCardGame
             if (gameState == GameState.CardBoard)
             {
                 background = Content.Load<Texture2D>("Background");
+
+                foreach (UI item in WinOrLoseScreenList)
+                {
+                    item.LoadContent(this.Content);
+                }
 
                 foreach (UI item in GameUI)
                 {
@@ -258,6 +266,14 @@ namespace PriateCardGame
 
 
             // TODO: use this.Content to load your game content here
+        }
+
+        public void LoadContentForThisUIList(List<UI> refList)
+        {
+            foreach (var item in refList)
+            {
+                item.LoadContent(this.Content);
+            }
         }
 
         protected override void Update(GameTime gameTime)
@@ -608,109 +624,145 @@ namespace PriateCardGame
         }
         public void UpdateCardBoard(GameTime gameTime)
         {
-            if (cardInfo == true)
+
+            if (enemyHealth <= 0)
             {
-                cardInfo = false;
+                endScreen = true;
+            }
+            if (playerHealth <=0)
+            {
+                endScreen = true;
+            }
+            if (endScreen == true && WinOrLoseScreenList.Count <=1)
+            {
+                WinOrLoseScreenList.Add(new UI("WinOrLoss",new Vector2(400,100)));
+                WinOrLoseScreenList.Add(new UI("MenuButton", new Vector2(650, 650)));
+                LoadContentForThisUIList(WinOrLoseScreenList);
             }
 
-
-            if (playerTurn == false)
+            if (endScreen == true)
             {
-                if (endTurnOnlyOnce == true)
+                foreach (var item in WinOrLoseScreenList)
                 {
-                    enemy.DrawHand();
-                    enemy.AITurn(enemySpaces);
-                    EnemyCardsLoadContent();
-                    endTurn(gameTime);
-                    endTurnOnlyOnce = false;
-                    turn += 1;
-                }
-            }
-
-            
-
-            ListUpdate(playerCards);
-            for (int i = 0; i < playerSpaces.Count; i++)
-            {
-                if (playerSpaces[i].Collision.Contains(mousePos) && playerSpaces[i].card != null)
-                {
-                    cardInfo = true;
-                    infoCard = playerSpaces[i].card;
-                }
-                playerSpaces[i].setPos(i);
-                playerSpaces[i].CanPlace = false;
-            }
-            for (int i = 0; i < enemySpaces.Count; i++)
-            {
-                if (enemySpaces[i].Collision.Contains(mousePos) && enemySpaces[i].card != null)
-                {
-                    cardInfo = true;
-                    infoCard = enemySpaces[i].card;
-                }
-                enemySpaces[i].setEnemyPos(i);
-            }
-            //for (int i = 0; i < enemyDeck.Count; i++)
-            //{
-            //    enemyDeck[i].setEnemyPos(i);
-            //}
-
-            // TODO: Add your update logic here
-
-
-            if (refCard != null)
-            {
-                refCard.position.X = mousePos.X;
-                refCard.position.Y = mousePos.Y;
-            }
-            foreach (UI item in GameUI)
-            {
-                if (item.spritePick == "EndTurnButton" && playerTurn == false && item.clicked == true)
-                {
-                    item.clicked = false;
-                }
-                if (item.Collision.Contains(mousePos))
-                {
-                    item.color = Color.Goldenrod;
-                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "EndTurnButton" && bPress == false && playerTurn == true && item.clicked == false)
+                    item.color = Color.White;
+                    if (item.Collision.Contains(mousePos)  && item.spritePick == "MenuButton")
                     {
-                        bPress = true;
-                        endTurn(gameTime);
-                        turn += 1;
-                        item.clicked = true;
+                        item.color = Color.Green;
                     }
-                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "TestButton" && bPress == false)
+                    if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "MenuButton")
                     {
                         gameState = GameState.StageSelect;
                         Initialize();
                         LoadContent();
+                    }
+                }
+            }
+
+            if (endScreen == false)
+            {
+
+                if (cardInfo == true)
+                {
+                    cardInfo = false;
+                }
+
+
+                if (playerTurn == false)
+                {
+                    if (endTurnOnlyOnce == true)
+                    {
+                        enemy.DrawHand();
+                        enemy.AITurn(enemySpaces);
+                        EnemyCardsLoadContent();
+                        endTurn(gameTime);
+                        endTurnOnlyOnce = false;
+                        turn += 1;
+                    }
+                }
+                ListUpdate(playerCards);
+                for (int i = 0; i < playerSpaces.Count; i++)
+                {
+                    if (playerSpaces[i].Collision.Contains(mousePos) && playerSpaces[i].card != null)
+                    {
+                        cardInfo = true;
+                        infoCard = playerSpaces[i].card;
+                    }
+                    playerSpaces[i].setPos(i);
+                    playerSpaces[i].CanPlace = false;
+                }
+                for (int i = 0; i < enemySpaces.Count; i++)
+                {
+                    if (enemySpaces[i].Collision.Contains(mousePos) && enemySpaces[i].card != null)
+                    {
+                        cardInfo = true;
+                        infoCard = enemySpaces[i].card;
+                    }
+                    enemySpaces[i].setEnemyPos(i);
+                }
+                //for (int i = 0; i < enemyDeck.Count; i++)
+                //{
+                //    enemyDeck[i].setEnemyPos(i);
+                //}
+
+                // TODO: Add your update logic here
+
+
+                if (refCard != null)
+                {
+                    refCard.position.X = mousePos.X;
+                    refCard.position.Y = mousePos.Y;
+                }
+                foreach (UI item in GameUI)
+                {
+                    if (item.spritePick == "EndTurnButton" && playerTurn == false && item.clicked == true)
+                    {
+                        item.clicked = false;
+                    }
+                    if (item.Collision.Contains(mousePos))
+                    {
+                        item.color = Color.Goldenrod;
+                        if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "EndTurnButton" && bPress == false && playerTurn == true && item.clicked == false)
+                        {
+                            bPress = true;
+                            endTurn(gameTime);
+                            turn += 1;
+                            item.clicked = true;
+                        }
+                        if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "TestButton" && bPress == false)
+                        {
+                            gameState = GameState.StageSelect;
+                            Initialize();
+                            LoadContent();
+                            bPress = true;
+                        }
+                    }
+                    else if (item.color != Color.White)
+                    {
+                        item.color = Color.White;
+                    }
+                }
+                foreach (CardSpace item in playerSpaces)
+                {
+                    if (item.Collision.Contains(mousePos) && refCard != null && item.card == null)
+                    {
+                        item.CanPlace = true;
+                    }
+                    if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null && playerTurn == true)
+                    {
+                        item.setCard(refCard);
+                        playerCards.Remove(refCard);
+                        refCard = null;
+
                         bPress = true;
                     }
                 }
-                else if (item.color != Color.White)
-                {
-                    item.color = Color.White;
-                }
-            }
-            foreach (CardSpace item in playerSpaces)
-            {
-                if (item.Collision.Contains(mousePos) && refCard != null && item.card == null)
-                {
-                    item.CanPlace = true;
-                }
-                if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null && playerTurn == true)
-                {
-                    item.setCard(refCard);
-                    playerCards.Remove(refCard);
-                    refCard = null;
 
-                    bPress = true;
+                if (playerTurn == true && drawnCards == false)
+                {
+                    DrawHand();
+                    drawnCards = true;
                 }
-            }
 
-            if (playerTurn == true && drawnCards == false)
-            {
-                DrawHand();
-                drawnCards = true;
             }
 
             if (mouseState.LeftButton == ButtonState.Released) //so that the player can click the mouse again
@@ -794,6 +846,24 @@ namespace PriateCardGame
                 Vector2.Zero, 1f, SpriteEffects.None, 0f);
                 _spriteBatch.DrawString(GameWorld.font, $"{infoCard.Damage}", new Vector2(1337, 730), Color.Black);
                 _spriteBatch.DrawString(GameWorld.font, $"{infoCard.Health}", new Vector2(1505, 727), Color.Goldenrod);
+
+            }
+
+            if (endScreen == true)
+            {
+                foreach (var item in WinOrLoseScreenList)
+                {
+                    item.Draw(this._spriteBatch);
+                }
+                if (playerHealth <= 0)
+                {
+                    _spriteBatch.DrawString(Bigfont, $"You lose!", new Vector2(700, 200), Color.Black);
+                }
+                else if (enemyHealth <=0)
+                {
+                    _spriteBatch.DrawString(Bigfont, $"You WIN!", new Vector2(700, 200), Color.Black);
+                }
+
 
             }
         }
