@@ -9,51 +9,53 @@ namespace PriateCardGame.Cards
 {
     public class DavyJonesLocker : CardBase
     {
+        private CardBase tmpCard;
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             Random rnd = new Random();
             int rndCard = rnd.Next(1, 10);
-            string cardName = "";
+            
             if (this.Health <= 0)
             {
                 switch (rndCard)
                 {
                     case 1:
-                        cardName = "Cannibal";
+                        tmpCard = new Cannibal();
                         break;
                     case 2:
-                        cardName = "Cannon";
+                        tmpCard = new Cannon();
                         break;
                     case 3:
-                        cardName = "Captain";
+                        tmpCard = new Captain();
                         break;
                     case 4:
-                        cardName = "DavyJonesLocker";
+                        tmpCard = new DavyJonesLocker();
                         break;
                     case 5:
-                        cardName = "FatPirate";
+                        tmpCard = new FatPirate();
                         break;
                     case 6:
-                        cardName = "Musketeer";
+                        tmpCard = new Musketeer();
                         break;
                     case 7:
-                        cardName = "Swapper";
+                        tmpCard = new Swapper();
                         break;
                     case 8:
-                        cardName = "Thief";
+                        tmpCard = new Thief();
                         break;
                     case 9:
-                        cardName = "Whale";
+                        tmpCard = new Whale();
                         break;
                 }
-                GameWorld.repo.Open();
+                if (this.position.Y < 500)
+                {
+                    GameWorld.enemy.EnemyHand.Add(tmpCard);
+                }
+                else
+                {
+                    GameWorld.playerCards.Add(tmpCard);
+                }
 
-                GameWorld.repo.AddCard(cardName);
-
-                GameWorld.PlayerDeck = GameWorld.repo.FindDeck();
-
-                GameWorld.repo.Close();
-                
             }
 
         }
@@ -70,7 +72,7 @@ namespace PriateCardGame.Cards
 
         public override void LoadContent(ContentManager contentManager)
         {
-            this.sprite = contentManager.Load<Texture2D>("PirateCaptain");
+            this.sprite = contentManager.Load<Texture2D>("DavyJonesLocker");
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
 

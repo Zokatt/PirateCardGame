@@ -111,7 +111,7 @@ namespace PriateCardGame
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 repo = new CardRepository(provider, mapper);
 
-                dropRepoTable();
+                //dropRepoTable();
 
                 repo.Open();
 
@@ -830,6 +830,7 @@ namespace PriateCardGame
         {
             SortByNameAlgoByQuickSort(ref playerCards);
         }
+
         public void ThreadWork(GameTime gameTime)
         {
 
@@ -844,6 +845,11 @@ namespace PriateCardGame
                         {
                             if (item.card.Health <= 0)
                             {
+                                if (item.card.Name == "DavyJonesLocker")
+                                {
+                                    item.card.AdditionalCardEffect(enemySpaces, playerSpaces);
+                                    LoadContent();
+                                }
                                 item.card = null;
                             }
                         }
@@ -880,7 +886,13 @@ namespace PriateCardGame
 
                                 if (enemyItem.card.Health <=0)
                                 {
+                                    if (enemyItem.card.Name == "DavyJonesLocker")
+                                    {
+                                        enemyItem.card.AdditionalCardEffect(enemySpaces, playerSpaces);
+                                        LoadContent();
+                                    }
                                     enemyItem.card = null;  
+
                                 }
                             }
                         }
@@ -903,6 +915,11 @@ namespace PriateCardGame
                         {
                             if (item.card.Health <= 0)
                             {
+                                if (item.card.Name == "DavyJonesLocker")
+                                {
+                                    item.card.AdditionalCardEffect(enemySpaces, playerSpaces);
+                                    LoadContent();
+                                }
                                 item.card = null;
                             }
                         }
@@ -956,11 +973,16 @@ namespace PriateCardGame
                             {
                                 playerItem.card.tookDamage = false;
                                 playerItem.card.damageTaken = 0;
-
                                 if (playerItem.card.Health <= 0)
                                 {
+                                    if (playerItem.card.Name == "DavyJonesLocker")
+                                    {
+                                        playerItem.card.AdditionalCardEffect(enemySpaces, playerSpaces);
+                                        LoadContent();
+                                    }
                                     playerItem.card = null;
                                 }
+
                             }
                         }
                         if (enemySpaces[tmp].card != null)
@@ -979,6 +1001,11 @@ namespace PriateCardGame
                         {
                             if (item.card.Health <= 0)
                             {
+                                if (item.card.Name == "DavyJonesLocker")
+                                {
+                                    item.card.AdditionalCardEffect(enemySpaces, playerSpaces);
+                                    LoadContent();
+                                } 
                                 item.card = null;
                             }
                         }
