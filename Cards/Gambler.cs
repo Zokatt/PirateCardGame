@@ -174,7 +174,7 @@ namespace PriateCardGame.Cards
             this.Name = "Gambler";
             this.color = Color.White;
             this.Damage = 0;
-            this.Health = 50;
+            this.Health = 10;
 
         }
 
