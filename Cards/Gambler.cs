@@ -19,7 +19,7 @@ namespace PriateCardGame.Cards
                     if (enemySpaces[this.spaceNumber + 4].card != null)
                     {
                         int num = enemySpaces[this.spaceNumber + 4].card.Health;
-                        if (num % 2 == 0)
+                        if (num % 2 == 1)
                         {
                             enemySpaces[this.spaceNumber + 4].card.Health -= enemySpaces[this.spaceNumber + 4].card.Health;
                             enemySpaces[this.spaceNumber + 4].card.damageTaken += enemySpaces[this.spaceNumber + 4].card.damageTaken;
@@ -34,7 +34,7 @@ namespace PriateCardGame.Cards
                     else if (enemySpaces[this.spaceNumber].card != null)
                     {
                         int num = enemySpaces[this.spaceNumber].card.Health;
-                        if (num % 2 == 0)
+                        if (num % 2 == 1)
                         {
                             enemySpaces[this.spaceNumber].card.Health -= enemySpaces[this.spaceNumber].card.Health;
                             enemySpaces[this.spaceNumber].card.damageTaken += enemySpaces[this.spaceNumber].card.Health;
@@ -57,7 +57,7 @@ namespace PriateCardGame.Cards
                     if (enemySpaces[this.spaceNumber].card != null)
                     {
                         int num = enemySpaces[this.spaceNumber].card.Health;
-                        if (num % 2 == 0)
+                        if (num % 2 == 1)
                         {
                             enemySpaces[this.spaceNumber].card.Health -= enemySpaces[this.spaceNumber].card.Health;
                             enemySpaces[this.spaceNumber].card.damageTaken += enemySpaces[this.spaceNumber].card.Health;
@@ -71,7 +71,7 @@ namespace PriateCardGame.Cards
                     else if (enemySpaces[this.spaceNumber - 4].card != null)
                     {
                         int num = enemySpaces[this.spaceNumber - 4].card.Health;
-                        if (num % 2 == 0)
+                        if (num % 2 == 1)
                         {
                             enemySpaces[this.spaceNumber - 4].card.Health -= enemySpaces[this.spaceNumber - 4].card.Health;
                             enemySpaces[this.spaceNumber - 4].card.damageTaken += enemySpaces[this.spaceNumber - 4].card.Health;
@@ -96,7 +96,7 @@ namespace PriateCardGame.Cards
                     if (playerSpaces[this.spaceNumber].card != null)
                     {
                         int num = playerSpaces[this.spaceNumber].card.Health;
-                        if (num % 2 == 0)
+                        if (num % 2 == 1)
                         {
                             playerSpaces[this.spaceNumber].card.Health -= playerSpaces[this.spaceNumber].card.Health;
                             playerSpaces[this.spaceNumber].card.damageTaken += playerSpaces[this.spaceNumber].card.damageTaken;
@@ -111,7 +111,7 @@ namespace PriateCardGame.Cards
                     else if (playerSpaces[this.spaceNumber - 4].card != null)
                     {
                         int num = playerSpaces[this.spaceNumber - 4].card.Health;
-                        if (num % 2 == 0)
+                        if (num % 2 == 1)
                         {
                             playerSpaces[this.spaceNumber - 4].card.Health -= playerSpaces[this.spaceNumber - 4].card.Health;
                             playerSpaces[this.spaceNumber - 4].card.damageTaken += playerSpaces[this.spaceNumber - 4].card.Health;
@@ -134,7 +134,7 @@ namespace PriateCardGame.Cards
                     if (playerSpaces[this.spaceNumber + 4].card != null)
                     {
                         int num = playerSpaces[this.spaceNumber + 4].card.Health;
-                        if (num % 2 == 0)
+                        if (num % 2 == 1)
                         {
                             playerSpaces[this.spaceNumber + 4].card.Health -= playerSpaces[this.spaceNumber + 4].card.Health;
                             playerSpaces[this.spaceNumber + 4].card.damageTaken += playerSpaces[this.spaceNumber + 4].card.Health;
@@ -148,7 +148,7 @@ namespace PriateCardGame.Cards
                     else if (enemySpaces[this.spaceNumber + 4].card != null) // Also this - 4
                     {
                         int num = playerSpaces[this.spaceNumber - 4].card.Health;
-                        if (num % 2 == 0)
+                        if (num % 2 == 1)
                         {
                             playerSpaces[this.spaceNumber - 4].card.Health -= playerSpaces[this.spaceNumber - 4].card.Health;
                             playerSpaces[this.spaceNumber - 4].card.damageTaken += playerSpaces[this.spaceNumber - 4].card.Health;
@@ -173,7 +173,7 @@ namespace PriateCardGame.Cards
         {
             this.Name = "Gambler";
             this.color = Color.White;
-            this.Damage = 1;
+            this.Damage = 0;
             this.Health = 50;
 
         }
