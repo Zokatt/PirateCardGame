@@ -22,16 +22,32 @@ namespace PriateCardGame
 
                 while (placed == false)
                 {
-                    var temp = rnd.Next(0, EnemySpaces.Count);
-                    if (EnemySpaces[temp].card == null)
+                    var Empty = 0;
+                    foreach (var item in EnemySpaces)
                     {
-                        EnemySpaces[temp].setCard(EnemyHand[i]);
+                        if (item.card == null)
+                        {
+                            Empty += 1;
+                        }
+                    }
+                    if (Empty >=1)
+                    {
+
+                        var temp = rnd.Next(0, EnemySpaces.Count);
+                        if (EnemySpaces[temp].card == null)
+                        {
+                            EnemySpaces[temp].setCard(EnemyHand[i]);
+                            EnemyHand.RemoveAt(i);
+                            i -= 1;
+                            placed = true;
+                        }
+                    }
+                    else
+                    {
                         placed = true;
                     }
                 }  
             }
-
-            EnemyHand.Clear();
         }
 
         public void DrawHand()
