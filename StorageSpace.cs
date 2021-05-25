@@ -101,6 +101,9 @@ namespace PriateCardGame
                 case 10:
                     this.card = new Cannon();
                     break;
+                case 11:
+                    this.card = new Gambler();
+                    break;
             }
         }
 

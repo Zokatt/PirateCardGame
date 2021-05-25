@@ -49,6 +49,9 @@ namespace PriateCardGame.Database
                     case "SniperParrot":
                         result.Add(new SniperParrot() { CardID = cardID, Name = Name, storageState = storageState });
                         break;
+                    case "Gambler":
+                        result.Add(new Gambler() { CardID = cardID, Name = Name, storageState = storageState });
+                        break;
 
                 }
 
