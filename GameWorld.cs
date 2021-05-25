@@ -75,8 +75,6 @@ namespace PriateCardGame
         {
             // TODO: Add your initialization logic here
             
-            
-
             if (gameState == GameState.CardBoard)
             {
                 endScreen = false;

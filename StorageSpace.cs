@@ -65,8 +65,8 @@ namespace PriateCardGame
 
         public void SetCard(int i)
         {
-            var tmp = i + GameWorld.pageNumber;
-            switch (i)
+            var tmp = i + (GameWorld.pageNumber*10);
+            switch (tmp)
             {   
                 case 0:
                     this.card = new Swapper();  
