@@ -178,6 +178,8 @@ namespace PriateCardGame
                     
                 }
                 SetDeckBuildingCardCount();
+
+                RefresDeckBuildingLists();
                 
             }
             else if (gameState == GameState.StageSelect)
@@ -627,7 +629,7 @@ namespace PriateCardGame
 
                 SetDeckBuildingCardCount();
 
-                
+            SortByNameAlgoByQuickSort(ref PlayerDeck);
             
         }
 
@@ -811,7 +813,7 @@ namespace PriateCardGame
             _spriteBatch.Draw(deckBuildingBackground, new Vector2(0, 0), Color.White);
 
             _spriteBatch.DrawString(font, $"Deck: {PlayerDeck.Count}/30", new Vector2(980 , 710), Color.Black);
-            _spriteBatch.DrawString(Bigfont, $"pagenumber {pageNumber}", new Vector2(0, 0), Color.Black);
+            _spriteBatch.DrawString(font, $"Page: {pageNumber+1}/3", new Vector2(375, 650), Color.Black);
 
             var max = 12 + ScrollValue;
             if (max >=PlayerDeck.Count)
