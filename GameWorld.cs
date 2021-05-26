@@ -57,6 +57,7 @@ namespace PriateCardGame
         public bool drawnCards = false;
         public static int turn = 0;
         public static bool endTurnOnlyOnce = true;
+        public int difficulty = 1;
         
 
         //public static GameState gameState = GameState.CardBoard;
@@ -78,6 +79,7 @@ namespace PriateCardGame
             if (gameState == GameState.CardBoard)
             {
                 endScreen = false;
+                playerTurn = true;
                 enemyHealth = 25;
                 playerHealth = 25;
                 playerCards = new List<CardBase>();
@@ -91,7 +93,7 @@ namespace PriateCardGame
                 enemyDeck = new List<CardBase>();
                 turn = 0;
 
-                enemy = new Enemy(1);
+                enemy = new Enemy(difficulty);
                 enemy.Deck = director.ConstructEnemyDeck(enemy.difficulty);
 
                 for (int i = 0; i < 8; i++)
@@ -581,6 +583,25 @@ namespace PriateCardGame
                         switch (item.spritePick)
                         {
                             case "StageSelectButtons/Enemy1":
+                                difficulty = 1;
+                                gameState = GameState.CardBoard;
+                                Initialize();
+                                LoadContent();
+                                break;
+                            case "StageSelectButtons/Enemy2":
+                                difficulty = 2;
+                                gameState = GameState.CardBoard;
+                                Initialize();
+                                LoadContent();
+                                break;
+                            case "StageSelectButtons/Enemy3":
+                                difficulty = 3;
+                                gameState = GameState.CardBoard;
+                                Initialize();
+                                LoadContent();
+                                break;
+                            case "StageSelectButtons/Enemy4":
+                                difficulty = 4;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
@@ -829,6 +850,14 @@ namespace PriateCardGame
             _spriteBatch.DrawString(Bigfont, $"Player Health {playerHealth}", new Vector2(0, 900), Color.Black);
             _spriteBatch.DrawString(Bigfont, $"Turn : {playerTurn}", new Vector2(0, 100), Color.Black);
             _spriteBatch.DrawString(Bigfont, $"Turn : {turn}", new Vector2(0, 200), Color.Black);
+
+            foreach (var item in enemySpaces)
+            {
+                if (item.card != null)
+                {
+                    item.card.Draw(this._spriteBatch);
+                }
+            }
             foreach (UI item in GameUI)
             {
                 item.Draw(this._spriteBatch);
@@ -846,13 +875,6 @@ namespace PriateCardGame
                 if (item.sprite !=null)
                 {
                     item.Draw(this._spriteBatch);
-                }
-            }
-            foreach (var item in enemySpaces)
-            {
-                if (item.card != null)
-                {
-                    item.card.Draw(this._spriteBatch);
                 }
             }
             if (cardInfo == true)
@@ -920,7 +942,7 @@ namespace PriateCardGame
         {
 
             var WhileBool = true;
-            while (WhileBool == true)
+            while (WhileBool == true && endScreen == false)
             {
                 if (playerTurn == true)
                 {
@@ -1031,6 +1053,12 @@ namespace PriateCardGame
                         {
                             enemySpaces[tmp].card.color = Color.LawnGreen;
                             enemySpaces[tmp].card.CardEffect(enemySpaces, playerSpaces);
+                        }
+
+                        if (playerHealth <=0)
+                        {
+                            WhileBool = false;
+                            break;
                         }
 
                         foreach (CardSpace playerItem in playerSpaces)

@@ -92,10 +92,13 @@ namespace PriateCardGame.Cards
                 }
             }
 
-            stealTarget.position = this.position;
-            stealTarget.spaceNumber = this.spaceNumber;
-            StealAbilityEvent += stealTarget.AdditionalCardEffect;
-            OnStealEvent(enemySpaces,playerSpaces);
+            if (stealTarget != null && stealTarget.Name != "Thief")
+            {
+                stealTarget.position = this.position;
+                stealTarget.spaceNumber = this.spaceNumber;
+                StealAbilityEvent += stealTarget.AdditionalCardEffect;
+                OnStealEvent(enemySpaces, playerSpaces);
+            }
             stealTarget = null;
         }
 
