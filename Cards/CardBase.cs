@@ -196,5 +196,10 @@ namespace PriateCardGame
                 }
             }
         }
+
+        public CardBase Clone()
+        {
+            return (CardBase)this.MemberwiseClone();
+        }
     }
 }

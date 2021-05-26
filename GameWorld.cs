@@ -125,7 +125,7 @@ namespace PriateCardGame
                     repo.AddCard("FatPirate");
                     repo.AddCard("Swapper");
                     repo.AddCard("FatPirate");
-                    repo.AddCard("Whale");
+                    repo.AddCard("Thief");
                     repo.AddCard("Musketeer");
                     repo.AddCard("Cannibal");
                     repo.AddCard("DavyJonesLocker");

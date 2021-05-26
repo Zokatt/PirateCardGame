@@ -32,28 +32,29 @@ namespace PriateCardGame.Cards
                     {
                         if (playerSpaces[this.spaceNumber].card !=null)
                         {
-                            stealTarget = playerSpaces[this.spaceNumber].card;
-
+                           
+                            stealTarget = playerSpaces[this.spaceNumber].card.Clone();
                         }
-                        else
+                        else if (playerSpaces[this.spaceNumber + 4].card != null)
                         {
-                            stealTarget = playerSpaces[this.spaceNumber + 4].card;
+                            stealTarget = playerSpaces[this.spaceNumber+4].card.Clone();
                         }
+                        
                     }
-                    else
+                    else if (enemySpaces[this.spaceNumber + 4].card != null)
                     {
-                        stealTarget = enemySpaces[this.spaceNumber + 4].card;
+                        stealTarget = enemySpaces[this.spaceNumber + 4].card.Clone();
                     }
                 }
                 else if (this.spaceNumber >= 4)
                 {
                         if (playerSpaces[this.spaceNumber-4].card != null)
                         {
-                        stealTarget = playerSpaces[this.spaceNumber - 4].card;
+                        stealTarget = playerSpaces[this.spaceNumber - 4].card.Clone();
                         }
-                        else
+                        else if (playerSpaces[this.spaceNumber].card != null)
                         {
-                        stealTarget = playerSpaces[this.spaceNumber].card;
+                        stealTarget = playerSpaces[this.spaceNumber].card.Clone();
                         }
                     
                 }
@@ -64,11 +65,11 @@ namespace PriateCardGame.Cards
                 {
                         if (enemySpaces[this.spaceNumber+4].card != null)
                         {
-                            stealTarget = enemySpaces[this.spaceNumber + 4].card;
+                        stealTarget = enemySpaces[this.spaceNumber + 4].card.Clone();
                         }
-                        else
+                        else if(enemySpaces[this.spaceNumber].card != null)
                         {
-                        stealTarget = enemySpaces[this.spaceNumber].card;
+                        stealTarget = enemySpaces[this.spaceNumber].card.Clone();
                         }
                 }
                 else if (this.spaceNumber >= 4)
@@ -77,16 +78,16 @@ namespace PriateCardGame.Cards
                     {
                         if (enemySpaces[this.spaceNumber].card != null)
                         {
-                            stealTarget = enemySpaces[this.spaceNumber].card;
+                            stealTarget = enemySpaces[this.spaceNumber].card.Clone();
                         }
-                        else
+                        else if (enemySpaces[this.spaceNumber-4].card != null)
                         {
-                            stealTarget = enemySpaces[this.spaceNumber - 4].card;
+                            stealTarget = enemySpaces[this.spaceNumber - 4].card.Clone();
                         }
                     }
-                    else
+                    else if (playerSpaces[this.spaceNumber-4].card !=null)
                     {
-                        stealTarget = playerSpaces[this.spaceNumber - 4].card;
+                        stealTarget = playerSpaces[this.spaceNumber - 4].card.Clone();
                     }
 
                 }
@@ -96,8 +97,13 @@ namespace PriateCardGame.Cards
             {
                 stealTarget.position = this.position;
                 stealTarget.spaceNumber = this.spaceNumber;
+                stealTarget.Damage = this.Damage;
+                stealTarget.Health = this.Health;
                 StealAbilityEvent += stealTarget.AdditionalCardEffect;
                 OnStealEvent(enemySpaces, playerSpaces);
+
+                this.Damage = stealTarget.Damage;
+                this.Health = stealTarget.Health;
             }
             stealTarget = null;
         }

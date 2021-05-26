@@ -34,5 +34,6 @@ namespace PriateCardGame
         {
             spriteBatch.Draw(sprite, position, color);
         }
+
     }
 }
