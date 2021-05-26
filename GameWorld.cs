@@ -971,8 +971,6 @@ namespace PriateCardGame
                         if (item.card != null)
                         {
                             item.card.color = Color.White;
-
-                            
                         }
 
 
