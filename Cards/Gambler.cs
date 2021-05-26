@@ -212,7 +212,7 @@ namespace PriateCardGame.Cards
 
         public override void LoadContent(ContentManager contentManager)
         {
-            this.sprite = contentManager.Load<Texture2D>("SniperParrot"); // Needs a gambler sprite instead of this temporary sprite
+            this.sprite = contentManager.Load<Texture2D>("Gambler");
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
     }
