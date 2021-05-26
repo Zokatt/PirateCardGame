@@ -148,13 +148,15 @@ namespace PriateCardGame
             }
             else if (gameState == GameState.DeckBuilding)
             {
-
+                
                 var mapper = new CardMapper();
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 repo = new CardRepository(provider, mapper);
 
                 GameUI = new List<UI>();
                 GameUI.Add(new UI("MenuButton", new Vector2(800, 600)));
+                GameUI.Add(new UI("LeftArrow", new Vector2(50, 600)));
+                GameUI.Add(new UI("RightArrow", new Vector2(700, 600)));
 
 
                 PlayerDeck = new List<CardBase>();
@@ -473,9 +475,23 @@ namespace PriateCardGame
                 if (item.Collision.Contains(mousePos))
                 {
                     item.color = Color.Green;
-                    if (mouseState.LeftButton == ButtonState.Pressed)
+                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "MenuButton")
                     {
                         gameState = GameState.StageSelect;
+                        Initialize();
+                        LoadContent();
+                    }
+                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "RightArrow" && bPress == false && pageNumber <=1)
+                    {
+                        bPress = true;
+                        pageNumber += 1;
+                        Initialize();
+                        LoadContent();
+                    }
+                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "LeftArrow" && bPress == false && pageNumber >=1)
+                    {
+                        bPress = true;
+                        pageNumber -= 1;
                         Initialize();
                         LoadContent();
                     }
@@ -774,6 +790,7 @@ namespace PriateCardGame
             _spriteBatch.Draw(deckBuildingBackground, new Vector2(0, 0), Color.White);
 
             _spriteBatch.DrawString(font, $"Deck: {PlayerDeck.Count}/30", new Vector2(980 , 710), Color.Black);
+            _spriteBatch.DrawString(Bigfont, $"pagenumber {pageNumber}", new Vector2(0, 0), Color.Black);
 
             var max = 12 + ScrollValue;
             if (max >=PlayerDeck.Count)
