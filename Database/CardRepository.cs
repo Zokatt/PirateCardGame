@@ -63,6 +63,12 @@ namespace PriateCardGame.Database
             cmd.ExecuteNonQuery();
         }
 
+        public void AddCardToStorage(string cardName)
+        {
+            var cmd = new SQLiteCommand($"Insert into Cards (Name,StorageState) VALUES('{cardName}', '{GameWorld.Storage}')", (SQLiteConnection)connection);
+            cmd.ExecuteNonQuery();
+        }
+
         public void AddToDeck(string cardName)
         {
             //Update card set storageState = "deck"  where cardID IN(select cardID from card where storageState = "storage" LIMIT 1)

@@ -48,6 +48,7 @@ namespace PriateCardGame
         public static bool playerTurn = false;
         public static Enemy enemy;
         public static CardBase infoCard;
+        public static CardBase rewardCard;
         public static GameState gameState = GameState.StageSelect;
         public static int pageNumber = 0;
         public static int ScrollValue = 0;
@@ -78,6 +79,7 @@ namespace PriateCardGame
             
             if (gameState == GameState.CardBoard)
             {
+                rewardCard = null;
                 endScreen = false;
                 playerTurn = true;
                 enemyHealth = 25;
@@ -675,6 +677,12 @@ namespace PriateCardGame
                 WinOrLoseScreenList.Add(new UI("WinOrLoss",new Vector2(400,100)));
                 WinOrLoseScreenList.Add(new UI("MenuButton", new Vector2(650, 650)));
                 LoadContentForThisUIList(WinOrLoseScreenList);
+
+                if (enemyHealth<=0)
+                {
+                    CardReward();
+                }
+
             }
 
             if (endScreen == true)
@@ -688,6 +696,7 @@ namespace PriateCardGame
                     }
                     if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "MenuButton")
                     {
+                        rewardCard = null;
                         gameState = GameState.StageSelect;
                         Initialize();
                         LoadContent();
@@ -900,9 +909,14 @@ namespace PriateCardGame
                 }
                 else if (enemyHealth <=0)
                 {
-                    _spriteBatch.DrawString(Bigfont, $"You WIN!", new Vector2(700, 200), Color.Black);
+                    _spriteBatch.DrawString(Bigfont, $"You WIN!", new Vector2(715, 125), Color.Black);
+                    _spriteBatch.DrawString(Bigfont, $"Reward", new Vector2(725, 250), Color.Black);
                 }
 
+                if (rewardCard!=null)
+                {
+                    rewardCard.Draw2(this._spriteBatch);
+                }
 
             }
         }
@@ -1007,7 +1021,7 @@ namespace PriateCardGame
                         }
                         if (item.card != null)
                         {
-                            Thread.Sleep(500);
+                            Thread.Sleep(200);
                         }
                         if (item.card != null)
                         {
@@ -1100,7 +1114,7 @@ namespace PriateCardGame
                         }
                         if (enemySpaces[tmp].card != null)
                         {
-                            Thread.Sleep(500);
+                            Thread.Sleep(200);
                         }
                         if (enemySpaces[tmp].card != null)
                         {
@@ -1149,6 +1163,96 @@ namespace PriateCardGame
                 }
             }
         }
+
+        public void CardReward()
+        {
+            Random rnd = new Random();
+
+            var tmp = rnd.Next(0,104);
+
+            switch (difficulty)
+            {
+                case 1:
+                    if (tmp <=40)
+                    {
+                        rewardCard = new Swapper();
+                    }
+                    if (tmp >= 41 && tmp <=80)
+                    {
+                        rewardCard = new Cannibal();
+                    }
+                    if (tmp >= 81 && tmp <= 91)
+                    {
+                        rewardCard = new Musketeer();
+                    }
+                    if (tmp >= 92 && tmp <= 102)
+                    {
+                        rewardCard = new Thief();
+                    }
+                    if (tmp >= 103)
+                    {
+                        rewardCard = new Captain();
+                    }
+                    break;
+                case 2:
+                    if (tmp <= 33)
+                    {
+                        rewardCard = new FatPirate();
+                    }
+                    if (tmp >= 34 && tmp <= 64)
+                    {
+                        rewardCard = new SniperParrot();
+                    }
+                    if (tmp >= 92 && tmp <= 103)
+                    {
+                        rewardCard = new Whale();
+                    }
+                    break;
+                case 3:
+                    if (tmp <= 25)
+                    {
+                        rewardCard = new DavyJonesLocker();
+                    }
+                    if (tmp >= 26 && tmp <= 50)
+                    {
+                        rewardCard = new Gambler();
+                    }
+                    if (tmp >= 51 && tmp <= 75)
+                    {
+                        rewardCard = new Whale();
+                    }
+                    if (tmp >=76 && tmp <=103)
+                    {
+                        rewardCard = new FatPirate();
+                    }
+                    break;
+                case 4:
+                    if (tmp <= 50)
+                    {
+                        rewardCard = new Cannibal();
+                    }
+                    if (tmp >= 51 && tmp <= 75)
+                    {
+                        rewardCard = new Cannon();
+                    }
+                    if (tmp >= 76 && tmp <= 103)
+                    {
+                        rewardCard = new Whale();
+                    }
+                    break;
+            }
+
+
+
+
+            rewardCard.position = new Vector2(700,300);
+            rewardCard.LoadContent(this.Content);
+
+            repo.Open();
+            repo.AddCardToStorage(rewardCard.Name);
+            repo.Close();
+        }
+
         public List<CardBase> SortByNameAlgoByQuickSort(ref List<CardBase> ListOfCards)
         {
             if (ListOfCards.Count <= 1)

@@ -101,14 +101,20 @@ namespace PriateCardGame
                 spriteBatch.DrawString(GameWorld.font, $"{this.Damage}", new Vector2(this.position.X + 17, this.position.Y + 160), Color.Black);
                 spriteBatch.DrawString(GameWorld.font, $"{this.Health}", new Vector2(this.position.X + 100, this.position.Y + 160), Color.Goldenrod);
             }
-
-            
-            
             if (tookDamage == true)
             {
                 spriteBatch.Draw(DamageBox, new Vector2(this.position.X + 25, this.position.Y + 90), color);
                 spriteBatch.DrawString(GameWorld.font, $"-{damageTaken}", new Vector2(this.position.X + 40, this.position.Y + 100), Color.White);
             }
+        }
+
+        public void Draw2(SpriteBatch spriteBatch)
+        {
+            spriteBatch.Draw(sprite, position, null, color, 0f,
+                          Vector2.Zero, 0.75f, SpriteEffects.None, 0f);
+            spriteBatch.DrawString(GameWorld.font, $"{this.Damage}", new Vector2(this.position.X + 25, this.position.Y + 245), Color.Black);
+            spriteBatch.DrawString(GameWorld.font, $"{this.Health}", new Vector2(this.position.X + 150, this.position.Y + 245), Color.Goldenrod);
+
         }
 
         public abstract void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces);
