@@ -37,7 +37,6 @@ namespace PriateCardGame
                         if (EnemySpaces[temp].card == null)
                         {
                             EnemySpaces[temp].setCard(EnemyHand[i]);
-                            GameWorld.StarSetUp(EnemySpaces,EnemySpaces[temp].spaceNumber);
                             EnemyHand.RemoveAt(i);
                             i -= 1;
                             placed = true;

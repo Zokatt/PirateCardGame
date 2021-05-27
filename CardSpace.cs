@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using PriateCardGame.Cards;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -32,6 +33,21 @@ namespace PriateCardGame
         public CardSpace(int i)
         {
             this.spaceNumber = i;
+        }
+
+        public CardBase checkCard()
+        {
+            CardBase tmp;
+            if (this.card == null)
+            {
+                tmp = new Empty();
+            }
+            else
+            {
+                tmp = this.card;
+            }
+
+            return tmp;
         }
 
         public void StarSetUp(List<CardSpace> refList)

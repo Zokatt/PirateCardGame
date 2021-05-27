@@ -82,8 +82,8 @@ namespace PriateCardGame
                 rewardCard = null;
                 endScreen = false;
                 playerTurn = true;
-                enemyHealth = 25;
-                playerHealth = 25;
+                enemyHealth = 1;
+                playerHealth = 10;
                 playerCards = new List<CardBase>();
                 playerSpaces = new List<CardSpace>();
                 enemySpaces = new List<CardSpace>();
@@ -675,7 +675,14 @@ namespace PriateCardGame
 
         public void UpdateCardBoard(GameTime gameTime)
         {
-
+            foreach (var item in playerSpaces)
+            {
+                StarSetUp(playerSpaces,item.spaceNumber);
+            }
+            foreach (var item in enemySpaces)
+            {
+                StarSetUp(enemySpaces,item.spaceNumber);
+            }
             if (enemyHealth <= 0)
             {
                 endScreen = true;
@@ -812,7 +819,7 @@ namespace PriateCardGame
                         refCard = null;
 
                         bPress = true;
-                        StarSetUp(playerSpaces, item.spaceNumber);
+                        //StarSetUp(playerSpaces, item.spaceNumber);
                     }
                 }
 
@@ -834,7 +841,7 @@ namespace PriateCardGame
         {
             _spriteBatch.Draw(deckBuildingBackground, new Vector2(0, 0), Color.White);
 
-            _spriteBatch.DrawString(font, $"Deck: {PlayerDeck.Count}/30", new Vector2(980 , 710), Color.Black);
+            _spriteBatch.DrawString(font, $"Deck: {PlayerDeck.Count}/30", new Vector2(980 , 750), Color.White);
             _spriteBatch.DrawString(font, $"Page: {pageNumber+1}/3", new Vector2(375, 650), Color.Black);
 
             var max = 12 + ScrollValue;
@@ -1147,7 +1154,7 @@ namespace PriateCardGame
                                 {
                                     item.card.AdditionalCardEffect(enemySpaces, playerSpaces);
                                     LoadContent();
-                                } 
+                                }
                                 item.card = null;
                             }
                         }
@@ -1183,137 +1190,91 @@ namespace PriateCardGame
             switch (cSPace)
             {
                 case 0:
-                    if (refList[cSPace].card != null)
+                    if (refList[cSPace].card == null)
                     {
-                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+
+                        refList[cSPace].spaceStar = (refList[cSPace + 1].checkCard().Star + refList[cSPace + 4].checkCard().Star);
                     }
                     break;
                 case 1:
-                    if (refList[cSPace].card != null)
+                    if (refList[cSPace].card == null)
                     {
-                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+
+                        refList[cSPace].spaceStar = (refList[cSPace - 1].checkCard().Star + 
+                            refList[cSPace + 1].checkCard().Star + refList[cSPace+4].checkCard().Star);
+
                     }
                     break;
                 case 2:
-                    if (refList[cSPace].card != null)
+                    if (refList[cSPace].card == null)
                     {
-                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                    //    refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                    //    refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                    //    refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+
+                        refList[cSPace].spaceStar = (refList[cSPace - 1].checkCard().Star +
+                           refList[cSPace + 1].checkCard().Star + refList[cSPace + 4].checkCard().Star);
                     }
                     break;
                 case 3:
-                    if (refList[cSPace].card != null)
+                    if (refList[cSPace].card == null)
                     {
-                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+
+                        refList[cSPace].spaceStar = (refList[cSPace - 1].checkCard().Star + refList[cSPace + 4].checkCard().Star);
                     }
                     break;
                 case 4:
-                    if (refList[cSPace].card != null)
+                    if (refList[cSPace].card == null)
                     {
-                        refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+
+                        refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
+                           refList[cSPace + 1].checkCard().Star);
                     }
                     break;
                 case 5:
-                    if (refList[cSPace].card != null)
+                    if (refList[cSPace].card == null)
                     {
-                        refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+
+                        refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
+                           refList[cSPace - 1].checkCard().Star + refList[cSPace + 1].checkCard().Star);
                     }
                     break;
                 case 6:
-                    if (refList[cSPace].card != null)
+                    if (refList[cSPace].card == null)
                     {
-                        refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+
+                        refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
+                           refList[cSPace - 1].checkCard().Star + refList[cSPace + 1].checkCard().Star);
                     }
                     break;
                 case 7:
-                    if (refList[cSPace].card != null)
+                    if (refList[cSPace].card == null)
                     {
-                        refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
-                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+
+                        refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
+                           refList[cSPace - 1].checkCard().Star);
                     }
                     break;
 
             }
         }
-        
-        public void StarRmove(List<CardSpace> refList, int cSPace)
-        {
-            switch (cSPace)
-            {
-                case 0:
-                    if (refList[cSPace].card != null)
-                    {
-                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace + 4].spaceStar -= refList[cSPace].spaceStar;
-                    }
-                    break;
-                case 1:
-                    if (refList[cSPace].card != null)
-                    {
-                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace + 4].spaceStar -= refList[cSPace].spaceStar;
-                    }
-                    break;
-                case 2:
-                    if (refList[cSPace].card != null)
-                    {
-                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace + 4].spaceStar -= refList[cSPace].spaceStar;
-                    }
-                    break;
-                case 3:
-                    if (refList[cSPace].card != null)
-                    {
-                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace + 4].spaceStar -= refList[cSPace].spaceStar;
-                    }
-                    break;
-                case 4:
-                    if (refList[cSPace].card != null)
-                    {
-                        refList[cSPace - 4].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
-                    }
-                    break;
-                case 5:
-                    if (refList[cSPace].card != null)
-                    {
-                        refList[cSPace - 4].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
-                    }
-                    break;
-                case 6:
-                    if (refList[cSPace].card != null)
-                    {
-                        refList[cSPace - 4].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
-                    }
-                    break;
-                case 7:
-                    if (refList[cSPace].card != null)
-                    {
-                        refList[cSPace - 4].spaceStar -= refList[cSPace].spaceStar;
-                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
-                    }
-                    break;
-
-            }
-        }
-        
         public void CardReward()
         {
             Random rnd = new Random();
