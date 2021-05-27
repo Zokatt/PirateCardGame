@@ -311,7 +311,8 @@ namespace PriateCardGame
             {
                 UpdateStageSelect(gameTime);
             }
-           
+
+
 
             base.Update(gameTime);
         }
@@ -868,6 +869,7 @@ namespace PriateCardGame
                 {
                     item.card.Draw(this._spriteBatch);
                 }
+                item.DrawCoin(this._spriteBatch);
             }
             foreach (UI item in GameUI)
             {
@@ -880,6 +882,7 @@ namespace PriateCardGame
                 {
                     item.card.Draw(this._spriteBatch);
                 }
+                item.DrawCoin(this._spriteBatch);
             }
             foreach (CardBase item in playerCards)
             {
