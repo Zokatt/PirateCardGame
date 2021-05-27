@@ -662,6 +662,17 @@ namespace PriateCardGame
             repo.AddToDeck(cardName);
             repo.Close();
         }
+
+        public void SetCoins()
+        {
+
+
+            foreach (CardSpace item in playerSpaces)
+            {
+                item.StarSetUp(playerSpaces);
+            }
+        }
+
         public void UpdateCardBoard(GameTime gameTime)
         {
 
@@ -801,6 +812,7 @@ namespace PriateCardGame
                         refCard = null;
 
                         bPress = true;
+                        SetCoins();
                     }
                 }
 

@@ -29,6 +29,7 @@ namespace PriateCardGame.Cards
             this.Name = "Musketeer";
             this.Damage = 1;
             this.Health = 5;
+            this.Star = 1;
         }
 
         public override void LoadContent(ContentManager contentManager)

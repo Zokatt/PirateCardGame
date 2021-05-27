@@ -36,6 +36,8 @@ namespace PriateCardGame
 
         public void StarSetUp(List<CardSpace> refList)
         {
+
+
             switch (this.spaceNumber)
             {
                 case 0:
@@ -112,8 +114,9 @@ namespace PriateCardGame
 
         public void DrawCoin(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(GameWorld.font, $"{spaceStar}", new Vector2(0, 0), Color.Black);
-            spriteBatch.Draw(coin, new Vector2(this.position.X, this.position.Y), Color.White);
+            spriteBatch.DrawString(GameWorld.font, $"{spaceStar}", new Vector2(this.position.X + 25, this.position.Y +5), Color.Black);
+            spriteBatch.Draw(coin, new Vector2(this.position.X,this.position.Y), null, Color.White, 0f,
+                         Vector2.Zero, 0.4f, SpriteEffects.None, 0f);
         }
 
         public void DrawCard(SpriteBatch spritebatch)

@@ -20,6 +20,7 @@ namespace PriateCardGame.Cards
             this.Name = "Swapper";
             this.Damage = 1;
             this.Health = 2;
+            this.Star = 1;
         }
 
         public override void LoadContent(ContentManager contentManager)
