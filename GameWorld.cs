@@ -309,7 +309,8 @@ namespace PriateCardGame
             {
                 UpdateStageSelect(gameTime);
             }
-           
+
+
 
             base.Update(gameTime);
         }
