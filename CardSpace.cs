@@ -15,6 +15,7 @@ namespace PriateCardGame
         public bool CanPlace = false;
         public int spaceNumber;
         public int spaceStar;
+        private Texture2D coin;
 
         public virtual Rectangle Collision
         {
@@ -109,6 +110,11 @@ namespace PriateCardGame
             this.spaceStar = this.card.Star;
         }
 
+        public void DrawCoin(SpriteBatch spriteBatch)
+        {
+            spriteBatch.DrawString(GameWorld.font, $"{spaceStar}", new Vector2(0, 0), Color.Black);
+            spriteBatch.Draw(coin, new Vector2(this.position.X, this.position.Y), Color.White);
+        }
 
         public void DrawCard(SpriteBatch spritebatch)
         {
@@ -159,6 +165,7 @@ namespace PriateCardGame
         public void LoadContent(ContentManager contentManager)
         {
             this.sprite = contentManager.Load<Texture2D>("CardSpace");
+            this.coin = contentManager.Load<Texture2D>("Coin");
         }
 
     }
