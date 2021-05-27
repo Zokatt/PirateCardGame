@@ -110,7 +110,7 @@ namespace PriateCardGame.Cards
 
         public Thief()
         {
-
+            this.Star = 1;
             this.color = Color.White;
             this.Name = "Thief";
             this.Damage = 1;

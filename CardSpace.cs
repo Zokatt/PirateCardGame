@@ -36,8 +36,6 @@ namespace PriateCardGame
 
         public void StarSetUp(List<CardSpace> refList)
         {
-
-
             switch (this.spaceNumber)
             {
                 case 0:

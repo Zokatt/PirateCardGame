@@ -24,7 +24,7 @@ namespace PriateCardGame.Cards
 
         public Musketeer()
         {
-
+            this.Star = 1;
             this.color = Color.White;
             this.Name = "Musketeer";
             this.Damage = 1;

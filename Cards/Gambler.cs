@@ -203,6 +203,7 @@ namespace PriateCardGame.Cards
 
         public Gambler()
         {
+            this.Star = 1;
             this.Name = "Gambler";
             this.color = Color.White;
             this.Damage = 0;

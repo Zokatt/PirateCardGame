@@ -31,7 +31,7 @@ namespace PriateCardGame.Cards
 
         public FatPirate()
         {
-
+            this.Star = 1;
             this.color = Color.White;
             this.Name = "FatPirate";
             this.Damage = 3;

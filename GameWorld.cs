@@ -812,7 +812,7 @@ namespace PriateCardGame
                         refCard = null;
 
                         bPress = true;
-                        SetCoins();
+                        StarSetUp(playerSpaces, item.spaceNumber);
                     }
                 }
 
@@ -1178,7 +1178,142 @@ namespace PriateCardGame
                 }
             }
         }
+        public static void StarSetUp(List<CardSpace> refList,int cSPace)
+        {
+            switch (cSPace)
+            {
+                case 0:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 1:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 2:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 3:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 4:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 5:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 6:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 7:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
+                        refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                    }
+                    break;
 
+            }
+        }
+        
+        public void StarRmove(List<CardSpace> refList, int cSPace)
+        {
+            switch (cSPace)
+            {
+                case 0:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace + 4].spaceStar -= refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 1:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace + 4].spaceStar -= refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 2:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace + 4].spaceStar -= refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 3:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace + 4].spaceStar -= refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 4:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 4].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 5:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 4].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 6:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 4].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace + 1].spaceStar -= refList[cSPace].spaceStar;
+                    }
+                    break;
+                case 7:
+                    if (refList[cSPace].card != null)
+                    {
+                        refList[cSPace - 4].spaceStar -= refList[cSPace].spaceStar;
+                        refList[cSPace - 1].spaceStar -= refList[cSPace].spaceStar;
+                    }
+                    break;
+
+            }
+        }
+        
         public void CardReward()
         {
             Random rnd = new Random();
