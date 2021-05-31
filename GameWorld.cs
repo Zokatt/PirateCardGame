@@ -1032,199 +1032,208 @@ namespace PriateCardGame
 
         public void ThreadWork(GameTime gameTime)
         {
-
-            var WhileBool = true;
-            while (WhileBool == true && endScreen == false)
+            if (turn >=3)
             {
-                if (playerTurn == true)
+                var WhileBool = true;
+                while (WhileBool == true && endScreen == false)
                 {
-                    foreach (CardSpace item in playerSpaces)
+                    if (playerTurn == true)
                     {
-                        if (item.card !=null)
+                        foreach (CardSpace item in playerSpaces)
                         {
-                            if (item.card.Health <= 0)
+                            if (item.card != null)
                             {
-                                if (item.card.Name == "DavyJonesLocker")
+                                if (item.card.Health <= 0)
                                 {
-                                    item.card.AdditionalCardEffect(enemySpaces, playerSpaces);
-                                    LoadContent();
-                                }
-                                item.card = null;
-                            }
-                        }
-
-
-                        if (item.card != null)
-                        {
-                            item.card.color = Color.LawnGreen;
-                            item.card.CardEffect(enemySpaces, playerSpaces);
-                        }
-
-                        foreach (CardSpace enemyItem in enemySpaces)
-                        {
-                            if (enemyItem.card!=null)
-                            {
-                                if (enemyItem.card.damageTaken >0)
-                                {
-                                    enemyItem.card.tookDamage = true;
-                                }
-                            }
-                            
-                        }
-                        if (item.card!=null)
-                        {
-                            Thread.Sleep(500);
-                        }
-
-                        foreach (CardSpace enemyItem in enemySpaces)
-                        {
-                            if (enemyItem.card!=null)
-                            {
-                                enemyItem.card.tookDamage = false;
-                                enemyItem.card.damageTaken = 0;
-
-                                if (enemyItem.card.Health <=0)
-                                {
-                                    if (enemyItem.card.Name == "DavyJonesLocker")
+                                    if (item.card.Name == "DavyJonesLocker")
                                     {
-                                        enemyItem.card.AdditionalCardEffect(enemySpaces, playerSpaces);
+                                        item.card.AdditionalCardEffect(enemySpaces, playerSpaces);
                                         LoadContent();
                                     }
-                                    enemyItem.card = null;  
-
+                                    item.card = null;
                                 }
                             }
-                        }
-                        if (item.card != null)
-                        {
-                            Thread.Sleep(200);
-                        }
-                        if (item.card != null)
-                        {
-                            item.card.color = Color.White;
-                        }
 
 
-                    }
-                    foreach (CardSpace item in enemySpaces)
-                    {
-                        if (item.card !=null)
-                        {
-                            if (item.card.Health <= 0)
+                            if (item.card != null)
                             {
-                                if (item.card.Name == "DavyJonesLocker")
-                                {
-                                    item.card.AdditionalCardEffect(enemySpaces, playerSpaces);
-                                    LoadContent();
-                                }
-                                item.card = null;
+                                item.card.color = Color.LawnGreen;
+                                item.card.CardEffect(enemySpaces, playerSpaces);
                             }
+
+                            foreach (CardSpace enemyItem in enemySpaces)
+                            {
+                                if (enemyItem.card != null)
+                                {
+                                    if (enemyItem.card.damageTaken > 0)
+                                    {
+                                        enemyItem.card.tookDamage = true;
+                                    }
+                                }
+
+                            }
+                            if (item.card != null)
+                            {
+                                Thread.Sleep(500);
+                            }
+
+                            foreach (CardSpace enemyItem in enemySpaces)
+                            {
+                                if (enemyItem.card != null)
+                                {
+                                    enemyItem.card.tookDamage = false;
+                                    enemyItem.card.damageTaken = 0;
+
+                                    if (enemyItem.card.Health <= 0)
+                                    {
+                                        if (enemyItem.card.Name == "DavyJonesLocker")
+                                        {
+                                            enemyItem.card.AdditionalCardEffect(enemySpaces, playerSpaces);
+                                            LoadContent();
+                                        }
+                                        enemyItem.card = null;
+
+                                    }
+                                }
+                            }
+                            if (item.card != null)
+                            {
+                                Thread.Sleep(200);
+                            }
+                            if (item.card != null)
+                            {
+                                item.card.color = Color.White;
+                            }
+
+
                         }
-                        
+                        foreach (CardSpace item in enemySpaces)
+                        {
+                            if (item.card != null)
+                            {
+                                if (item.card.Health <= 0)
+                                {
+                                    if (item.card.Name == "DavyJonesLocker")
+                                    {
+                                        item.card.AdditionalCardEffect(enemySpaces, playerSpaces);
+                                        LoadContent();
+                                    }
+                                    item.card = null;
+                                }
+                            }
+
+                        }
+                        WhileBool = false;
+                    }
+                    else
+                    {
+                        Thread.Sleep(499);
+                        for (int i = 0; i < 8; i++)
+                        {
+                            var tmp = 0;
+
+                            if (i <= 3)
+                            {
+
+                                tmp = (i + 4);
+                            }
+                            else
+                            {
+                                tmp = (i - 4);
+                            }
+
+                            if (enemySpaces[tmp].card != null)
+                            {
+                                enemySpaces[tmp].card.color = Color.LawnGreen;
+                                enemySpaces[tmp].card.CardEffect(enemySpaces, playerSpaces);
+                            }
+
+                            if (playerHealth <= 0)
+                            {
+                                WhileBool = false;
+                                break;
+                            }
+
+                            foreach (CardSpace playerItem in playerSpaces)
+                            {
+                                if (playerItem.card != null)
+                                {
+                                    if (playerItem.card.damageTaken > 0)
+                                    {
+                                        playerItem.card.tookDamage = true;
+                                    }
+                                }
+
+                            }
+
+                            if (enemySpaces[tmp].card != null)
+                            {
+                                Thread.Sleep(500);
+                            }
+
+                            foreach (CardSpace playerItem in playerSpaces)
+                            {
+                                if (playerItem.card != null)
+                                {
+                                    playerItem.card.tookDamage = false;
+                                    playerItem.card.damageTaken = 0;
+                                    if (playerItem.card.Health <= 0)
+                                    {
+                                        if (playerItem.card.Name == "DavyJonesLocker")
+                                        {
+                                            playerItem.card.AdditionalCardEffect(enemySpaces, playerSpaces);
+                                            LoadContent();
+                                        }
+                                        playerItem.card = null;
+                                    }
+
+                                }
+                            }
+                            if (enemySpaces[tmp].card != null)
+                            {
+                                Thread.Sleep(200);
+                            }
+                            if (enemySpaces[tmp].card != null)
+                            {
+                                enemySpaces[tmp].card.color = Color.White;
+                            }
+
+                        }
+                        foreach (CardSpace item in playerSpaces)
+                        {
+                            if (item.card != null)
+                            {
+                                if (item.card.Health <= 0)
+                                {
+                                    if (item.card.Name == "DavyJonesLocker")
+                                    {
+                                        item.card.AdditionalCardEffect(enemySpaces, playerSpaces);
+                                        LoadContent();
+                                    }
+                                    item.card = null;
+                                }
+                            }
+
+                        }
+
+
+
+
                     }
                     WhileBool = false;
+                    playerTurn = !playerTurn;
+                    endTurnOnlyOnce = true;
+                    drawnCards = false;
+
                 }
-                else
-                {
-                    Thread.Sleep(499);
-                    for (int i = 0; i < 8; i++)
-                    {
-                        var tmp = 0;
-                        
-                        if (i <=3)
-                        {
-
-                            tmp = (i + 4);
-                        }
-                        else
-                        {
-                            tmp = (i - 4);
-                        }
-
-                        if (enemySpaces[tmp].card!=null)
-                        {
-                            enemySpaces[tmp].card.color = Color.LawnGreen;
-                            enemySpaces[tmp].card.CardEffect(enemySpaces, playerSpaces);
-                        }
-
-                        if (playerHealth <=0)
-                        {
-                            WhileBool = false;
-                            break;
-                        }
-
-                        foreach (CardSpace playerItem in playerSpaces)
-                        {
-                            if (playerItem.card != null)
-                            {
-                                if (playerItem.card.damageTaken >0)
-                                {
-                                    playerItem.card.tookDamage = true;
-                                }
-                            }
-
-                        }
-
-                        if (enemySpaces[tmp].card != null)
-                        {
-                            Thread.Sleep(500);
-                        }
-
-                        foreach (CardSpace playerItem in playerSpaces)
-                        {
-                            if (playerItem.card != null)
-                            {
-                                playerItem.card.tookDamage = false;
-                                playerItem.card.damageTaken = 0;
-                                if (playerItem.card.Health <= 0)
-                                {
-                                    if (playerItem.card.Name == "DavyJonesLocker")
-                                    {
-                                        playerItem.card.AdditionalCardEffect(enemySpaces, playerSpaces);
-                                        LoadContent();
-                                    }
-                                    playerItem.card = null;
-                                }
-
-                            }
-                        }
-                        if (enemySpaces[tmp].card != null)
-                        {
-                            Thread.Sleep(200);
-                        }
-                        if (enemySpaces[tmp].card != null)
-                        {
-                            enemySpaces[tmp].card.color = Color.White;
-                        }
-
-                    }
-                    foreach (CardSpace item in playerSpaces)
-                    {
-                        if (item.card != null)
-                        {
-                            if (item.card.Health <= 0)
-                            {
-                                if (item.card.Name == "DavyJonesLocker")
-                                {
-                                    item.card.AdditionalCardEffect(enemySpaces, playerSpaces);
-                                    LoadContent();
-                                }
-                                item.card = null;
-                            }
-                        }
-
-                    }
-                    
-
-                    
-                
-                }
-                WhileBool = false;
+            }
+            else
+            {
                 playerTurn = !playerTurn;
                 endTurnOnlyOnce = true;
                 drawnCards = false;
-
             }
+            
 
         }
 
