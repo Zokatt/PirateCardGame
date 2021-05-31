@@ -931,10 +931,17 @@ namespace PriateCardGame
         public void drawCardBoard(GameTime gameTime)
         {
             _spriteBatch.Draw(background, new Vector2(-150, 0), Color.White);
-            _spriteBatch.DrawString(Bigfont, $"Enemy Health {enemyHealth}", new Vector2(0, 0), Color.Black);
-            _spriteBatch.DrawString(Bigfont, $"Player Health {playerHealth}", new Vector2(0, 900), Color.Black);
-            _spriteBatch.DrawString(Bigfont, $"Turn : {playerTurn}", new Vector2(0, 100), Color.Black);
-            _spriteBatch.DrawString(Bigfont, $"Turn : {turn}", new Vector2(0, 200), Color.Black);
+            _spriteBatch.DrawString(Bigfont, $"{enemyHealth}", new Vector2(165, 75), Color.White);
+            _spriteBatch.DrawString(Bigfont, $"{playerHealth}", new Vector2(170, 880), Color.White);
+            if (playerTurn == true)
+            {
+                _spriteBatch.DrawString(Bigfont, $"Player", new Vector2(0, 100), Color.Black);
+            }
+            if (playerTurn == false)
+            {
+                _spriteBatch.DrawString(Bigfont, $"AI", new Vector2(0, 100), Color.Black);
+            }
+            //_spriteBatch.DrawString(Bigfont, $"Turn : {turn}", new Vector2(0, 200), Color.Black);
 
             foreach (var item in enemySpaces)
             {
