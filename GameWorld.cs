@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PriateCardGame.BuilderPattern;
@@ -59,6 +60,8 @@ namespace PriateCardGame
         public static int turn = 0;
         public static bool endTurnOnlyOnce = true;
         public int difficulty = 1;
+        public SoundEffect placeCard;
+        public SoundEffect woodClick;
         
 
         //public static GameState gameState = GameState.CardBoard;
@@ -216,6 +219,8 @@ namespace PriateCardGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Font");
             Bigfont = Content.Load<SpriteFont>("BigFont");
+            placeCard = Content.Load<SoundEffect>("WoodKick");
+            woodClick = Content.Load<SoundEffect>("WoodClick");
 
             if (gameState == GameState.CardBoard)
             {
@@ -514,12 +519,14 @@ namespace PriateCardGame
                     item.color = Color.Green;
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "MenuButton")
                     {
+                        woodClick.Play();
                         gameState = GameState.StageSelect;
                         Initialize();
                         LoadContent();
                     }
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "RightArrow" && bPress == false && pageNumber <=1)
                     {
+                        woodClick.Play();
                         bPress = true;
                         pageNumber += 1;
                         Initialize();
@@ -527,6 +534,7 @@ namespace PriateCardGame
                     }
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "LeftArrow" && bPress == false && pageNumber >=1)
                     {
+                        woodClick.Play();
                         bPress = true;
                         pageNumber -= 1;
                         Initialize();
@@ -618,30 +626,35 @@ namespace PriateCardGame
                         switch (item.spritePick)
                         {
                             case "StageSelectButtons/Enemy1":
+                                woodClick.Play();
                                 difficulty = 1;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy2":
+                                woodClick.Play();
                                 difficulty = 2;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy3":
+                                woodClick.Play();
                                 difficulty = 3;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy4":
+                                woodClick.Play();
                                 difficulty = 4;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/DeckBuilder":
+                                woodClick.Play();
                                 gameState = GameState.DeckBuilding;
                                 Initialize();
                                 LoadContent();
@@ -850,6 +863,7 @@ namespace PriateCardGame
                     }
                     if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null && playerTurn == true)
                     {
+
                         if (item.spaceCoin >= refCard.Coin)
                         {
                             item.setCard(refCard);
@@ -857,6 +871,12 @@ namespace PriateCardGame
                             refCard = null;
                         }
                         
+
+                        //Place soundeffect
+                        placeCard.Play();
+                        item.setCard(refCard);
+                        playerCards.Remove(refCard);
+                        refCard = null;
 
                         bPress = true;
                         //CoinSetUp(playerSpaces, item.spaceNumber);

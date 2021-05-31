@@ -375,3 +375,15 @@
 /processorParam:TextureFormat=Color
 /build:WinOrLoss.png
 
+#begin WoodClick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:WoodClick.wav
+
+#begin WoodKick.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:WoodKick.wav
+
