@@ -869,15 +869,9 @@ namespace PriateCardGame
                             item.setCard(refCard);
                             playerCards.Remove(refCard);
                             refCard = null;
+                            //Place soundeffect
+                            placeCard.Play();
                         }
-                        
-
-                        //Place soundeffect
-                        placeCard.Play();
-                        item.setCard(refCard);
-                        playerCards.Remove(refCard);
-                        refCard = null;
-
                         bPress = true;
                         //CoinSetUp(playerSpaces, item.spaceNumber);
                     }
