@@ -814,6 +814,7 @@ namespace PriateCardGame
                     }
                     if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null && playerTurn == true)
                     {
+                        //Place soundeffect
                         item.setCard(refCard);
                         playerCards.Remove(refCard);
                         refCard = null;
