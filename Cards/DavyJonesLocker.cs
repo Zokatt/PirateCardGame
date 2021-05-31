@@ -15,6 +15,7 @@ namespace PriateCardGame.Cards
             Random rnd = new Random();
             int rndCard = rnd.Next(1, 10);
             
+
             if (this.Health <= 0)
             {
                 switch (rndCard)

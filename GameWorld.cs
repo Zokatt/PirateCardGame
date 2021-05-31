@@ -1391,9 +1391,13 @@ namespace PriateCardGame
                     {
                         rewardCard = new SniperParrot();
                     }
-                    if (tmp >= 92 && tmp <= 103)
+                    if (tmp >= 92 && tmp <= 102)
                     {
                         rewardCard = new Whale();
+                    }
+                    if (tmp >= 103)
+                    {
+                        rewardCard = new Captain();
                     }
                     break;
                 case 3:
@@ -1409,9 +1413,13 @@ namespace PriateCardGame
                     {
                         rewardCard = new Whale();
                     }
-                    if (tmp >=76 && tmp <=103)
+                    if (tmp >=76 && tmp <=102)
                     {
                         rewardCard = new FatPirate();
+                    }
+                    if (tmp >= 103)
+                    {
+                        rewardCard = new Captain();
                     }
                     break;
                 case 4:
@@ -1423,9 +1431,13 @@ namespace PriateCardGame
                     {
                         rewardCard = new Cannon();
                     }
-                    if (tmp >= 76 && tmp <= 103)
+                    if (tmp >= 76 && tmp <= 102)
                     {
                         rewardCard = new Whale();
+                    }
+                    if (tmp >= 103)
+                    {
+                        rewardCard = new Captain();
                     }
                     break;
             }
