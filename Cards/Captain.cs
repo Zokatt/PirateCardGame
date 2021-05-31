@@ -39,7 +39,7 @@ namespace PriateCardGame.Cards
 
         public Captain()
         {
-            this.Coin = 1;
+            this.Coin = 5;
             this.color = Color.White;
             this.Name = "Captain";
             this.Damage = 4;

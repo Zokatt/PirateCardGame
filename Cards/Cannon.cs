@@ -62,7 +62,7 @@ namespace PriateCardGame.Cards
 
         public Cannon()
         {
-            this.Coin = 1;
+            this.Coin = 3;
             this.color = Color.White;
             this.Name = "Cannon";
             this.Damage = 0;

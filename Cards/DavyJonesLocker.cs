@@ -67,7 +67,7 @@ namespace PriateCardGame.Cards
             this.Name = "DavyJonesLocker";
             this.Damage = 1;
             this.Health = 5;
-            
+            this.Coin = 2;
         }
 
         public override void LoadContent(ContentManager contentManager)
