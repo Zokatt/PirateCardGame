@@ -12,7 +12,7 @@ namespace PriateCardGame.Cards
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             Random rnd = new Random();
-            var tmp = rnd.Next(0, 3);
+            var tmp = rnd.Next(0, 4);
             if (this.position.Y <500)
             {
                 foreach (CardSpace item in playerSpaces)
