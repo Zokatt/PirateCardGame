@@ -192,9 +192,21 @@ namespace PriateCardGame
                 {
                     GameUI.Add(new UI($"StageSelectButtons/Enemy{i}", new Vector2(-350+(i*400), 50)));
                 }
-
-                
                 GameUI.Add(new UI("StageSelectButtons/DeckBuilder", new Vector2(1200, 850)));
+
+                var mapper = new CardMapper();
+                var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
+                repo = new CardRepository(provider, mapper);
+
+
+                //dropRepoTable();
+                repo.Open();
+                if (repo.FindAllCards().Count <=0)
+                {
+                    MakePlayerDeck();
+                }
+                repo.Close();
+                
             }
 
             base.Initialize();
@@ -281,6 +293,24 @@ namespace PriateCardGame
                 item.LoadContent(this.Content);
             }
         }
+
+        public void MakePlayerDeck()
+        {
+            for (int i = 0; i < 12; i++)
+            {
+                repo.AddCard("Swapper");
+            }
+            for (int i = 0; i < 3; i++)
+            {
+                repo.AddCard("Cannibal");
+            }
+            for (int i = 0; i < 2; i++)
+            {
+                repo.AddCard("Musketeer");
+            }
+            repo.AddCard("FatPirate");
+        }
+
 
         protected override void Update(GameTime gameTime)
         {
@@ -1294,15 +1324,15 @@ namespace PriateCardGame
             switch (difficulty)
             {
                 case 1:
-                    if (tmp <=40)
+                    if (tmp <=50)
                     {
                         rewardCard = new Swapper();
                     }
-                    if (tmp >= 41 && tmp <=80)
+                    if (tmp >= 51 && tmp <=70)
                     {
                         rewardCard = new Cannibal();
                     }
-                    if (tmp >= 81 && tmp <= 91)
+                    if (tmp >= 71 && tmp <= 91)
                     {
                         rewardCard = new Musketeer();
                     }
