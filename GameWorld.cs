@@ -61,7 +61,7 @@ namespace PriateCardGame
         public static bool endTurnOnlyOnce = true;
         public int difficulty = 1;
         public SoundEffect placeCard;
-        public SoundEffect enemyClick;
+        public SoundEffect woodClick;
         
 
         //public static GameState gameState = GameState.CardBoard;
@@ -208,7 +208,7 @@ namespace PriateCardGame
             font = Content.Load<SpriteFont>("Font");
             Bigfont = Content.Load<SpriteFont>("BigFont");
             placeCard = Content.Load<SoundEffect>("WoodKick");
-            enemyClick = Content.Load<SoundEffect>("WoodClick");
+            woodClick = Content.Load<SoundEffect>("WoodClick");
 
             if (gameState == GameState.CardBoard)
             {
@@ -489,12 +489,14 @@ namespace PriateCardGame
                     item.color = Color.Green;
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "MenuButton")
                     {
+                        woodClick.Play();
                         gameState = GameState.StageSelect;
                         Initialize();
                         LoadContent();
                     }
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "RightArrow" && bPress == false && pageNumber <=1)
                     {
+                        woodClick.Play();
                         bPress = true;
                         pageNumber += 1;
                         Initialize();
@@ -502,6 +504,7 @@ namespace PriateCardGame
                     }
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "LeftArrow" && bPress == false && pageNumber >=1)
                     {
+                        woodClick.Play();
                         bPress = true;
                         pageNumber -= 1;
                         Initialize();
@@ -593,35 +596,35 @@ namespace PriateCardGame
                         switch (item.spritePick)
                         {
                             case "StageSelectButtons/Enemy1":
-                                enemyClick.Play();
+                                woodClick.Play();
                                 difficulty = 1;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy2":
-                                enemyClick.Play();
+                                woodClick.Play();
                                 difficulty = 2;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy3":
-                                enemyClick.Play();
+                                woodClick.Play();
                                 difficulty = 3;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy4":
-                                enemyClick.Play();
+                                woodClick.Play();
                                 difficulty = 4;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/DeckBuilder":
-                                enemyClick.Play();
+                                woodClick.Play();
                                 gameState = GameState.DeckBuilding;
                                 Initialize();
                                 LoadContent();
