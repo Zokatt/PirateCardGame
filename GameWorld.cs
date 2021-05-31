@@ -1,4 +1,5 @@
 ﻿using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Audio;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using PriateCardGame.BuilderPattern;
@@ -59,6 +60,8 @@ namespace PriateCardGame
         public static int turn = 0;
         public static bool endTurnOnlyOnce = true;
         public int difficulty = 1;
+        public SoundEffect placeCard;
+        public SoundEffect enemyClick;
         
 
         //public static GameState gameState = GameState.CardBoard;
@@ -204,6 +207,8 @@ namespace PriateCardGame
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             font = Content.Load<SpriteFont>("Font");
             Bigfont = Content.Load<SpriteFont>("BigFont");
+            placeCard = Content.Load<SoundEffect>("WoodKick");
+            enemyClick = Content.Load<SoundEffect>("WoodClick");
 
             if (gameState == GameState.CardBoard)
             {
@@ -588,30 +593,35 @@ namespace PriateCardGame
                         switch (item.spritePick)
                         {
                             case "StageSelectButtons/Enemy1":
+                                enemyClick.Play();
                                 difficulty = 1;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy2":
+                                enemyClick.Play();
                                 difficulty = 2;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy3":
+                                enemyClick.Play();
                                 difficulty = 3;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy4":
+                                enemyClick.Play();
                                 difficulty = 4;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/DeckBuilder":
+                                enemyClick.Play();
                                 gameState = GameState.DeckBuilding;
                                 Initialize();
                                 LoadContent();
@@ -815,6 +825,7 @@ namespace PriateCardGame
                     if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null && playerTurn == true)
                     {
                         //Place soundeffect
+                        placeCard.Play();
                         item.setCard(refCard);
                         playerCards.Remove(refCard);
                         refCard = null;
