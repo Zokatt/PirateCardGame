@@ -18,7 +18,7 @@ namespace PriateCardGame.Cards
             this.color = Color.White;
             this.Name = "Swapper";
             this.Damage = 1;
-            this.Health = 2;
+            this.Health = 3;
             this.Coin = 1;
         }
 

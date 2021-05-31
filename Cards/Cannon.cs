@@ -30,7 +30,8 @@ namespace PriateCardGame.Cards
                         }
                         else
                         {
-                            GameWorld.enemyHealth -= 10;
+                            GameWorld.playerHealth -= 10;
+                            GameWorld.healthDamage += 10;
                         }
                     }
                 }
@@ -54,6 +55,7 @@ namespace PriateCardGame.Cards
                         else
                         {
                             GameWorld.enemyHealth -= 10;
+                            GameWorld.healthDamage += 10;
                         }
                     }
                 }

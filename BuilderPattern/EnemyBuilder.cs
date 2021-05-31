@@ -15,7 +15,7 @@ namespace PriateCardGame.BuilderPattern
 
             if (diff == 1)
             {
-                for (int i = 0; i < 20; i++)
+                for (int i = 0; i < 15; i++)
                 {
                     DeckList.Add(new Swapper());
                 }

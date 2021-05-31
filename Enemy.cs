@@ -88,17 +88,17 @@ namespace PriateCardGame
 
         public void DrawHand()
         {
-            if (EnemyHand.Count >=10)
+            if (EnemyHand.Count >=5)
             {
-                EnemyHand.RemoveAt(9);
-                EnemyHand.RemoveAt(8);
+                EnemyHand.RemoveAt(5);
+                EnemyHand.RemoveAt(4);
             }
             Random rnd = new Random();
             if (GameWorld.turn <= 2)
             {
                 for (int i = 0; i < 5; i++)
                 {
-                    if (Deck.Count >= 1 && EnemyHand.Count < 10)
+                    if (Deck.Count >= 1 && EnemyHand.Count < 5)
                     {
                         int temp = rnd.Next(0, Deck.Count);
                         EnemyHand.Add(Deck[temp]);
@@ -110,7 +110,7 @@ namespace PriateCardGame
             {
                 for (int i = 0; i < 2; i++)
                 {
-                    if (Deck.Count >= 1 && EnemyHand.Count < 10)
+                    if (Deck.Count >= 1 && EnemyHand.Count < 5)
                     {
                         int temp = rnd.Next(0, Deck.Count);
 

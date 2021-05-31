@@ -56,6 +56,7 @@ namespace PriateCardGame
         public int scroll;
         public static int enemyHealth = 0;
         public static int playerHealth = 0;
+        public static int healthDamage = 0;
         public bool drawnCards = false;
         public static int turn = 0;
         public static bool endTurnOnlyOnce = true;
@@ -85,8 +86,8 @@ namespace PriateCardGame
                 rewardCard = null;
                 endScreen = false;
                 playerTurn = true;
-                enemyHealth = 1;
-                playerHealth = 10;
+                enemyHealth = 25;
+                playerHealth = 25;
                 playerCards = new List<CardBase>();
                 playerSpaces = new List<CardSpace>();
                 enemySpaces = new List<CardSpace>();
@@ -927,14 +928,22 @@ namespace PriateCardGame
         {
             _spriteBatch.Draw(background, new Vector2(-150, 0), Color.White);
             _spriteBatch.DrawString(Bigfont, $"{enemyHealth}", new Vector2(165, 75), Color.White);
+            if (playerTurn == false && healthDamage >=1)
+            {
+                _spriteBatch.DrawString(Bigfont, $"-{healthDamage}", new Vector2(220, 880), Color.Red);
+            }
             _spriteBatch.DrawString(Bigfont, $"{playerHealth}", new Vector2(170, 880), Color.White);
             if (playerTurn == true)
             {
-                _spriteBatch.DrawString(Bigfont, $"Player", new Vector2(0, 100), Color.Black);
+                _spriteBatch.DrawString(Bigfont, $"Player", new Vector2(0, 300), Color.Green);
+            }
+            if (playerTurn == true && healthDamage >= 1)
+            {
+                _spriteBatch.DrawString(Bigfont, $"-{healthDamage}", new Vector2(220, 75), Color.Red);
             }
             if (playerTurn == false)
             {
-                _spriteBatch.DrawString(Bigfont, $"AI", new Vector2(0, 100), Color.Black);
+                _spriteBatch.DrawString(Bigfont, $"AI", new Vector2(0, 300), Color.Red);
             }
             //_spriteBatch.DrawString(Bigfont, $"Turn : {turn}", new Vector2(0, 200), Color.Black);
 
@@ -1226,11 +1235,13 @@ namespace PriateCardGame
                     playerTurn = !playerTurn;
                     endTurnOnlyOnce = true;
                     drawnCards = false;
+                    healthDamage = 0;
 
                 }
             }
             else
             {
+                healthDamage = 0;
                 playerTurn = !playerTurn;
                 endTurnOnlyOnce = true;
                 drawnCards = false;
