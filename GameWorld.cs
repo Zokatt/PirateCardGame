@@ -62,7 +62,7 @@ namespace PriateCardGame
         public int difficulty = 1;
         public SoundEffect placeCard;
         public SoundEffect woodClick;
-        
+        public SoundEffect bookFlip;
 
         //public static GameState gameState = GameState.CardBoard;
         public static Director director = new Director(new EnemyBuilder());
@@ -221,6 +221,7 @@ namespace PriateCardGame
             Bigfont = Content.Load<SpriteFont>("BigFont");
             placeCard = Content.Load<SoundEffect>("WoodKick");
             woodClick = Content.Load<SoundEffect>("WoodClick");
+            bookFlip = Content.Load<SoundEffect>("BookFlipping");
 
             if (gameState == GameState.CardBoard)
             {
@@ -519,14 +520,13 @@ namespace PriateCardGame
                     item.color = Color.Green;
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "MenuButton")
                     {
-                        woodClick.Play();
                         gameState = GameState.StageSelect;
                         Initialize();
                         LoadContent();
                     }
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "RightArrow" && bPress == false && pageNumber <=1)
                     {
-                        woodClick.Play();
+                        bookFlip.Play();
                         bPress = true;
                         pageNumber += 1;
                         Initialize();
@@ -534,7 +534,7 @@ namespace PriateCardGame
                     }
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "LeftArrow" && bPress == false && pageNumber >=1)
                     {
-                        woodClick.Play();
+                        bookFlip.Play();
                         bPress = true;
                         pageNumber -= 1;
                         Initialize();
@@ -626,35 +626,30 @@ namespace PriateCardGame
                         switch (item.spritePick)
                         {
                             case "StageSelectButtons/Enemy1":
-                                woodClick.Play();
                                 difficulty = 1;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy2":
-                                woodClick.Play();
                                 difficulty = 2;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy3":
-                                woodClick.Play();
                                 difficulty = 3;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/Enemy4":
-                                woodClick.Play();
                                 difficulty = 4;
                                 gameState = GameState.CardBoard;
                                 Initialize();
                                 LoadContent();
                                 break;
                             case "StageSelectButtons/DeckBuilder":
-                                woodClick.Play();
                                 gameState = GameState.DeckBuilding;
                                 Initialize();
                                 LoadContent();

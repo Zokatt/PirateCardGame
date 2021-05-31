@@ -32,6 +32,12 @@
 /processorParam:TextureFormat=Compressed
 /build:BigFont.spritefont
 
+#begin BookFlipping.wav
+/importer:WavImporter
+/processor:SoundEffectProcessor
+/processorParam:Quality=Best
+/build:BookFlipping.wav
+
 #begin Cannibal.png
 /importer:TextureImporter
 /processor:TextureProcessor
