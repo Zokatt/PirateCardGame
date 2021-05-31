@@ -65,8 +65,8 @@ namespace PriateCardGame.Cards
         {
             this.color = Color.White;
             this.Name = "DavyJonesLocker";
-            this.Damage = 1;
-            this.Health = 5;
+            this.Damage = 0;
+            this.Health = 1;
             this.Coin = 2;
         }
 

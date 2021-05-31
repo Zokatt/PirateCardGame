@@ -316,6 +316,7 @@ namespace PriateCardGame
                 repo.AddCard("Musketeer");
             }
             repo.AddCard("FatPirate");
+            repo.AddCard("Captain");
         }
 
 
