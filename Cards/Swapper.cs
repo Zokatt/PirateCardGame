@@ -15,12 +15,11 @@ namespace PriateCardGame.Cards
 
         public Swapper()
         {
-            this.Star = 1;
             this.color = Color.White;
             this.Name = "Swapper";
             this.Damage = 1;
             this.Health = 2;
-            this.Star = 1;
+            this.Coin = 1;
         }
 
         public override void LoadContent(ContentManager contentManager)

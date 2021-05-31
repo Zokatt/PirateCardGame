@@ -32,7 +32,7 @@ namespace PriateCardGame.Cards
 
         public Whale()
         {
-            this.Star = 1;
+            this.Coin = 1;
             this.color = Color.White;
             this.Name = "Whale";
             this.Damage = 0;

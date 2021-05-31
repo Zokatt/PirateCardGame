@@ -15,7 +15,7 @@ namespace PriateCardGame
         private Texture2D sprite;
         public bool CanPlace = false;
         public int spaceNumber;
-        public int spaceStar;
+        public int spaceCoin;
         private Texture2D coin;
 
         public virtual Rectangle Collision
@@ -50,68 +50,68 @@ namespace PriateCardGame
             return tmp;
         }
 
-        public void StarSetUp(List<CardSpace> refList)
+        public void CoinSetUp(List<CardSpace> refList)
         {
             switch (this.spaceNumber)
             {
                 case 0:
                     if (refList[this.spaceNumber].card != null)
                     {
-                        refList[this.spaceNumber + 1].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber + 4].spaceStar += this.spaceStar;
+                        refList[this.spaceNumber + 1].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber + 4].spaceCoin += this.spaceCoin;
                     }
                     break;
                 case 1:
                     if (refList[this.spaceNumber].card != null)
                     {
-                        refList[this.spaceNumber - 1].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber + 1].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber + 4].spaceStar += this.spaceStar;
+                        refList[this.spaceNumber - 1].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber + 1].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber + 4].spaceCoin += this.spaceCoin;
                     }
                     break;
                 case 2:
                     if (refList[this.spaceNumber].card != null)
                     {
-                        refList[this.spaceNumber - 1].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber + 1].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber + 4].spaceStar += this.spaceStar;
+                        refList[this.spaceNumber - 1].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber + 1].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber + 4].spaceCoin += this.spaceCoin;
                     }
                     break;
                 case 3:
                     if (refList[this.spaceNumber].card != null)
                     {
-                        refList[this.spaceNumber - 1].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber + 4].spaceStar += this.spaceStar;
+                        refList[this.spaceNumber - 1].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber + 4].spaceCoin += this.spaceCoin;
                     }
                     break;
                 case 4:
                     if (refList[this.spaceNumber].card != null)
                     {
-                        refList[this.spaceNumber - 4].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber + 1].spaceStar += this.spaceStar;
+                        refList[this.spaceNumber - 4].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber + 1].spaceCoin += this.spaceCoin;
                     }
                     break;
                 case 5:
                     if (refList[this.spaceNumber].card != null)
                     {
-                        refList[this.spaceNumber - 4].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber - 1].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber + 1].spaceStar += this.spaceStar;
+                        refList[this.spaceNumber - 4].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber - 1].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber + 1].spaceCoin += this.spaceCoin;
                     }
                     break;
                 case 6:
                     if (refList[this.spaceNumber].card != null)
                     {
-                        refList[this.spaceNumber - 4].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber - 1].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber + 1].spaceStar += this.spaceStar;
+                        refList[this.spaceNumber - 4].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber - 1].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber + 1].spaceCoin += this.spaceCoin;
                     }
                     break;
                 case 7:
                     if (refList[this.spaceNumber].card != null)
                     {
-                        refList[this.spaceNumber - 4].spaceStar += this.spaceStar;
-                        refList[this.spaceNumber - 1].spaceStar += this.spaceStar;
+                        refList[this.spaceNumber - 4].spaceCoin += this.spaceCoin;
+                        refList[this.spaceNumber - 1].spaceCoin += this.spaceCoin;
                     }
                     break;
 
@@ -123,12 +123,12 @@ namespace PriateCardGame
             this.card = otherCard;
             this.card.position = this.position;
             this.card.spaceNumber = this.spaceNumber;
-            this.spaceStar = this.card.Star;
+            this.spaceCoin = this.card.Coin;
         }
 
         public void DrawCoin(SpriteBatch spriteBatch)
         {
-            spriteBatch.DrawString(GameWorld.font, $"{spaceStar}", new Vector2(this.position.X + 25, this.position.Y +5), Color.Black);
+            spriteBatch.DrawString(GameWorld.font, $"{spaceCoin}", new Vector2(this.position.X + 25, this.position.Y +5), Color.Black);
             spriteBatch.Draw(coin, new Vector2(this.position.X,this.position.Y), null, Color.White, 0f,
                          Vector2.Zero, 0.4f, SpriteEffects.None, 0f);
         }

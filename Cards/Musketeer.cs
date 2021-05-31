@@ -24,12 +24,11 @@ namespace PriateCardGame.Cards
 
         public Musketeer()
         {
-            this.Star = 1;
             this.color = Color.White;
             this.Name = "Musketeer";
             this.Damage = 1;
             this.Health = 5;
-            this.Star = 1;
+            this.Coin = 2;
         }
 
         public override void LoadContent(ContentManager contentManager)

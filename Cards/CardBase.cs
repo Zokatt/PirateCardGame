@@ -36,7 +36,7 @@ namespace PriateCardGame
 
         public int spaceNumber { get; set; }
 
-        public int Star { get; set; }
+        public int Coin { get; set; }
 
 
         //Validate method?

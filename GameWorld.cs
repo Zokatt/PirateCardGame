@@ -669,20 +669,26 @@ namespace PriateCardGame
 
             foreach (CardSpace item in playerSpaces)
             {
-                item.StarSetUp(playerSpaces);
+                item.CoinSetUp(playerSpaces);
+            }
+        }
+
+        public static void UpdateCoinsForLists()
+        {
+
+            foreach (var item in playerSpaces)
+            {
+                CoinSetUp(playerSpaces, item.spaceNumber);
+            }
+            foreach (var item in enemySpaces)
+            {
+                CoinSetUp(enemySpaces, item.spaceNumber);
             }
         }
 
         public void UpdateCardBoard(GameTime gameTime)
         {
-            foreach (var item in playerSpaces)
-            {
-                StarSetUp(playerSpaces,item.spaceNumber);
-            }
-            foreach (var item in enemySpaces)
-            {
-                StarSetUp(enemySpaces,item.spaceNumber);
-            }
+            UpdateCoinsForLists();
             if (enemyHealth <= 0)
             {
                 endScreen = true;
@@ -814,7 +820,7 @@ namespace PriateCardGame
                     }
                     if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null && playerTurn == true)
                     {
-                        if (item.spaceStar >= refCard.Star)
+                        if (item.spaceCoin >= refCard.Coin)
                         {
                             item.setCard(refCard);
                             playerCards.Remove(refCard);
@@ -823,7 +829,7 @@ namespace PriateCardGame
                         
 
                         bPress = true;
-                        //StarSetUp(playerSpaces, item.spaceNumber);
+                        //CoinSetUp(playerSpaces, item.spaceNumber);
                     }
                 }
 
@@ -1189,91 +1195,91 @@ namespace PriateCardGame
                 }
             }
         }
-        public static void StarSetUp(List<CardSpace> refList,int cSPace)
+        public static void CoinSetUp(List<CardSpace> refList,int cSPace)
         {
             switch (cSPace)
             {
                 case 0:
                     if (refList[cSPace].card == null)
                     {
-                        //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
-                        //refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace + 1].spaceCoin += refList[cSPace].spaceCoin;
+                        //refList[cSPace + 4].spaceCoin += refList[cSPace].spaceCoin;
 
-                        refList[cSPace].spaceStar = (refList[cSPace + 1].checkCard().Star + refList[cSPace + 4].checkCard().Star+1);
+                        refList[cSPace].spaceCoin = (refList[cSPace + 1].checkCard().Coin + refList[cSPace + 4].checkCard().Coin)+1;
                     }
                     break;
                 case 1:
                     if (refList[cSPace].card == null)
                     {
-                        //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
-                        //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
-                        //refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 1].spaceCoin += refList[cSPace].spaceCoin;
+                        //refList[cSPace + 1].spaceCoin += refList[cSPace].spaceCoin;
+                        //refList[cSPace + 4].spaceCoin += refList[cSPace].spaceCoin;
 
-                        refList[cSPace].spaceStar = (refList[cSPace - 1].checkCard().Star + 
-                            refList[cSPace + 1].checkCard().Star + refList[cSPace+4].checkCard().Star+1);
+                        refList[cSPace].spaceCoin = (refList[cSPace - 1].checkCard().Coin + 
+                            refList[cSPace + 1].checkCard().Coin + refList[cSPace+4].checkCard().Coin)+1;
 
                     }
                     break;
                 case 2:
                     if (refList[cSPace].card == null)
                     {
-                    //    refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
-                    //    refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
-                    //    refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                    //    refList[cSPace - 1].spaceCoin += refList[cSPace].spaceCoin;
+                    //    refList[cSPace + 1].spaceCoin += refList[cSPace].spaceCoin;
+                    //    refList[cSPace + 4].spaceCoin += refList[cSPace].spaceCoin;
 
-                        refList[cSPace].spaceStar = (refList[cSPace - 1].checkCard().Star +
-                           refList[cSPace + 1].checkCard().Star + refList[cSPace + 4].checkCard().Star+1);
+                        refList[cSPace].spaceCoin = (refList[cSPace - 1].checkCard().Coin +
+                           refList[cSPace + 1].checkCard().Coin + refList[cSPace + 4].checkCard().Coin)+1;
                     }
                     break;
                 case 3:
                     if (refList[cSPace].card == null)
                     {
-                        //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
-                        //refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 1].spaceCoin += refList[cSPace].spaceCoin;
+                        //refList[cSPace + 4].spaceCoin += refList[cSPace].spaceCoin;
 
-                        refList[cSPace].spaceStar = (refList[cSPace - 1].checkCard().Star + refList[cSPace + 4].checkCard().Star+1);
+                        refList[cSPace].spaceCoin = (refList[cSPace - 1].checkCard().Coin + refList[cSPace + 4].checkCard().Coin)+1;
                     }
                     break;
                 case 4:
                     if (refList[cSPace].card == null)
                     {
-                        //refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
-                        //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 4].spaceCoin += refList[cSPace].spaceCoin;
+                        //refList[cSPace + 1].spaceCoin += refList[cSPace].spaceCoin;
 
-                        refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
-                           refList[cSPace + 1].checkCard().Star+1);
+                        refList[cSPace].spaceCoin = (refList[cSPace - 4].checkCard().Coin +
+                           refList[cSPace + 1].checkCard().Coin)+1;
                     }
                     break;
                 case 5:
                     if (refList[cSPace].card == null)
                     {
-                        //refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
-                        //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
-                        //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 4].spaceCoin += refList[cSPace].spaceCoin;
+                        //refList[cSPace - 1].spaceCoin += refList[cSPace].spaceCoin;
+                        //refList[cSPace + 1].spaceCoin += refList[cSPace].spaceCoin;
 
-                        refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
-                           refList[cSPace - 1].checkCard().Star + refList[cSPace + 1].checkCard().Star+1);
+                        refList[cSPace].spaceCoin = (refList[cSPace - 4].checkCard().Coin +
+                           refList[cSPace - 1].checkCard().Coin + refList[cSPace + 1].checkCard().Coin)+1;
                     }
                     break;
                 case 6:
                     if (refList[cSPace].card == null)
                     {
-                        //refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
-                        //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
-                        //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 4].spaceCoin += refList[cSPace].spaceCoin;
+                        //refList[cSPace - 1].spaceCoin += refList[cSPace].spaceCoin;
+                        //refList[cSPace + 1].spaceCoin += refList[cSPace].spaceCoin;
 
-                        refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
-                           refList[cSPace - 1].checkCard().Star + refList[cSPace + 1].checkCard().Star+1);
+                        refList[cSPace].spaceCoin = (refList[cSPace - 4].checkCard().Coin +
+                           refList[cSPace - 1].checkCard().Coin + refList[cSPace + 1].checkCard().Coin)+1;
                     }
                     break;
                 case 7:
                     if (refList[cSPace].card == null)
                     {
-                        //refList[cSPace - 4].spaceStar += refList[cSPace].spaceStar;
-                        //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
+                        //refList[cSPace - 4].spaceCoin += refList[cSPace].spaceCoin;
+                        //refList[cSPace - 1].spaceCoin += refList[cSPace].spaceCoin;
 
-                        refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
-                           refList[cSPace - 1].checkCard().Star+1);
+                        refList[cSPace].spaceCoin = (refList[cSPace - 4].checkCard().Coin +
+                           refList[cSPace - 1].checkCard().Coin)+1;
                     }
                     break;
 

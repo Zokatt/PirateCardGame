@@ -16,7 +16,7 @@ namespace PriateCardGame.Cards
 
         public SniperParrot()
         {
-            this.Star = 1;
+            this.Coin = 1;
             this.Name = "SniperParrot";
             this.color = Color.White;
             this.Damage = 3;
