@@ -9,7 +9,7 @@ namespace PriateCardGame.Cards
 
         public Empty()
         {
-            this.Star = 0;
+            this.Star = -1;
         }
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {

@@ -814,9 +814,13 @@ namespace PriateCardGame
                     }
                     if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null && playerTurn == true)
                     {
-                        item.setCard(refCard);
-                        playerCards.Remove(refCard);
-                        refCard = null;
+                        if (item.spaceStar >= refCard.Star)
+                        {
+                            item.setCard(refCard);
+                            playerCards.Remove(refCard);
+                            refCard = null;
+                        }
+                        
 
                         bPress = true;
                         //StarSetUp(playerSpaces, item.spaceNumber);
@@ -1195,7 +1199,7 @@ namespace PriateCardGame
                         //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
                         //refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
 
-                        refList[cSPace].spaceStar = (refList[cSPace + 1].checkCard().Star + refList[cSPace + 4].checkCard().Star);
+                        refList[cSPace].spaceStar = (refList[cSPace + 1].checkCard().Star + refList[cSPace + 4].checkCard().Star+1);
                     }
                     break;
                 case 1:
@@ -1206,7 +1210,7 @@ namespace PriateCardGame
                         //refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
 
                         refList[cSPace].spaceStar = (refList[cSPace - 1].checkCard().Star + 
-                            refList[cSPace + 1].checkCard().Star + refList[cSPace+4].checkCard().Star);
+                            refList[cSPace + 1].checkCard().Star + refList[cSPace+4].checkCard().Star+1);
 
                     }
                     break;
@@ -1218,7 +1222,7 @@ namespace PriateCardGame
                     //    refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
 
                         refList[cSPace].spaceStar = (refList[cSPace - 1].checkCard().Star +
-                           refList[cSPace + 1].checkCard().Star + refList[cSPace + 4].checkCard().Star);
+                           refList[cSPace + 1].checkCard().Star + refList[cSPace + 4].checkCard().Star+1);
                     }
                     break;
                 case 3:
@@ -1227,7 +1231,7 @@ namespace PriateCardGame
                         //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
                         //refList[cSPace + 4].spaceStar += refList[cSPace].spaceStar;
 
-                        refList[cSPace].spaceStar = (refList[cSPace - 1].checkCard().Star + refList[cSPace + 4].checkCard().Star);
+                        refList[cSPace].spaceStar = (refList[cSPace - 1].checkCard().Star + refList[cSPace + 4].checkCard().Star+1);
                     }
                     break;
                 case 4:
@@ -1237,7 +1241,7 @@ namespace PriateCardGame
                         //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
 
                         refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
-                           refList[cSPace + 1].checkCard().Star);
+                           refList[cSPace + 1].checkCard().Star+1);
                     }
                     break;
                 case 5:
@@ -1248,7 +1252,7 @@ namespace PriateCardGame
                         //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
 
                         refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
-                           refList[cSPace - 1].checkCard().Star + refList[cSPace + 1].checkCard().Star);
+                           refList[cSPace - 1].checkCard().Star + refList[cSPace + 1].checkCard().Star+1);
                     }
                     break;
                 case 6:
@@ -1259,7 +1263,7 @@ namespace PriateCardGame
                         //refList[cSPace + 1].spaceStar += refList[cSPace].spaceStar;
 
                         refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
-                           refList[cSPace - 1].checkCard().Star + refList[cSPace + 1].checkCard().Star);
+                           refList[cSPace - 1].checkCard().Star + refList[cSPace + 1].checkCard().Star+1);
                     }
                     break;
                 case 7:
@@ -1269,7 +1273,7 @@ namespace PriateCardGame
                         //refList[cSPace - 1].spaceStar += refList[cSPace].spaceStar;
 
                         refList[cSPace].spaceStar = (refList[cSPace - 4].checkCard().Star +
-                           refList[cSPace - 1].checkCard().Star);
+                           refList[cSPace - 1].checkCard().Star+1);
                     }
                     break;
 
