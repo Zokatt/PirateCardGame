@@ -936,7 +936,7 @@ namespace PriateCardGame
             _spriteBatch.DrawString(Bigfont, $"{playerHealth}", new Vector2(170, 880), Color.White);
             if (playerTurn == true)
             {
-                _spriteBatch.DrawString(Bigfont, $"Player", new Vector2(0, 300), Color.Green);
+                _spriteBatch.DrawString(Bigfont, $"Player", new Vector2(0, 402), Color.Green);
             }
             if (playerTurn == true && healthDamage >= 1)
             {
@@ -944,7 +944,7 @@ namespace PriateCardGame
             }
             if (playerTurn == false)
             {
-                _spriteBatch.DrawString(Bigfont, $"AI", new Vector2(0, 300), Color.Red);
+                _spriteBatch.DrawString(Bigfont, $"AI", new Vector2(0, 402), Color.Red);
             }
             //_spriteBatch.DrawString(Bigfont, $"Turn : {turn}", new Vector2(0, 200), Color.Black);
 
