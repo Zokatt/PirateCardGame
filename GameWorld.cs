@@ -5,6 +5,7 @@ using Microsoft.Xna.Framework.Input;
 using PriateCardGame.BuilderPattern;
 using PriateCardGame.Cards;
 using PriateCardGame.Database;
+using PriateCardGame.DatabaseEnemyDiff;
 using System;
 using System.Collections.Generic;
 using System.Threading;
@@ -22,6 +23,7 @@ namespace PriateCardGame
         public static string Deck = "Deck";
         public static string Storage = "Storage";
         public static CardRepository repo;
+        public static EnemyDifficultyRepository diffRepo;
         public static List<CardBase> playerCards;
         public static List<CardSpace> playerSpaces;
         public static List<CardSpace> enemySpaces;
@@ -64,6 +66,7 @@ namespace PriateCardGame
         public SoundEffect placeCard;
         public SoundEffect woodClick;
         public SoundEffect bookFlip;
+        public int unlockDiff { get; set; } = 1;
 
         //public static GameState gameState = GameState.CardBoard;
         public static Director director = new Director(new EnemyBuilder());
@@ -86,7 +89,7 @@ namespace PriateCardGame
                 rewardCard = null;
                 endScreen = false;
                 playerTurn = true;
-                enemyHealth = 25;
+                enemyHealth = 1;
                 playerHealth = 25;
                 playerCards = new List<CardBase>();
                 playerSpaces = new List<CardSpace>();
@@ -151,6 +154,12 @@ namespace PriateCardGame
                 //    PlayerDeck.RemoveAt(temp);
                 //}
 
+                var diffMapper = new DifficultyMapper();
+                var diffProvider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
+                diffRepo = new EnemyDifficultyRepository(diffProvider, diffMapper);
+
+
+
                 DrawHand();
                 playerTurn = true;
             }
@@ -210,7 +219,20 @@ namespace PriateCardGame
                     MakePlayerDeck();
                 }
                 repo.Close();
-                
+
+                var diffMapper = new DifficultyMapper();
+                var diffProvider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
+                diffRepo = new EnemyDifficultyRepository(diffProvider, diffMapper);
+
+                diffRepo.Open();
+                if (diffRepo.FindDiff() == 69)
+                {
+                    diffRepo.AddUnlockedDifficulty(1);
+                }
+                unlockDiff = diffRepo.FindDiff();
+                diffRepo.Close(); 
+
+
             }
 
             base.Initialize();
@@ -628,28 +650,41 @@ namespace PriateCardGame
                         switch (item.spritePick)
                         {
                             case "StageSelectButtons/Enemy1":
-                                difficulty = 1;
-                                gameState = GameState.CardBoard;
-                                Initialize();
-                                LoadContent();
+                                if (unlockDiff >= 1)
+                                {
+                                    difficulty = 1;
+                                    gameState = GameState.CardBoard;
+                                    Initialize();
+                                    LoadContent();
+                                    
+                                }
                                 break;
                             case "StageSelectButtons/Enemy2":
-                                difficulty = 2;
-                                gameState = GameState.CardBoard;
-                                Initialize();
-                                LoadContent();
+                                if (unlockDiff >= 2)
+                                {
+                                    difficulty = 2;
+                                    gameState = GameState.CardBoard;
+                                    Initialize();
+                                    LoadContent();
+                                }
                                 break;
                             case "StageSelectButtons/Enemy3":
-                                difficulty = 3;
-                                gameState = GameState.CardBoard;
-                                Initialize();
-                                LoadContent();
+                                if (unlockDiff >= 3)
+                                {
+                                    difficulty = 3;
+                                    gameState = GameState.CardBoard;
+                                    Initialize();
+                                    LoadContent();
+                                }
                                 break;
                             case "StageSelectButtons/Enemy4":
-                                difficulty = 4;
-                                gameState = GameState.CardBoard;
-                                Initialize();
-                                LoadContent();
+                                if (unlockDiff >= 4)
+                                {
+                                    difficulty = 4;
+                                    gameState = GameState.CardBoard;
+                                    Initialize();
+                                    LoadContent();
+                                }
                                 break;
                             case "StageSelectButtons/DeckBuilder":
                                 gameState = GameState.DeckBuilding;
@@ -746,6 +781,12 @@ namespace PriateCardGame
                 if (enemyHealth<=0)
                 {
                     CardReward();
+                    diffRepo.Open();
+                    if (difficulty >= diffRepo.FindDiff())
+                    {
+                        diffRepo.UpdateUnlockedDifficulty(difficulty + 1);
+                    }
+                    diffRepo.Close();
                 }
 
             }
