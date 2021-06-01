@@ -17,37 +17,6 @@ namespace PriateCardGame.Cards
 
             if (this.Health <= 0)
             {
-                //switch (rndCard)
-                //{
-                //    case 1:
-                //        tmpCard = new Cannibal();
-                //        break;
-                //    case 2:
-                //        tmpCard = new Cannon();
-                //        break;
-                //    case 3:
-                //        tmpCard = new Captain();
-                //        break;
-                //    case 4:
-                //        tmpCard = new DavyJonesLocker();
-                //        break;
-                //    case 5:
-                //        tmpCard = new FatPirate();
-                //        break;
-                //    case 6:
-                //        tmpCard = new Musketeer();
-                //        break;
-                //    case 7:
-                //        tmpCard = new Swapper();
-                //        break;
-                //    case 8:
-                //        tmpCard = new Thief();
-                //        break;
-                //    case 9:
-                //        tmpCard = new Whale();
-                //        break;
-                //}
-
 
                 if (rndCardToHand < 40)
                 {
