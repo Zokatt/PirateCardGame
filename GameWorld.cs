@@ -130,18 +130,6 @@ namespace PriateCardGame
 
                 repo.Open();
 
-                if (repo.FindDeck().Count == 0)
-                {
-                    repo.AddCard("SniperParrot");
-                    repo.AddCard("FatPirate");
-                    repo.AddCard("Swapper");
-                    repo.AddCard("FatPirate");
-                    repo.AddCard("Thief");
-                    repo.AddCard("Musketeer");
-                    repo.AddCard("Cannibal");
-                    repo.AddCard("DavyJonesLocker");
-                }
-
                 PlayerDeck = repo.FindDeck();
 
                 repo.Close();

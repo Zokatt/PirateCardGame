@@ -17,7 +17,7 @@ namespace PriateCardGame.Cards
                 if (item.card != null)
                 {
                     item.card.Health -= whaleDmg;
-                    item.card.damageTaken -= whaleDmg;
+                    item.card.damageTaken += whaleDmg;
                 }
             }
             foreach (CardSpace item in enemySpaces)
@@ -25,7 +25,7 @@ namespace PriateCardGame.Cards
                 if (item.card != null)
                 {
                     item.card.Health -= whaleDmg;
-                    item.card.damageTaken -= whaleDmg;
+                    item.card.damageTaken += whaleDmg;
                 }
             }
         }
