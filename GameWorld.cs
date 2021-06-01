@@ -671,7 +671,38 @@ namespace PriateCardGame
                 item.color = Color.White;
                 if (item.Collision.Contains(mousePos))
                 {
-                    item.color = Color.Green;
+                    item.color = Color.Red;
+                    switch (item.spritePick)
+                    {
+                        case "StageSelectButtons/Enemy1":
+                            if (unlockDiff >= 1)
+                            {
+                                item.color = Color.Green;
+                            }
+                            break;
+                        case "StageSelectButtons/Enemy2":
+                            if (unlockDiff >= 2)
+                            {
+                                item.color = Color.Green;
+                            }
+                            break;
+                        case "StageSelectButtons/Enemy3":
+                            if (unlockDiff >= 3)
+                            {
+                                item.color = Color.Green;
+                            }
+                            break;
+                        case "StageSelectButtons/Enemy4":
+                            if (unlockDiff >= 4)
+                            {
+                                item.color = Color.Green;
+                            }
+                            break;
+                        case "StageSelectButtons/DeckBuilder":
+                            item.color = Color.Green;
+                            break;
+                    }
+
                     if (mouseState.LeftButton == ButtonState.Pressed)
                     {
                         switch (item.spritePick)
