@@ -64,6 +64,7 @@ namespace PriateCardGame
         public SoundEffect placeCard;
         public SoundEffect woodClick;
         public SoundEffect bookFlip;
+        public int unlockDiff = 0;
 
         //public static GameState gameState = GameState.CardBoard;
         public static Director director = new Director(new EnemyBuilder());
@@ -1451,6 +1452,11 @@ namespace PriateCardGame
             repo.Open();
             repo.AddCardToStorage(rewardCard.Name);
             repo.Close();
+        }
+
+        public void EnemyStageLevel()
+        {
+            unlockDiff
         }
 
         public List<CardBase> SortByNameAlgoByQuickSort(ref List<CardBase> ListOfCards)
