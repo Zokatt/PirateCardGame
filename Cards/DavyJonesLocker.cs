@@ -18,15 +18,19 @@ namespace PriateCardGame.Cards
             if (this.Health <= 0)
             {
 
-                if (rndCardToHand < 40)
+                if (rndCardToHand < 30)
                 {
                     tmpCard = new Swapper();
                 }
-                if (rndCardToHand < 60 && rndCardToHand >= 40)
+                if (rndCardToHand < 50 && rndCardToHand >= 30)
+                {
+                    tmpCard = new SniperParrot();
+                }
+                if (rndCardToHand < 65 && rndCardToHand >= 50)
                 {
                     tmpCard = new Cannibal();
                 }
-                if (rndCardToHand < 75 && rndCardToHand >= 60)
+                if (rndCardToHand < 75 && rndCardToHand >= 65)
                 {
                     tmpCard = new Musketeer();
                 }
