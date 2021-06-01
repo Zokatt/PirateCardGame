@@ -167,6 +167,8 @@ namespace PriateCardGame
             }
             else if (gameState == GameState.DeckBuilding)
             {
+                bPress = true;
+
                 var mapper = new CardMapper();
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 repo = new CardRepository(provider, mapper);
@@ -377,10 +379,10 @@ namespace PriateCardGame
             mouseState = Mouse.GetState();
             mousePos = new Point(mouseState.X, mouseState.Y);
 
-            if (mouseState.LeftButton == ButtonState.Pressed) //to check for postion placements
-            {
+            //if (mouseState.LeftButton == ButtonState.Pressed) //to check for postion placements
+            //{
 
-            }//breakpoint here to test <--
+            //}//breakpoint here to test <--
 
             if (gameState == GameState.CardBoard)
             {
@@ -395,6 +397,10 @@ namespace PriateCardGame
                 UpdateStageSelect(gameTime);
             }
 
+            if (mouseState.LeftButton == ButtonState.Released) //so that the player can click the mouse again
+            {
+                bPress = false;
+            }
 
 
             base.Update(gameTime);
@@ -558,7 +564,7 @@ namespace PriateCardGame
         {
             cardInfo = false;
 
-            if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 2)
+            if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 2 && bPress == false)
             {
                 tutorial = 3;
             }
@@ -973,10 +979,7 @@ namespace PriateCardGame
 
             }
 
-            if (mouseState.LeftButton == ButtonState.Released) //so that the player can click the mouse again
-            {
-                bPress = false;
-            }
+            
         }
 
         public void drawDeckBuilding(GameTime gameTime)
