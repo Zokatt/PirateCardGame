@@ -13,7 +13,6 @@ namespace PriateCardGame.Cards
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             Random rnd = new Random();
-            int rndCard = rnd.Next(1, 10);
             int rndCardToHand = rnd.Next(0,101);
 
             if (this.Health <= 0)
