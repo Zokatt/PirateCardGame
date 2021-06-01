@@ -38,6 +38,7 @@ namespace PriateCardGame
         private Texture2D background;
         private Texture2D deckBuildingBackground;
         private Texture2D StageSelectBackground;
+        private Texture2D tutorialBackground;
         public static SpriteFont font;
         public static SpriteFont Bigfont;
         public static Point mousePos;
@@ -61,6 +62,7 @@ namespace PriateCardGame
         public static int turn = 0;
         public static bool endTurnOnlyOnce = true;
         public int difficulty = 1;
+        public int tutorial = 1;
         public SoundEffect placeCard;
         public SoundEffect woodClick;
         public SoundEffect bookFlip;
@@ -156,7 +158,6 @@ namespace PriateCardGame
             }
             else if (gameState == GameState.DeckBuilding)
             {
-                
                 var mapper = new CardMapper();
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 repo = new CardRepository(provider, mapper);
@@ -228,6 +229,15 @@ namespace PriateCardGame
             {
                 background = Content.Load<Texture2D>("Background");
 
+                if (tutorial == 4)
+                {
+                    tutorialBackground = Content.Load<Texture2D>("Tutorial/Tutorial3");
+                }
+                if (tutorial == 5)
+                {
+                    tutorialBackground = Content.Load<Texture2D>("Tutorial/Tutorial4");
+                }
+
                 foreach (UI item in WinOrLoseScreenList)
                 {
                     item.LoadContent(this.Content);
@@ -264,6 +274,13 @@ namespace PriateCardGame
             {
                 deckBuildingBackground = Content.LoadLocalized<Texture2D>("DeckManager");
 
+                if (tutorial == 2)
+                {
+                    tutorialBackground = Content.Load<Texture2D>($"Tutorial/Tutorial2");
+                }
+                
+                
+
                 foreach (UI item in GameUI)
                 {
                     item.LoadContent(this.Content);
@@ -282,6 +299,11 @@ namespace PriateCardGame
             else if (gameState == GameState.StageSelect)
             {
                 StageSelectBackground = Content.Load<Texture2D>("StageSelectBackGround");
+                if (tutorial == 1)
+                {
+                    tutorialBackground = Content.Load<Texture2D>("Tutorial/Tutorial1");
+                }
+               
 
                 foreach (UI item in GameUI)
                 {
@@ -307,10 +329,11 @@ namespace PriateCardGame
             {
                 repo.AddCard("Swapper");
             }
-            for (int i = 0; i < 3; i++)
+            for (int i = 0; i < 2; i++)
             {
                 repo.AddCard("Cannibal");
             }
+            repo.AddCardToStorage("Cannibal");
             for (int i = 0; i < 2; i++)
             {
                 repo.AddCard("Musketeer");
@@ -513,6 +536,10 @@ namespace PriateCardGame
         {
             cardInfo = false;
 
+            if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 2)
+            {
+                tutorial = 3;
+            }
 
             foreach (UI item in GameUI)
             {
@@ -617,6 +644,12 @@ namespace PriateCardGame
 
         public void UpdateStageSelect(GameTime gameTime)
         {
+            if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 1)
+            {
+                tutorial = 2;
+            }
+
+
             foreach (UI item in GameUI)
             {
                 item.color = Color.White;
@@ -728,6 +761,23 @@ namespace PriateCardGame
 
         public void UpdateCardBoard(GameTime gameTime)
         {
+            if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 3 && bPress == false)
+            {
+                tutorial = 4;
+                bPress = true;
+            }
+            if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 4 && bPress == false)
+            {
+                tutorial = 5;
+                LoadContent();
+                bPress = true;
+            }
+            if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 5 && bPress == false)
+            {
+                tutorial = 6;
+            }
+
+
             UpdateCoinsForLists();
             if (enemyHealth <= 0)
             {
@@ -923,6 +973,13 @@ namespace PriateCardGame
                 _spriteBatch.DrawString(GameWorld.font, $"{infoCard.Health}", new Vector2(1410, 477), Color.Goldenrod);
 
             }
+
+            if (tutorial == 2)
+            {
+                _spriteBatch.Draw(tutorialBackground, new Vector2(0, 0), Color.White);
+            }
+           
+
         }
 
         public void drawCardBoard(GameTime gameTime)
@@ -936,7 +993,7 @@ namespace PriateCardGame
             _spriteBatch.DrawString(Bigfont, $"{playerHealth}", new Vector2(170, 880), Color.White);
             if (playerTurn == true)
             {
-                _spriteBatch.DrawString(Bigfont, $"Player", new Vector2(0, 402), Color.Green);
+                _spriteBatch.DrawString(Bigfont, $"Player", new Vector2(0, 450), Color.Green);
             }
             if (playerTurn == true && healthDamage >= 1)
             {
@@ -944,7 +1001,7 @@ namespace PriateCardGame
             }
             if (playerTurn == false)
             {
-                _spriteBatch.DrawString(Bigfont, $"AI", new Vector2(0, 402), Color.Red);
+                _spriteBatch.DrawString(Bigfont, $"AI", new Vector2(0, 370), Color.Red);
             }
             //_spriteBatch.DrawString(Bigfont, $"Turn : {turn}", new Vector2(0, 200), Color.Black);
 
@@ -1007,11 +1064,22 @@ namespace PriateCardGame
                 }
 
             }
+
+            if (tutorial == 4 || tutorial == 5)
+            {
+                _spriteBatch.Draw(tutorialBackground, new Vector2(0, 0), Color.White);
+            }
         }
 
         public void drawStageSelect()
         {
             _spriteBatch.Draw(StageSelectBackground, new Vector2(0, 0), Color.White);
+
+            if (tutorial == 1)
+            {
+                _spriteBatch.Draw(tutorialBackground, new Vector2(0, 0), Color.White);
+            }
+
 
             foreach (UI item in GameUI)
             {
