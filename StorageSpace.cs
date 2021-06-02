@@ -149,8 +149,8 @@ namespace PriateCardGame
             if (this.card != null)
             {
                 this.card.Draw(spriteBatch);
-                spriteBatch.DrawString(GameWorld.font, $"({storageOwned}) in storage)", new Vector2(this.Collision.Left, this.Collision.Top - 20), Color.Black);
-                spriteBatch.DrawString(GameWorld.font, $"({deckOwned}) in deck", new Vector2(this.Collision.Left, this.Collision.Bottom + 5), Color.Black);
+                spriteBatch.DrawString(GameWorld.font, $"({storageOwned}) in storage)", new Vector2(this.Collision.Left, this.Collision.Top - 20), Color.White);
+                spriteBatch.DrawString(GameWorld.font, $"({deckOwned}) in deck", new Vector2(this.Collision.Left, this.Collision.Bottom + 5), Color.White);
             }
             
         }
