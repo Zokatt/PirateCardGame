@@ -8,7 +8,6 @@ namespace PriateCardGame.BuilderPattern
     class EnemyBuilder : IBuilder
     {
         private List<CardBase> DeckList = new List<CardBase>();
-        private Enemy enemy;
         public void BuildEnemyDeck(int diff)
         {
             DeckList.Clear();
@@ -23,13 +22,17 @@ namespace PriateCardGame.BuilderPattern
                 {
                     DeckList.Add(new Cannibal());
                 }
-                for (int i = 0; i < 2; i++)
+                for (int i = 0; i < 1; i++)
                 {
                     DeckList.Add(new FatPirate());
                 }
                 for (int i = 0; i < 2; i++)
                 {
                     DeckList.Add(new Musketeer());
+                }
+                for (int i = 0; i < 2; i++)
+                {
+                    DeckList.Add(new BigSlime());
                 }
 
 
@@ -45,6 +48,10 @@ namespace PriateCardGame.BuilderPattern
                 {
                     DeckList.Add(new Swapper());
                 }
+                for (int i = 0; i < 8; i++)
+                {
+                    DeckList.Add(new SmallSlime());
+                }
                 for (int i = 0; i < 3; i++)
                 {
                     DeckList.Add(new Cannibal());
@@ -52,10 +59,6 @@ namespace PriateCardGame.BuilderPattern
                 for (int i = 0; i < 5; i++)
                 {
                     DeckList.Add(new FatPirate());
-                }
-                for (int i = 0; i < 2; i++)
-                {
-                    DeckList.Add(new Musketeer());
                 }
                 for (int i = 0; i < 12; i++)
                 {
@@ -65,6 +68,10 @@ namespace PriateCardGame.BuilderPattern
                 {
                     DeckList.Add(new Thief());
                 }
+                for (int i = 0; i < 2; i++)
+                {
+                    DeckList.Add(new BigSlime());
+                }
             }
             else if (diff == 3)
             {
@@ -72,21 +79,29 @@ namespace PriateCardGame.BuilderPattern
                 {
                     DeckList.Add(new Swapper());
                 }
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 4; i++)
+                {
+                    DeckList.Add(new SmallSlime());
+                }
+                for (int i = 0; i < 2; i++)
                 {
                     DeckList.Add(new Cannibal());
                 }
-                for (int i = 0; i < 8; i++)
+                for (int i = 0; i < 2; i++)
                 {
                     DeckList.Add(new Musketeer());
                 }
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     DeckList.Add(new FatPirate());
                 }
                 for (int i = 0; i < 5; i++)
                 {
                     DeckList.Add(new SniperParrot());
+                }
+                for (int i = 0; i < 4; i++)
+                {
+                    DeckList.Add(new Cannon());
                 }
                 for (int i = 0; i < 1; i++)
                 {
@@ -103,15 +118,19 @@ namespace PriateCardGame.BuilderPattern
                 {
                     DeckList.Add(new Musketeer());
                 }
-                for (int i = 0; i < 5; i++)
+                for (int i = 0; i < 8; i++)
                 {
                     DeckList.Add(new SniperParrot());
+                }
+                for (int i = 0; i < 8; i++)
+                {
+                    DeckList.Add(new SmallSlime());
                 }
                 for (int i = 0; i < 2; i++)
                 {
                     DeckList.Add(new Swapper());
                 }
-                for (int i = 0; i < 3; i++)
+                for (int i = 0; i < 4; i++)
                 {
                     DeckList.Add(new FatPirate());
                 }

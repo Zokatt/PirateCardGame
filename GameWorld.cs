@@ -92,7 +92,7 @@ namespace PriateCardGame
                 endScreen = false;
                 playerTurn = true;
                 enemyHealth = 20;
-                playerHealth = 1;
+                playerHealth = 20;
                 playerCards = new List<CardBase>();
                 playerSpaces = new List<CardSpace>();
                 enemySpaces = new List<CardSpace>();
@@ -341,7 +341,7 @@ namespace PriateCardGame
             {
                 repo.AddCard("Swabber");
             }
-            for (int i = 0; i < 2; i++)
+            for (int i = 0; i < 1; i++)
             {
                 repo.AddCard("Cannibal");
             }
@@ -351,6 +351,7 @@ namespace PriateCardGame
                 repo.AddCard("Musketeer");
             }
             repo.AddCard("FatPirate");
+            repo.AddCard("DavyJonesLocker");
             repo.AddCard("Captain");
         }
 

@@ -26,15 +26,29 @@ namespace PriateCardGame
                     var Empty = 0;
                     foreach (var item in EnemySpaces)
                     {
-                        if (item.card == null && item.spaceCoin >= EnemyHand[i].Coin)
+                        if (item.spaceNumber >= 4
+                            && item.card == null
+                            && item.spaceCoin >= EnemyHand[i].Coin
+                            && EnemyHand[i].Name == "Cannon")
+                        {
+                            Empty += 1;
+                        }
+                        if (item.card == null && item.spaceCoin >= EnemyHand[i].Coin && EnemyHand[i].Name != "Cannon")
                         {
                             Empty += 1;
                         }
                     }
                     if (Empty >=1)
                     {
-
-                        var temp = rnd.Next(0, EnemySpaces.Count);
+                        var temp = 0;
+                        if (EnemyHand[i].Name == "Cannon")
+                        {
+                            temp = rnd.Next(4, EnemySpaces.Count);
+                        }
+                        else
+                        {
+                            temp = rnd.Next(0, EnemySpaces.Count);
+                        }
                         if (EnemySpaces[temp].card == null && EnemySpaces[temp].spaceCoin >= EnemyHand[i].Coin)
                         {
                             EnemySpaces[temp].setCard(EnemyHand[i]);
