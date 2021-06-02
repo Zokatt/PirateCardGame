@@ -52,7 +52,12 @@ namespace PriateCardGame.Database
                     case "Gambler":
                         result.Add(new Gambler() { CardID = cardID, Name = Name, storageState = storageState });
                         break;
-
+                    case "SmallSlime":
+                        result.Add(new SmallSlime() { CardID = cardID, Name = Name, storageState = storageState });
+                        break;
+                    case "BigSlime":
+                        result.Add(new BigSlime() { CardID = cardID, Name = Name, storageState = storageState });
+                        break;
                 }
 
             }

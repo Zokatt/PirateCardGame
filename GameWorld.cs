@@ -91,7 +91,7 @@ namespace PriateCardGame
                 rewardCard = null;
                 endScreen = false;
                 playerTurn = true;
-                enemyHealth = 1;
+                enemyHealth = 20;
                 playerHealth = 1;
                 playerCards = new List<CardBase>();
                 playerSpaces = new List<CardSpace>();
@@ -339,7 +339,7 @@ namespace PriateCardGame
         {
             for (int i = 0; i < 12; i++)
             {
-                repo.AddCard("Swapper");
+                repo.AddCard("Swabber");
             }
             for (int i = 0; i < 2; i++)
             {
