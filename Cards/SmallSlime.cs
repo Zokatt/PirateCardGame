@@ -19,8 +19,8 @@ namespace PriateCardGame.Cards
             this.Coin = 1;
             this.Name = "SmallSlime";
             this.color = Color.White;
-            this.Damage = 1;
-            this.Health = 1;
+            this.Damage = 2;
+            this.Health = 2;
         }
 
         public override void LoadContent(ContentManager contentManager)
