@@ -189,6 +189,18 @@
 /processorParam:TextureFormat=Color
 /build:LoadingScreen.png
 
+#begin Lose.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Lose.png
+
 #begin MenuButton.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -416,6 +428,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:Whale.png
+
+#begin Win.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Win.png
 
 #begin WinOrLoss.png
 /importer:TextureImporter

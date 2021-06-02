@@ -92,7 +92,7 @@ namespace PriateCardGame
                 endScreen = false;
                 playerTurn = true;
                 enemyHealth = 1;
-                playerHealth = 25;
+                playerHealth = 1;
                 playerCards = new List<CardBase>();
                 playerSpaces = new List<CardSpace>();
                 enemySpaces = new List<CardSpace>();
@@ -847,22 +847,27 @@ namespace PriateCardGame
             {
                 endScreen = true;
             }
-            if (endScreen == true && WinOrLoseScreenList.Count <=1)
+            if (endScreen == true && WinOrLoseScreenList.Count <=1 && enemyHealth <= 0)
             {
-                WinOrLoseScreenList.Add(new UI("WinOrLoss",new Vector2(400,100)));
+                WinOrLoseScreenList.Add(new UI("Win",new Vector2(400,100)));
                 WinOrLoseScreenList.Add(new UI("MenuButton", new Vector2(650, 650)));
                 LoadContentForThisUIList(WinOrLoseScreenList);
 
-                if (enemyHealth<=0)
+                CardReward();
+                diffRepo.Open();
+                if (difficulty >= diffRepo.FindDiff())
                 {
-                    CardReward();
-                    diffRepo.Open();
-                    if (difficulty >= diffRepo.FindDiff())
-                    {
-                        diffRepo.UpdateUnlockedDifficulty(difficulty + 1);
-                    }
-                    diffRepo.Close();
+                    diffRepo.UpdateUnlockedDifficulty(difficulty + 1);
                 }
+                diffRepo.Close();
+
+            }
+            if (endScreen == true && WinOrLoseScreenList.Count <= 1 && playerHealth <= 0)
+            {
+                WinOrLoseScreenList.Add(new UI("Lose", new Vector2(400, 100)));
+                WinOrLoseScreenList.Add(new UI("MenuButton", new Vector2(650, 650)));
+                LoadContentForThisUIList(WinOrLoseScreenList);
+
 
             }
 
@@ -1113,7 +1118,7 @@ namespace PriateCardGame
                 }
                 if (playerHealth <= 0)
                 {
-                    _spriteBatch.DrawString(Bigfont, $"You lose!", new Vector2(700, 200), Color.Black);
+                    _spriteBatch.DrawString(Bigfont, $"You lose!", new Vector2(740, 350), Color.Black);
                 }
                 else if (enemyHealth <=0)
                 {
