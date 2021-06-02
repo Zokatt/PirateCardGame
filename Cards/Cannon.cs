@@ -68,7 +68,7 @@ namespace PriateCardGame.Cards
             this.color = Color.White;
             this.Name = "Cannon";
             this.Damage = 0;
-            this.Health = 5;
+            this.Health = 4;
         }
 
         public override void LoadContent(ContentManager contentManager)

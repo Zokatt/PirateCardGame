@@ -15,7 +15,7 @@ namespace PriateCardGame.Cards
 
         public BigSlime()
         {
-            this.Coin = 2;
+            this.Coin = 3;
             this.Name = "BigSlime";
             this.color = Color.White;
             this.Damage = 3;

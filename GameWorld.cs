@@ -1511,9 +1511,13 @@ namespace PriateCardGame
             switch (difficulty)
             {
                 case 1:
-                    if (tmp <=50)
+                    if (tmp <=30)
                     {
                         rewardCard = new Swapper();
+                    }
+                    if (tmp >=31 && tmp <=50)
+                    {
+                        rewardCard = new SmallSlime();
                     }
                     if (tmp >= 51 && tmp <=70)
                     {
@@ -1533,17 +1537,25 @@ namespace PriateCardGame
                     }
                     break;
                 case 2:
-                    if (tmp <= 33)
+                    if (tmp <= 26)
                     {
                         rewardCard = new FatPirate();
                     }
-                    if (tmp >= 34 && tmp <= 64)
+                    if (tmp <=27 && tmp <= 51)
+                    {
+                        rewardCard = new BigSlime();
+                    }
+                    if (tmp >= 52 && tmp <= 76)
                     {
                         rewardCard = new SniperParrot();
                     }
-                    if (tmp >= 92 && tmp <= 102)
+                    if (tmp >= 77 && tmp <= 90)
                     {
                         rewardCard = new Whale();
+                    }
+                    if (tmp>=91 && tmp<=102)
+                    {
+                        rewardCard = new DavyJonesLocker();
                     }
                     if (tmp >= 103)
                     {
