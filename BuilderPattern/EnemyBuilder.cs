@@ -34,6 +34,10 @@ namespace PriateCardGame.BuilderPattern
                 {
                     DeckList.Add(new BigSlime());
                 }
+                for (int i = 0; i < 1; i++)
+                {
+                    DeckList.Add(new Mimic());
+                }
 
 
 
@@ -143,7 +147,23 @@ namespace PriateCardGame.BuilderPattern
                     DeckList.Add(new DavyJonesLocker());
                 }
             }
-            
+            else if (diff == 5)
+            {
+                for (int i = 0; i < 10; i++)
+                {
+                    DeckList.Add(new Thief());
+                }
+                for (int i = 0; i < 10; i++)
+                {
+                    DeckList.Add(new Mimic());
+                }
+                for (int i = 0; i < 15; i++)
+                {
+                    DeckList.Add(new SmallSlime());
+                }
+
+            }
+
         }
 
         public void AddThisManyOfThisCard(int amount, CardBase card)

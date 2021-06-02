@@ -190,5 +190,27 @@ namespace PriateCardGame
             this.coin = contentManager.Load<Texture2D>("Coin");
         }
 
+        public void SwitchCardPlayer(int mimicSpaceNumber,int targetCardNumber, List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
+        {
+            var tmp = playerSpaces[mimicSpaceNumber].card;
+
+            setCard(enemySpaces[targetCardNumber].card);
+            playerSpaces[mimicSpaceNumber].card.Health += 1;
+            playerSpaces[mimicSpaceNumber].card.damageTaken = 0;
+
+            enemySpaces[targetCardNumber].setCard(tmp);
+        }
+
+        public void SwitchCardEnemy(int mimicSpaceNumber, int targetCardNumber, List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
+        {
+            var tmp = enemySpaces[mimicSpaceNumber].card;
+
+            setCard(playerSpaces[targetCardNumber].card);
+            enemySpaces[mimicSpaceNumber].card.Health += 1;
+            enemySpaces[mimicSpaceNumber].card.damageTaken = 0;
+
+            playerSpaces[targetCardNumber].setCard(tmp);
+        }
+
     }
 }

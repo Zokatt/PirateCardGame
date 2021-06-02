@@ -65,8 +65,10 @@ namespace PriateCardGame.DatabaseEnemyDiff
 
         public void DropTable()
         {
+            Open();
             var cmd = new SQLiteCommand($"DROP TABLE Difficulty", (SQLiteConnection)connection);
             cmd.ExecuteNonQuery();
+            Close();
         }
 
     }

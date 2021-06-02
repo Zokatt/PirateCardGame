@@ -192,9 +192,17 @@ namespace PriateCardGame
             {
                 GameUI = new List<UI>();
 
-                for (int i = 1; i < 5; i++)
+                for (int i = 1; i < 6; i++)
                 {
-                    GameUI.Add(new UI($"StageSelectButtons/Enemy{i}", new Vector2(-350+(i*400), 50)));
+                    if (i >=5)
+                    {
+                    GameUI.Add(new UI($"StageSelectButtons/Enemy{i}", new Vector2(-350 + ((i-4) * 400), 250)));
+                    }
+                    else
+                    {
+                    GameUI.Add(new UI($"StageSelectButtons/Enemy{i}", new Vector2(-350 + (i * 400), 50)));
+                    }
+                    
                 }
                 GameUI.Add(new UI("StageSelectButtons/DeckBuilder", new Vector2(1200, 850)));
 
@@ -203,7 +211,7 @@ namespace PriateCardGame
                 repo = new CardRepository(provider, mapper);
 
 
-                //dropRepoTable();
+                dropRepoTable();
                 repo.Open();
                 if (repo.FindAllCards().Count <=0)
                 {
@@ -214,6 +222,7 @@ namespace PriateCardGame
                 var diffMapper = new DifficultyMapper();
                 var diffProvider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 diffRepo = new EnemyDifficultyRepository(diffProvider, diffMapper);
+
 
                 diffRepo.Open();
                 if (diffRepo.FindDiff() == 69)
@@ -339,7 +348,7 @@ namespace PriateCardGame
         {
             for (int i = 0; i < 12; i++)
             {
-                repo.AddCard("Swabber");
+                repo.AddCard("Swapper");
             }
             for (int i = 0; i < 1; i++)
             {
@@ -700,6 +709,12 @@ namespace PriateCardGame
                                 item.color = Color.Green;
                             }
                             break;
+                        case "StageSelectButtons/Enemy5":
+                            if (unlockDiff >= 5)
+                            {
+                                item.color = Color.Green;
+                            }
+                            break;
                         case "StageSelectButtons/DeckBuilder":
                             item.color = Color.Green;
                             break;
@@ -739,6 +754,15 @@ namespace PriateCardGame
                                 break;
                             case "StageSelectButtons/Enemy4":
                                 if (unlockDiff >= 4)
+                                {
+                                    difficulty = 4;
+                                    gameState = GameState.CardBoard;
+                                    Initialize();
+                                    LoadContent();
+                                }
+                                break;
+                            case "StageSelectButtons/Enemy5":
+                                if (unlockDiff >= 5)
                                 {
                                     difficulty = 4;
                                     gameState = GameState.CardBoard;
@@ -1568,9 +1592,13 @@ namespace PriateCardGame
                     {
                         rewardCard = new DavyJonesLocker();
                     }
-                    if (tmp >= 26 && tmp <= 50)
+                    if (tmp >= 26 && tmp <= 36)
                     {
                         rewardCard = new Gambler();
+                    }
+                    if (tmp >= 37 && tmp <= 50)
+                    {
+                        rewardCard = new Mimic();
                     }
                     if (tmp >= 51 && tmp <= 75)
                     {
@@ -1602,6 +1630,9 @@ namespace PriateCardGame
                     {
                         rewardCard = new Captain();
                     }
+                    break;
+                case 5:
+                    rewardCard = new Mimic();
                     break;
             }
 

@@ -225,6 +225,18 @@
 /processorParam:TextureFormat=Color
 /build:MenuButton.png
 
+#begin Mimic.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:Mimic.png
+
 #begin Musketeer.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -356,6 +368,18 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:StageSelectButtons/Enemy4.png
+
+#begin StageSelectButtons/Enemy5.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:StageSelectButtons/Enemy5.png
 
 #begin Swapper.png
 /importer:TextureImporter

@@ -105,7 +105,7 @@ namespace PriateCardGame
                     this.card = new BigSlime();
                     break;
                 case 12:
-                    this.card = new Cannon();
+                    this.card = new Mimic();
                     break;
                 case 13:
                     this.card = new Gambler();

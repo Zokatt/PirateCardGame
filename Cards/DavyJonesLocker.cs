@@ -17,7 +17,7 @@ namespace PriateCardGame.Cards
 
             if (this.Health <= 0)
             {
-
+                    
                 if (rndCardToHand < 25)
                 {
                     tmpCard = new Swapper();
@@ -80,6 +80,7 @@ namespace PriateCardGame.Cards
             }
 
         }
+
 
 
         public DavyJonesLocker()

@@ -58,6 +58,9 @@ namespace PriateCardGame.Database
                     case "BigSlime":
                         result.Add(new BigSlime() { CardID = cardID, Name = Name, storageState = storageState });
                         break;
+                    case "Mimic":
+                        result.Add(new Mimic() { CardID = cardID, Name = Name, storageState = storageState });
+                        break;
                 }
 
             }
