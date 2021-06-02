@@ -71,6 +71,7 @@ namespace PriateCardGame.Cards
                     tmpCard = new Captain();
                 }
 
+                
                 if (this.position.Y < 500)
                 {
                     GameWorld.enemy.EnemyHand.Add(tmpCard);
@@ -81,7 +82,6 @@ namespace PriateCardGame.Cards
                 }
 
             }
-
         }
 
 

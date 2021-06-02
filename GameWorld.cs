@@ -211,7 +211,7 @@ namespace PriateCardGame
                 repo = new CardRepository(provider, mapper);
 
 
-                dropRepoTable();
+                //dropRepoTable();
                 repo.Open();
                 if (repo.FindAllCards().Count <=0)
                 {
@@ -239,7 +239,11 @@ namespace PriateCardGame
         }
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            if (_spriteBatch == null)
+            {
+                _spriteBatch = new SpriteBatch(GraphicsDevice);
+            }
+
             font = Content.Load<SpriteFont>("Font");
             Bigfont = Content.Load<SpriteFont>("BigFont");
             placeCard = Content.Load<SoundEffect>("WoodKick");
@@ -288,7 +292,11 @@ namespace PriateCardGame
                 }
                 foreach (var item in playerCards)
                 {
-                    item.LoadContent(this.Content);
+                    if (item != null)
+                    {
+                        item.LoadContent(this.Content);
+                    }
+                    
                 }
             }
             else if (gameState == GameState.DeckBuilding)
@@ -408,11 +416,14 @@ namespace PriateCardGame
         {
             for (int i = 0; i < refList.Count; i++)
             {
-                refList[i].UpdatePlayerCardPos(i);
+                if (refList[i] != null)
+                {
+                    refList[i].UpdatePlayerCardPos(i);
+                }
             }
             for (int i = 0; i < refList.Count; i++)
             {
-                if (refList[i].sprite!=null)
+                if (refList[i]!=null)
                 {
                     if (refList[i].Collision.Contains(mousePos))
                     {
@@ -436,24 +447,27 @@ namespace PriateCardGame
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
-            _spriteBatch.Begin();
+            //_spriteBatch.Begin();
 
-
-            if (gameState == GameState.CardBoard)
-            {
-                drawCardBoard(gameTime);
-            }
-            else if (gameState == GameState.DeckBuilding)
-            {
-                drawDeckBuilding(gameTime);
-            }
-            else if (gameState == GameState.StageSelect)
-            {
-                drawStageSelect();
-            }
+           
+                if (gameState == GameState.CardBoard)
+                {
+                    drawCardBoard(gameTime);
+                }
+                else if (gameState == GameState.DeckBuilding)
+                {
+                    drawDeckBuilding(gameTime);
+                }
+                else if (gameState == GameState.StageSelect)
+                {
+                    drawStageSelect();
+                }
             
+            
+                _spriteBatch.End();
 
-            _spriteBatch.End();
+            
+            
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);
@@ -1045,6 +1059,7 @@ namespace PriateCardGame
 
         public void drawDeckBuilding(GameTime gameTime)
         {
+            _spriteBatch.Begin();
             _spriteBatch.Draw(deckBuildingBackground, new Vector2(0, 0), Color.White);
 
             _spriteBatch.DrawString(font, $"Deck: {PlayerDeck.Count}/30", new Vector2(980 , 750), Color.White);
@@ -1089,6 +1104,8 @@ namespace PriateCardGame
 
         public void drawCardBoard(GameTime gameTime)
         {
+            _spriteBatch.Begin();
+
             _spriteBatch.Draw(background, new Vector2(-150, 0), Color.White);
             _spriteBatch.DrawString(Bigfont, $"{enemyHealth}", new Vector2(165, 75), Color.White);
             if (playerTurn == false && healthDamage >=1)
@@ -1133,7 +1150,7 @@ namespace PriateCardGame
             }
             foreach (CardBase item in playerCards)
             {
-                if (item.sprite !=null)
+                if (item !=null)
                 {
                     item.Draw(this._spriteBatch);
                 }
@@ -1178,6 +1195,7 @@ namespace PriateCardGame
 
         public void drawStageSelect()
         {
+            _spriteBatch.Begin();
             _spriteBatch.Draw(StageSelectBackground, new Vector2(0, 0), Color.White);
 
 
@@ -1216,6 +1234,7 @@ namespace PriateCardGame
         {
             SortByNameAlgoByQuickSort(ref playerCards);
         }
+
 
         public void ThreadWork(GameTime gameTime)
         {
@@ -1257,7 +1276,16 @@ namespace PriateCardGame
                                         enemyItem.card.tookDamage = true;
                                     }
                                 }
-
+                            }
+                            foreach (CardSpace Item in playerSpaces)
+                            {
+                                if (Item.card != null)
+                                {
+                                    if (Item.card.damageTaken > 0)
+                                    {
+                                        Item.card.tookDamage = true;
+                                    }
+                                }
                             }
                             if (item.card != null)
                             {
@@ -1351,6 +1379,16 @@ namespace PriateCardGame
                                     }
                                 }
 
+                            }
+                            foreach (CardSpace enemyItem in enemySpaces)
+                            {
+                                if (enemyItem.card != null)
+                                {
+                                    if (enemyItem.card.damageTaken > 0)
+                                    {
+                                        enemyItem.card.tookDamage = true;
+                                    }
+                                }
                             }
 
                             if (enemySpaces[tmp].card != null)
@@ -1646,7 +1684,6 @@ namespace PriateCardGame
             repo.AddCardToStorage(rewardCard.Name);
             repo.Close();
         }
-
         public List<CardBase> SortByNameAlgoByQuickSort(ref List<CardBase> ListOfCards)
         {
             if (ListOfCards.Count <= 1)
