@@ -13,60 +13,63 @@ namespace PriateCardGame.Cards
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             Random rnd = new Random();
-            int rndCardToHand = rnd.Next(0,106);
+            int rndCardToHand = rnd.Next(0,105);
 
             if (this.Health <= 0)
             {
-                    
-                if (rndCardToHand < 25)
+
+                if (rndCardToHand < 8)
                 {
                     tmpCard = new Swapper();
                 }
-                if (rndCardToHand < 40 && rndCardToHand >= 25)
+                if (rndCardToHand < 16 && rndCardToHand >= 8)
                 {
                     tmpCard = new SmallSlime();
                 }
-                if (rndCardToHand < 50 && rndCardToHand >= 40)
+                if (rndCardToHand < 24 && rndCardToHand >= 16)
                 {
                     tmpCard = new SniperParrot();
                 }
-                if (rndCardToHand < 65 && rndCardToHand >= 50)
+                if (rndCardToHand < 32 && rndCardToHand >= 24)
                 {
                     tmpCard = new Cannibal();
                 }
-                if (rndCardToHand < 75 && rndCardToHand >= 65)
+                if (rndCardToHand < 40 && rndCardToHand >= 32)
                 {
                     tmpCard = new Musketeer();
                 }
-                if (rndCardToHand < 85 && rndCardToHand >= 75)
+                if (rndCardToHand < 48 && rndCardToHand >= 40)
                 {
                     tmpCard = new Thief();
                 }
-                if (rndCardToHand < 90 && rndCardToHand >= 85)
+                if (rndCardToHand < 56 && rndCardToHand >= 48)
+                {
+                    tmpCard = new Gambler();
+                }
+                if (rndCardToHand < 64 && rndCardToHand >= 56)
                 {
                     tmpCard = new DavyJonesLocker();
                 }
-                if (rndCardToHand < 95 && rndCardToHand >= 90)
+                if (rndCardToHand < 72 && rndCardToHand >= 64)
                 {
                     tmpCard = new BigSlime();
                 }
-                if (rndCardToHand < 98 && rndCardToHand >= 95)
+                if (rndCardToHand < 80 && rndCardToHand >= 72)
                 {
                     tmpCard = new Cannon();
                 }
-                if (rndCardToHand < 101 && rndCardToHand >= 98)
+                if (rndCardToHand < 96 && rndCardToHand >= 88)
                 {
                     tmpCard = new FatPirate();
                 }
-                if (rndCardToHand < 105 && rndCardToHand >= 101)
+                if (rndCardToHand < 104 && rndCardToHand >= 96)
                 {
                     tmpCard = new Whale();
                 }
-                if (rndCardToHand == 105)
+                if (rndCardToHand == 104)
                 {
                     tmpCard = new Captain();
                 }
-
 
                 if (this.position.Y < 500)
                 {
