@@ -13,16 +13,20 @@ namespace PriateCardGame.Cards
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             Random rnd = new Random();
-            int rndCardToHand = rnd.Next(0,101);
+            int rndCardToHand = rnd.Next(0,106);
 
             if (this.Health <= 0)
             {
 
-                if (rndCardToHand < 30)
+                if (rndCardToHand < 25)
                 {
                     tmpCard = new Swapper();
                 }
-                if (rndCardToHand < 50 && rndCardToHand >= 30)
+                if (rndCardToHand < 40 && rndCardToHand >= 25)
+                {
+                    tmpCard = new SmallSlime();
+                }
+                if (rndCardToHand < 50 && rndCardToHand >= 40)
                 {
                     tmpCard = new SniperParrot();
                 }
@@ -42,19 +46,23 @@ namespace PriateCardGame.Cards
                 {
                     tmpCard = new DavyJonesLocker();
                 }
-                if (rndCardToHand < 93 && rndCardToHand >= 90)
+                if (rndCardToHand < 95 && rndCardToHand >= 90)
+                {
+                    tmpCard = new BigSlime();
+                }
+                if (rndCardToHand < 98 && rndCardToHand >= 95)
                 {
                     tmpCard = new Cannon();
                 }
-                if (rndCardToHand < 96 && rndCardToHand >= 93)
+                if (rndCardToHand < 101 && rndCardToHand >= 98)
                 {
                     tmpCard = new FatPirate();
                 }
-                if (rndCardToHand < 100 && rndCardToHand >= 96)
+                if (rndCardToHand < 105 && rndCardToHand >= 101)
                 {
                     tmpCard = new Whale();
                 }
-                if (rndCardToHand == 100)
+                if (rndCardToHand == 105)
                 {
                     tmpCard = new Captain();
                 }
