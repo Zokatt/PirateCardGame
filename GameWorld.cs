@@ -660,11 +660,12 @@ namespace PriateCardGame
 
         public void UpdateStageSelect(GameTime gameTime)
         {
-            if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 1)
+            repo.Open();
+            if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 1 && repo.FindAllCards().Count <=19)
             {
                 tutorial = 2;
             }
-
+            repo.Close();
 
             foreach (UI item in GameUI)
             {
@@ -995,6 +996,12 @@ namespace PriateCardGame
                     }
                 }
 
+                if (mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard!=null)
+                {
+                    refCard = null;
+                    bPress = true;
+                }
+
                 if (playerTurn == true && drawnCards == false)
                 {
                     DrawHand();
@@ -1143,11 +1150,13 @@ namespace PriateCardGame
         {
             _spriteBatch.Draw(StageSelectBackground, new Vector2(0, 0), Color.White);
 
-            if (tutorial == 1)
+
+            repo.Open();
+            if (tutorial == 1 && repo.FindAllCards().Count <=19)
             {
                 _spriteBatch.Draw(tutorialBackground, new Vector2(0, 0), Color.White);
             }
-
+            repo.Close();
 
             foreach (UI item in GameUI)
             {
