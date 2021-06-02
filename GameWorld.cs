@@ -922,6 +922,7 @@ namespace PriateCardGame
                     }
                     playerSpaces[i].setPos(i);
                     playerSpaces[i].CanPlace = false;
+                    playerSpaces[i].canPlaceButNotEnoughCoins = false;
                 }
                 for (int i = 0; i < enemySpaces.Count; i++)
                 {
@@ -978,6 +979,10 @@ namespace PriateCardGame
                 {
                     if (item.Collision.Contains(mousePos) && refCard != null && item.card == null)
                     {
+                        if (refCard.Coin > item.spaceCoin)
+                        {
+                            item.canPlaceButNotEnoughCoins = true;
+                        }
                         item.CanPlace = true;
                     }
                     if (item.Collision.Contains(mousePos) && mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard != null && item.card == null && playerTurn == true)

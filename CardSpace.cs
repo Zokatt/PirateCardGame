@@ -14,6 +14,7 @@ namespace PriateCardGame
         public Vector2 position;
         private Texture2D sprite;
         public bool CanPlace = false;
+        public bool canPlaceButNotEnoughCoins = false;
         public int spaceNumber;
         public int spaceCoin;
         private Texture2D coin;
@@ -140,9 +141,13 @@ namespace PriateCardGame
 
         public void DrawCanPlaceHere(SpriteBatch spriteBatch)
         {
-            if (CanPlace == true)
+            if (CanPlace == true && canPlaceButNotEnoughCoins ==true)
             {
-                spriteBatch.Draw(sprite, position, Color.White);
+                spriteBatch.Draw(sprite, position, Color.DarkGoldenrod);
+            }
+            else if (CanPlace == true)
+            {
+                spriteBatch.Draw(sprite, position, Color.Lime);
             }
         }
         public void setPos(int i)
