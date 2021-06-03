@@ -694,6 +694,39 @@ namespace PriateCardGame
             foreach (UI item in GameUI)
             {
                 item.color = Color.White;
+                switch (item.spritePick)
+                {
+                    case "StageSelectButtons/Enemy1":
+                        if (unlockDiff >= 1)
+                        {
+                            
+                        }
+                        break;
+                    case "StageSelectButtons/Enemy2":
+                        if (unlockDiff < 2)
+                        {
+                            item.color = Color.SlateGray;
+                        }
+                        break;
+                    case "StageSelectButtons/Enemy3":
+                        if (unlockDiff < 3)
+                        {
+                            item.color = Color.SlateGray;
+                        }
+                        break;
+                    case "StageSelectButtons/Enemy4":
+                        if (unlockDiff < 4)
+                        {
+                            item.color = Color.SlateGray;
+                        }
+                        break;
+                    case "StageSelectButtons/Enemy5":
+                        if (unlockDiff < 5)
+                        {
+                            item.color = Color.SlateGray;
+                        }
+                        break;
+                }
                 if (item.Collision.Contains(mousePos))
                 {
                     item.color = Color.Red;
