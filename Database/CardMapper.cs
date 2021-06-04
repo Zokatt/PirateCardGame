@@ -8,15 +8,18 @@ namespace PriateCardGame.Database
 {
     public class CardMapper : ICardMapper
     {
+        //This is used to read the rows from the database concerning cards
         public List<CardBase> MapCardsFromReader(SQLiteDataReader reader)
         {
             var result = new List<CardBase>();
             while (reader.Read())
             {
+                //We get assign the different columns to a variable so that we can create a card out of those variables
+                //The number in the paranthesis describes which coloumn it takes from
                 var cardID = reader.GetInt32(0);
                 var Name = reader.GetString(1);
                 var storageState = reader.GetString(2);
-
+                //The name is then used to determine which card to make with a switch statement
                 switch (Name)
                 {
                     case "Captain":
