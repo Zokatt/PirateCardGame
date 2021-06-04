@@ -104,8 +104,8 @@ namespace PriateCardGame
         {
             if (EnemyHand.Count >=5)
             {
-                EnemyHand.RemoveAt(5);
                 EnemyHand.RemoveAt(4);
+                EnemyHand.RemoveAt(3);
             }
             Random rnd = new Random();
             if (GameWorld.turn <= 2)

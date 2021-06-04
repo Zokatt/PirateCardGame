@@ -262,6 +262,10 @@ namespace PriateCardGame
                 {
                     tutorialBackground = Content.Load<Texture2D>("Tutorial/Tutorial4");
                 }
+                if (tutorial == 6)
+                {
+                    tutorialBackground = Content.Load<Texture2D>("Tutorial/Tutorial5");
+                }
 
                 foreach (UI item in WinOrLoseScreenList)
                 {
@@ -908,6 +912,12 @@ namespace PriateCardGame
             if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 5 && bPress == false)
             {
                 tutorial = 6;
+                LoadContent();
+                bPress = true;
+            }
+            if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 6 && bPress == false)
+            {
+                tutorial = 7;
             }
 
 
@@ -1096,6 +1106,7 @@ namespace PriateCardGame
             _spriteBatch.Draw(deckBuildingBackground, new Vector2(0, 0), Color.White);
 
             _spriteBatch.DrawString(font, $"Deck: {PlayerDeck.Count}/30", new Vector2(980 , 750), Color.White);
+            _spriteBatch.DrawString(font, $"Use Scrollwheel to scroll through the deck", new Vector2(980, 770), Color.White);
             _spriteBatch.DrawString(font, $"Page: {pageNumber+1}/3", new Vector2(375, 650), Color.White);
 
             var max = 12 + ScrollValue;
@@ -1220,7 +1231,7 @@ namespace PriateCardGame
 
             }
 
-            if (tutorial == 4 || tutorial == 5)
+            if (tutorial == 4 || tutorial == 5 || tutorial == 6)
             {
                 _spriteBatch.Draw(tutorialBackground, new Vector2(0, 0), Color.White);
             }
