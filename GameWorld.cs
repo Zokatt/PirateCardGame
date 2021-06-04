@@ -994,7 +994,6 @@ namespace PriateCardGame
                         turn += 1;
                     }
                 }
-                ListUpdate(playerCards);
                 for (int i = 0; i < playerSpaces.Count; i++)
                 {
                     if (playerSpaces[i].Collision.Contains(mousePos) && playerSpaces[i].card != null)
@@ -1023,11 +1022,6 @@ namespace PriateCardGame
                 // TODO: Add your update logic here
 
 
-                if (refCard != null)
-                {
-                    refCard.position.X = mousePos.X;
-                    refCard.position.Y = mousePos.Y;
-                }
                 foreach (UI item in GameUI)
                 {
                     if (item.spritePick == "EndTurnButton" && playerTurn == false && item.clicked == true)
@@ -1081,6 +1075,12 @@ namespace PriateCardGame
                         bPress = true;
                         //CoinSetUp(playerSpaces, item.spaceNumber);
                     }
+                }
+                ListUpdate(playerCards);
+                if (refCard != null)
+                {
+                    refCard.position.X = mousePos.X;
+                    refCard.position.Y = mousePos.Y;
                 }
 
                 if (mouseState.LeftButton == ButtonState.Pressed && bPress == false && refCard!=null)
