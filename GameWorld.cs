@@ -165,6 +165,7 @@ namespace PriateCardGame
                 GameUI.Add(new UI("MenuButton", new Vector2(800, 600)));
                 GameUI.Add(new UI("LeftArrow", new Vector2(50, 600)));
                 GameUI.Add(new UI("RightArrow", new Vector2(700, 600)));
+                GameUI.Add(new UI("ClearDeck", new Vector2(1350, 690)));
 
 
                 PlayerDeck = new List<CardBase>();
@@ -594,6 +595,14 @@ namespace PriateCardGame
                     if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "MenuButton")
                     {
                         gameState = GameState.StageSelect;
+                        Initialize();
+                        LoadContent();
+                    }
+                    if (mouseState.LeftButton == ButtonState.Pressed && item.spritePick == "ClearDeck")
+                    {
+                        repo.Open();
+                        repo.ClearDeck();
+                        repo.Close();
                         Initialize();
                         LoadContent();
                     }

@@ -117,5 +117,11 @@ namespace PriateCardGame.Database
             return result;
         }
 
+        public void ClearDeck()
+        {
+            var cmd = new SQLiteCommand($"Update Cards set StorageState = '{GameWorld.Storage}' where StorageState = '{GameWorld.Deck}'", (SQLiteConnection)connection);
+            cmd.ExecuteNonQuery();
+        }
+
     }
 }
