@@ -9,16 +9,7 @@ namespace PriateCardGame.Cards
 {
     class Whale : CardBase
     {
-        //public int whaleDmg = 6;
-        public int whaleSpace = 0;
-        public int whale1 = 0;
-        public int whale2 = 0;
-        public int whale3 = 0;
-        public int whale4 = 0;
-        public int whale5 = 0;
-        public int whale6 = 0;
-        public int whale7 = 0;
-        public int whale8 = 0;
+        public int whale = 0;
         public int whaleDmg1 = 6;
         public int whaleDmg2 = 6;
         public int whaleDmg3 = 6;
@@ -49,74 +40,73 @@ namespace PriateCardGame.Cards
             //    }
             //}
 
+
             for (int i = 0; i < playerSpaces.Count; i++)
             {
                 if (playerSpaces[i].card != null)
                 {
-                    whaleSpace = i;
-
-                    switch (whaleSpace)
+                    switch (i)
                     {
                         case 1:
-                            whale1 += 1;
+                            whale += 1;
                             playerSpaces[i].card.Health -= whaleDmg1;
-                            if (whale1 >= 2)
+                            if (whale >= 2)
                             {
                                 whaleDmg1 = 0;
                             }
                             break;
                         case 2:
-                            whale2 += 1;
+                            whale += 1;
                             playerSpaces[i].card.Health -= whaleDmg2;
-                            if (whale2 >= 2)
+                            if (whale >= 2)
                             {
                                 whaleDmg2 = 0;
                             }
                             break;
                         case 3:
-                            whale3 += 1;
+                            whale += 1;
                             playerSpaces[i].card.Health -= whaleDmg3;
-                            if (whale3 >= 2)
+                            if (whale >= 2)
                             {
                                 whaleDmg3 = 0;
                             }
                             break;
                         case 4:
-                            whale4 += 1;
+                            whale += 1;
                             playerSpaces[i].card.Health -= whaleDmg4;
-                            if (whale4 >= 2)
+                            if (whale >= 2)
                             {
                                 whaleDmg4 = 0;
                             }
                             break;
                         case 5:
-                            whale5 += 1;
+                            whale += 1;
                             playerSpaces[i].card.Health -= whaleDmg5;
-                            if (whale5 >= 2)
+                            if (whale >= 2)
                             {
                                 whaleDmg5 = 0;
                             }
                             break;
                         case 6:
-                            whale6 += 1;
+                            whale += 1;
                             playerSpaces[i].card.Health -= whaleDmg6;
-                            if (whale6 >= 2)
+                            if (whale >= 2)
                             {
                                 whaleDmg6 = 0;
                             }
                             break;
                         case 7:
-                            whale7 += 1;
+                            whale += 1;
                             playerSpaces[i].card.Health -= whaleDmg7;
-                            if (whale7 >= 2)
+                            if (whale >= 2)
                             {
                                 whaleDmg7 = 0;
                             }
                             break;
                         case 8:
-                            whale8 += 1;
+                            whale += 1;
                             playerSpaces[i].card.Health -= whaleDmg8;
-                            if (whale8 >= 2)
+                            if (whale >= 2)
                             {
                                 whaleDmg8 = 0;
                             }
@@ -128,70 +118,68 @@ namespace PriateCardGame.Cards
             {
                 if (enemySpaces[i].card != null)
                 {
-                    whaleSpace = i;
-
-                    switch (whaleSpace)
+                    switch (i)
                     {
                         case 0:
-                            whale1 += 1;
+                            whale += 1;
                             enemySpaces[i].card.Health -= whaleDmg1;
-                            if (whale1 >= 1)
+                            if (whale >= 1)
                             {
                                 whaleDmg1 = 0;
                             }
                             break;
                         case 1:
-                            whale2 += 1;
+                            whale += 1;
                             enemySpaces[i].card.Health -= whaleDmg2;
-                            if (whale2 >= 1)
+                            if (whale >= 1)
                             {
                                 whaleDmg2 = 0;
                             }
                             break;
                         case 2:
-                            whale3 += 1;
+                            whale += 1;
                             enemySpaces[i].card.Health -= whaleDmg3;
-                            if (whale3 >= 1)
+                            if (whale >= 1)
                             {
                                 whaleDmg3 = 0;
                             }
                             break;
                         case 3:
-                            whale4 += 1;
+                            whale += 1;
                             enemySpaces[i].card.Health -= whaleDmg4;
-                            if (whale4 >= 1)
+                            if (whale >= 1)
                             {
                                 whaleDmg4 = 0;
                             }
                             break;
                         case 4:
-                            whale5 += 1;
+                            whale += 1;
                             enemySpaces[i].card.Health -= whaleDmg5;
-                            if (whale5 >= 1)
+                            if (whale >= 1)
                             {
                                 whaleDmg5 = 0;
                             }
                             break;
                         case 5:
-                            whale6 += 1;
+                            whale += 1;
                             enemySpaces[i].card.Health -= whaleDmg6;
-                            if (whale6 >= 1)
+                            if (whale >= 1)
                             {
                                 whaleDmg6 = 0;
                             }
                             break;
                         case 6:
-                            whale7 += 1;
+                            whale += 1;
                             enemySpaces[i].card.Health -= whaleDmg7;
-                            if (whale7 >= 1)
+                            if (whale >= 1)
                             {
                                 whaleDmg7 = 0;
                             }
                             break;
                         case 7:
-                            whale8 += 1;
+                            whale += 1;
                             enemySpaces[i].card.Health -= whaleDmg8;
-                            if (whale8 >= 1)
+                            if (whale >= 1)
                             {
                                 whaleDmg8 = 0;
                             }
