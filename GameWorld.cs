@@ -100,7 +100,7 @@ namespace PriateCardGame
                 WinOrLoseScreenList = new List<UI>();
                 GameUI = new List<UI>();
                 GameUI.Add(new UI("EndTurnButton", new Vector2(1050, 450)));
-                GameUI.Add(new UI("TestButton", new Vector2(450, 450)));
+                //GameUI.Add(new UI("TestButton", new Vector2(450, 450)));
                 enemyDeck = new List<CardBase>();
                 turn = 0;
 
@@ -1203,7 +1203,7 @@ namespace PriateCardGame
             }
             foreach (CardBase item in playerCards)
             {
-                if (item !=null)
+                if (item.sprite!=null)
                 {
                     item.Draw(this._spriteBatch);
                 }
