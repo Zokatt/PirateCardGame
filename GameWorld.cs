@@ -1737,20 +1737,27 @@ namespace PriateCardGame
             repo.AddCardToStorage(rewardCard.Name);
             repo.Close();
         }
+
+        //A Quicksort method which takes in a list of cards of the CardBase class
         public List<CardBase> SortByNameAlgoByQuickSort(ref List<CardBase> ListOfCards)
         {
+            //If there is 1 or less amount of cards in the list, it returns the card.
             if (ListOfCards.Count <= 1)
             {
                 return ListOfCards;
             }
+            //Sets pivot to be the first card in the list. 
             CardBase pivot = ListOfCards[0];
 
-
+            //Makes a "before" and an "after" list for the cards that comes before and after in terms of the first letter in the name
             List<CardBase> before = new List<CardBase>();
             List<CardBase> after = new List<CardBase>();
 
             for (int i = 1; i < ListOfCards.Count; i++)
             {
+                //Checks if the first letter of the Name of pivot (the first card in the list) comes after 
+                //the cards in the list and if so, adds it to the before list. Otherwise if the first letter comes before
+                //it adds the card to the after list.
                 if (ListOfCards[i].Name[0] < pivot.Name[0])
                 {
                     before.Add(ListOfCards[i]);
@@ -1760,10 +1767,17 @@ namespace PriateCardGame
                     after.Add(ListOfCards[i]);
                 }
             }
+            //A result list has been made to add all the cards.
             List<CardBase> result = new List<CardBase>();
+            //First adds all the cards with the Names that comes before pivot's Name. 
             result.AddRange(SortByNameAlgoByQuickSort(ref before));
+            //Adds the card that is pivot that is the first card that is originally the first card in the list, but now comes
+            //after the cards in the before list.
             result.Add(pivot);
+            //Adds all the cards in the after list, which is is all the cards with the Name that comes after pivot and the before list.
             result.AddRange(SortByNameAlgoByQuickSort(ref after));
+            //After the cards have been sorted and added to the result list, it sets the original list "ListOfCards" equal to the
+            //result list which has been sorted and returns the sorted list. 
             ListOfCards = result;
             return ListOfCards;
         }
