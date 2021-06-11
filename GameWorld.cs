@@ -428,6 +428,7 @@ namespace PriateCardGame
             {
                 background = Content.Load<Texture2D>("Background");
 
+                //load a different tutorial depending on what tutorial stage the player is on
                 if (tutorial == 4)
                 {
                     tutorialBackground = Content.Load<Texture2D>("Tutorial/Tutorial3");
