@@ -7,11 +7,28 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// the Cannon card
+    /// Only Shoots if there's a card behind it
+    /// </summary>
+    /// <remarks>
+    /// Nikolaj,Johnny
+    /// </remarks>
     class Cannon : CardBase
     {
-
+        /// <summary>
+        /// Will shoot whatever is in front for 10 damage if there's a card behind 
+        /// the cannon to "fire" the cannon
+        /// </summary>
+        /// <remarks>
+        /// Nikolaj,Johnny
+        /// </remarks>
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
+            /// <summary>
+            /// Used to deternime whetever it's the enemys or the players card
+            /// below 500 is enemy
+            /// </summary>
             if (this.position.Y < 500)
             {
                 if (this.spaceNumber >=4)

@@ -7,12 +7,18 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// Big slime card
+    ///  does nothing special
+    /// </summary>
+    /// <remarks>
+    /// Johnny
+    /// </remarks>
     class BigSlime : CardBase
     {
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
         }
-
         public BigSlime()
         {
             this.Coin = 3;

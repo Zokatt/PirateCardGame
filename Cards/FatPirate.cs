@@ -7,8 +7,21 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// Fat Pirate Card
+    /// <para>Will increase it's damage at the end of turn</para>
+    /// </summary>
+    ///<remarks>
+    /// Johnny
+    /// </remarks>
     class FatPirate : CardBase
     {
+        /// <summary>
+        /// Will increase it's own damage by 1
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             //if (this.position.Y > 500)

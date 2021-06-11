@@ -7,6 +7,13 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// The swapper card
+    /// does nothing special
+    /// </summary>
+    ///<remarks>
+    /// Nikolaj,Johnny
+    /// </remarks>
     class Swapper : CardBase
     {
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)

@@ -7,14 +7,32 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// Davy jones Card
+    /// <para>whenever this card dies it'll create a random card for the owner</para>
+    /// </summary>
+    ///<remarks>
+    /// Johnny
+    /// </remarks>
     public class DavyJonesLocker : CardBase
     {
         private CardBase tmpCard;
+        /// <summary>
+        /// Spawns a random card for the owner whenever it dies
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
+            /// <summary>
+            /// Generates a random  number between 0 and 104
+            /// </summary>
             Random rnd = new Random();
             int rndCardToHand = rnd.Next(0,105);
-
+            /// <summary>
+            /// is used to deternime which card you get
+            /// </summary>
             if (this.Health <= 0)
             {
 
@@ -71,7 +89,10 @@ namespace PriateCardGame.Cards
                     tmpCard = new Captain();
                 }
 
-                
+                /// <summary>
+                /// is used to deternime who to give the card to
+                /// <para>below 500 is enemy</para>
+                /// </summary>
                 if (this.position.Y < 500)
                 {
                     GameWorld.enemy.EnemyHand.Add(tmpCard);

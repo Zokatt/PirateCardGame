@@ -189,18 +189,41 @@ namespace PriateCardGame
             this.sprite = contentManager.Load<Texture2D>("CardSpace");
             this.coin = contentManager.Load<Texture2D>("Coin");
         }
-
+        /// <summary>
+        /// This is to switch cards around for the mimic card
+        /// <para>This one is if the mimic is owned by the player</para>
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void SwitchCardPlayer(int mimicSpaceNumber,int targetCardNumber, List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
+            /// <summary>
+            /// makes a temporary with all the info of the mimic card
+            /// </summary>
             var tmp = playerSpaces[mimicSpaceNumber].card;
-
+            /// <summary>
+            /// Sets the card on this space to whatever card is the target on the enemy space
+            /// </summary>
             setCard(enemySpaces[targetCardNumber].card);
+            /// <summary>
+            /// Heals the card by one considering this method runs after normal attack phase
+            /// so the mimic would've attack it once
+            /// </summary>
             playerSpaces[mimicSpaceNumber].card.Health += 1;
             playerSpaces[mimicSpaceNumber].card.damageTaken = 0;
-
+            /// <summary>
+            /// Sets the enemy we switched with mimix we saved earlier
+            /// </summary>
             enemySpaces[targetCardNumber].setCard(tmp);
         }
-
+        /// <summary>
+        /// This is to switch cards around for the mimic card
+        /// <para>This one is if the mimic is owned by the enemy</para>
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void SwitchCardEnemy(int mimicSpaceNumber, int targetCardNumber, List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             var tmp = enemySpaces[mimicSpaceNumber].card;

@@ -7,6 +7,13 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// The small slime card
+    /// <para>does nothing special</para>
+    /// </summary>
+    ///<remarks>
+    /// Johnny
+    /// </remarks>
     class SmallSlime : CardBase
     {
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)

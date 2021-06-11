@@ -7,9 +7,25 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// The whale card
+    /// Will damage ALL card on the board, including ally cards
+    /// </summary>
+    ///<remarks>
+    /// Johnny
+    /// </remarks>
     class Whale : CardBase
     {
+        /// <summary>
+        /// the amount of damage the whale does to all cards
+        /// </summary>
         public int whaleDmg = 6;
+        /// <summary>
+        /// Will damage ALL cards by 6
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             foreach (CardSpace item in playerSpaces)

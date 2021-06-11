@@ -5,11 +5,24 @@ using System.Text;
 
 namespace PriateCardGame.BuilderPattern
 {
+    /// <summary>
+    /// The builder For the enemy deck
+    /// Builds a deck for the enemy based on the difficulty chosen
+    /// </summary>
+    /// <remarks>
+    /// Nikolaj,Johnny
+    /// </remarks>
     class EnemyBuilder : IBuilder
     {
         private List<CardBase> DeckList = new List<CardBase>();
+        /// <summary>
+        /// Builds a deck for the enemy based on the difficulty chosen
+        /// </summary>
         public void BuildEnemyDeck(int diff)
         {
+            /// <summary>
+            /// Clears the deck in case there's previously made deck
+            /// </summary>
             DeckList.Clear();
 
             if (diff == 1)
@@ -166,14 +179,9 @@ namespace PriateCardGame.BuilderPattern
 
         }
 
-        public void AddThisManyOfThisCard(int amount, CardBase card)
-        {
-            for (int i = 0; i < amount; i++)
-            {
-                DeckList.Add(card);
-            }
-        }
-
+        /// <summary>
+        /// Return the decklist for use to the enemy
+        /// </summary>
         public List<CardBase> GetResult()
         {
             return DeckList;

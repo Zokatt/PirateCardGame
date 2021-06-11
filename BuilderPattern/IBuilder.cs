@@ -4,6 +4,12 @@ using System.Text;
 
 namespace PriateCardGame.BuilderPattern
 {
+    /// <summary>
+    /// Interface for the enemy deck builder
+    /// </summary>
+    /// <remarks>
+    /// Johnny
+    /// </remarks>
     public interface IBuilder
     {
 

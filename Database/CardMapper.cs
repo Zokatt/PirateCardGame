@@ -6,11 +6,21 @@ using System.Text;
 
 namespace PriateCardGame.Database
 {
+
+    /// <summary>
+    /// The mapper which is used to read data from the database and creating a card from it
+    /// </summary>
+    ///<remarks>
+    /// Nikolaj
+    /// </remarks>
     public class CardMapper : ICardMapper
     {
         //This is used to read the rows from the database concerning cards
         public List<CardBase> MapCardsFromReader(SQLiteDataReader reader)
         {
+            /// <summary>
+            /// A list which we put all the cards in 
+            /// </summary>
             var result = new List<CardBase>();
             while (reader.Read())
             {

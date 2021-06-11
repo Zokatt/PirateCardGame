@@ -7,6 +7,13 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// The parrot card
+    /// does nothing special
+    /// </summary>
+    ///<remarks>
+    /// Johnny
+    /// </remarks>
     class SniperParrot : CardBase
     {
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)

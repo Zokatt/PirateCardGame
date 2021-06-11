@@ -7,8 +7,22 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// The Musketeer card
+    /// Will damage all enemy cards in the same coloumn
+    /// </summary>
+    ///<remarks>
+    /// Johnny
+    /// </remarks>
     class Musketeer : CardBase
     {
+        /// <summary>
+        /// Will damage all enemy cards in the same coloumn
+        /// <para>Also checks whoever it's owned by, by checking its position</para>
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             if (this.position.Y < 500)
@@ -36,7 +50,12 @@ namespace PriateCardGame.Cards
             this.sprite = contentManager.Load<Texture2D>("Musketeer");
             this.DamageBox = contentManager.Load<Texture2D>("DamageBox");
         }
-
+        /// <summary>
+        /// Damages player cards in the same coloumn
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         private void MusketeerAttackPlayer(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             if (this.spaceNumber <= 3)
@@ -77,6 +96,12 @@ namespace PriateCardGame.Cards
             }
 
         }
+        /// <summary>
+        /// Damages enemy cards in the same coloumn
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         private void MusketeerAttackEnemy(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             if (this.spaceNumber <=3)

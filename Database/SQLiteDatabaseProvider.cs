@@ -6,6 +6,12 @@ using System.Text;
 
 namespace PriateCardGame.Database
 {
+    /// <summary>
+    /// Used to manage the connection to the database
+    /// </summary>
+    ///<remarks>
+    /// Nikolaj
+    /// </remarks>
     public class SQLiteDatabaseProvider
     {
         private readonly string connectionString;
@@ -14,7 +20,12 @@ namespace PriateCardGame.Database
         {
             this.connectionString = Connectionstring;
         }
-
+        /// <summary>
+        /// used to create a connetion to the database
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public IDbConnection CreateConnection()
         {
             return new SQLiteConnection(connectionString);

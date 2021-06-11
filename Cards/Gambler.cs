@@ -7,8 +7,21 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// The gambler card
+    /// <para>Will kill the enemy card if it's health is uneven, else kill itself</para>
+    /// </summary>
+    ///<remarks>
+    /// Johnny
+    /// </remarks>
     class Gambler : CardBase
     {
+        /// <summary>
+        /// will destroy enemy card if it's health is uneven, if not destroy itself
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
             //This card kills the card in front if it has odd health otherwise the card destroys itself 

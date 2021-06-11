@@ -7,6 +7,13 @@ using System.Text;
 
 namespace PriateCardGame.Cards
 {
+    /// <summary>
+    /// The mimic card
+    /// Will switch places with whatever card is in front, and then destroy itself
+    /// </summary>
+    ///<remarks>
+    /// Nikolaj
+    /// </remarks>
     class Mimic : CardBase
     {
         public Mimic()
@@ -17,10 +24,23 @@ namespace PriateCardGame.Cards
             this.Health = 1;
             this.color = Color.White;
         }
+        /// <summary>
+        /// Switch places with whatever card is in front
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public override void AdditionalCardEffect(List<CardSpace> enemySpaces, List<CardSpace> playerSpaces)
         {
+            /// <summary>
+            /// checks whetever this card is owned by the enemy or the player
+            /// below 500 is enemy
+            /// </summary>
             if (this.position.Y<500)
             {
+                /// <summary>
+                /// checks whetever this card is in the backrow
+                /// </summary>
                 if (this.spaceNumber<=3)
                 {
                     if (enemySpaces[this.spaceNumber+4].card==null)
