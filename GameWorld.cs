@@ -12,80 +12,253 @@ using System.Threading;
 
 namespace PriateCardGame
 {
+    /// <summary>
+    /// GameState is used to determine which screen the player is on
+    /// </summary>
     public enum GameState { 
     CardBoard,DeckBuilding,StageSelect
     }
+    /// <summary>
+    /// The gameworld is what class monogame uses as a main script to run the game on
+    /// </summary>
+    ///<remarks>
+    /// Nikolaj, Johnny,Mads
+    /// </remarks>
     public class GameWorld : Game
     {
+        /// <summary>
+        /// What graphic setting the game runs on
+        /// </summary>
         private GraphicsDeviceManager _graphics;
+        /// <summary>
+        /// The spritebatch is what the game uses to draw everything
+        /// </summary>
         private SpriteBatch _spriteBatch;
+        /// <summary>
+        /// The screensize for the game, in pixels
+        /// </summary>
         public static Rectangle screenBounds = new Rectangle(0, 0, 1600, 1000);
+        /// <summary>
+        /// A string so that we dont accidently write deck different somewhere
+        /// </summary>
         public static string Deck = "Deck";
+        /// <summary>
+        /// A string so that we dont accidently write storage different somewhere
+        /// </summary>
         public static string Storage = "Storage";
+        /// <summary>
+        /// the repository for all the cards
+        /// </summary>
         public static CardRepository repo;
+        /// <summary>
+        /// the repository for the unlocked difffficulty
+        /// </summary>
         public static EnemyDifficultyRepository diffRepo;
+        /// <summary>
+        /// The list which contains the cards in the players hand
+        /// </summary>
         public static List<CardBase> playerCards;
+        /// <summary>
+        /// A list for all the player spaces
+        /// </summary>
         public static List<CardSpace> playerSpaces;
+        /// <summary>
+        /// A list for all the enemy spaces
+        /// </summary>
         public static List<CardSpace> enemySpaces;
+        /// <summary>
+        /// A list for the players deck
+        /// </summary>
         public static List<CardBase> PlayerDeck;
+        /// <summary>
+        /// A list to check how many cards the player owns
+        /// </summary>
         public static List<CardBase> AllOwnedCards;
+        /// <summary>
+        /// a List to check how many the player has of a specific card
+        /// </summary>
         public static List<CardBase> checkCardCount;
+        /// <summary>
+        /// A list for all the UI elements when the player looses or wins a ga,e
+        /// </summary>
         public List<UI> WinOrLoseScreenList;
+        /// <summary>
+        /// A bool to check whetever the player is done with a game
+        /// </summary>
         public bool endScreen;
+        /// <summary>
+        /// a list for all the spaces in the storage, so that we can place cards
+        /// </summary>
         public List<StorageSpace> storageSpaces;
-        public int owned;
+        /// <summary>
+        /// A list for all of the UI in the game when fighting AI
+        /// </summary>
         public static List<UI> GameUI;
+        /// <summary>
+        /// A list for the enemys deck
+        /// </summary>
         public static List<CardBase> enemyDeck;
+        /// <summary>
+        /// This is a card for when you click a card in your hand.
+        /// </summary>
         public static CardBase refCard;
+        /// <summary>
+        /// The background for when fighting AI
+        /// </summary>
         private Texture2D background;
+        /// <summary>
+        /// The background for deckbuilding
+        /// </summary>
         private Texture2D deckBuildingBackground;
+        /// <summary>
+        /// The backgroundfor stageselect
+        /// </summary>
         private Texture2D StageSelectBackground;
+        /// <summary>
+        /// The background for tutorial
+        /// </summary>
         private Texture2D tutorialBackground;
+        /// <summary>
+        /// The normal sized font
+        /// </summary>
         public static SpriteFont font;
+        /// <summary>
+        /// A font that is a little bigger than the normal one
+        /// </summary>
         public static SpriteFont Bigfont;
+        /// <summary>
+        /// The postion of the mouse
+        /// </summary>
         public static Point mousePos;
+        /// <summary>
+        /// To check which state the mouse is in, such as whever left click is being pressed
+        /// </summary>
         public static MouseState mouseState;
+        /// <summary>
+        /// whever the player is hovering over a card to see it's info
+        /// </summary>
         public static bool cardInfo = false;
+        /// <summary>
+        /// what number does the cardinfo have. used to find the card in hand or in spaces
+        /// </summary>
         public static int cardInfoNumber;
+        /// <summary>
+        /// Used for cehcking button press. so that the player has to release left click to press again
+        /// </summary>
         public static bool bPress = false;
+        /// <summary>
+        /// used for checking whetever the player has pressed t. Testing only
+        /// </summary>
         public static bool tPress = false;
+        /// <summary>
+        /// A bool for whose turn it is
+        /// </summary>
         public static bool playerTurn = false;
+        /// <summary>
+        /// The enemy when fighting the AI
+        /// </summary>
         public static Enemy enemy;
+        /// <summary>
+        /// For showing a bigger version of a card if the player is hovering their mouse over a card
+        /// </summary>
         public static CardBase infoCard;
+        /// <summary>
+        /// the card the player is rewarded with if they win
+        /// </summary>
         public static CardBase rewardCard;
+        /// <summary>
+        /// Sets the starting screen to StageSelect when the player starts the game
+        /// </summary>
         public static GameState gameState = GameState.StageSelect;
+        /// <summary>
+        /// Used for deciding which page the player is in when in deckbuilding. currently has 3 pages
+        /// </summary>
         public static int pageNumber = 0;
+        /// <summary>
+        /// used for scrolling through ones deck in deckbuilding
+        /// </summary>
         public static int ScrollValue = 0;
+        /// <summary>
+        /// Same thing
+        /// </summary>
         public int scroll;
+        /// <summary>
+        /// The health of the enemy
+        /// </summary>
         public static int enemyHealth = 0;
+        /// <summary>
+        /// thea health of the player
+        /// </summary>
         public static int playerHealth = 0;
+        /// <summary>
+        /// how much damage the player or enemy has taken
+        /// </summary>
         public static int healthDamage = 0;
+        /// <summary>
+        /// Used for checking whetever the player has drawn cards or not
+        /// </summary>
         public bool drawnCards = false;
+        /// <summary>
+        /// used to check which turn it is
+        /// </summary>
         public static int turn = 0;
+        /// <summary>
+        /// so that the enemy only takes it turn once
+        /// </summary>
         public static bool endTurnOnlyOnce = true;
+        /// <summary>
+        /// Used for diciding which  deck the enemy should have
+        /// </summary>
         public int difficulty = 1;
+        /// <summary>
+        /// Which tutorial needs to be shown to the player
+        /// </summary>
         public int tutorial = 1;
+        /// <summary>
+        /// Sound effect for placing card
+        /// </summary>
         public SoundEffect placeCard;
+        /// <summary>
+        /// sound effect for clicking a button
+        /// </summary>
         public SoundEffect woodClick;
+        /// <summary>
+        /// sound effect for flipping through the pages in deckbuilding
+        /// </summary>
         public SoundEffect bookFlip;
+        /// <summary>
+        /// Used to check which difficulties the player has unlocked
+        /// </summary>
         public int unlockDiff { get; set; } = 1;
 
         //public static GameState gameState = GameState.CardBoard;
+        /// <summary>
+        /// the director for building the enemyes deck
+        /// </summary>
         public static Director director = new Director(new EnemyBuilder());
 
         public GameWorld()
         {
             _graphics = new GraphicsDeviceManager(this);
+            //this means that the content it uses is in the content folder
             Content.RootDirectory = "Content";
             IsMouseVisible = true;
+            //height of the scrren
             _graphics.PreferredBackBufferHeight = screenBounds.Height;
+            //width of the screen
             _graphics.PreferredBackBufferWidth = screenBounds.Width;
         }
-
+        /// <summary>
+        /// Initialize for the game which will run as the first thing
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         protected override void Initialize()
         {
             // TODO: Add your initialization logic here
             
+            //A Different initialize runs depending on which screen the player is in
             if (gameState == GameState.CardBoard)
             {
                 rewardCard = null;
@@ -104,52 +277,40 @@ namespace PriateCardGame
                 enemyDeck = new List<CardBase>();
                 turn = 0;
 
+                //this makes the deck for the enemy AI
                 enemy = new Enemy(difficulty);
                 enemy.Deck = director.ConstructEnemyDeck(enemy.difficulty);
-
+                //adds all the spaces for the player
                 for (int i = 0; i < 8; i++)
                 {
                     playerSpaces.Add(new CardSpace(i));
                 }
-
+                //adds all the spaces for the enemy
                 for (int i = 0; i < 8; i++)
                 {
                     enemySpaces.Add(new CardSpace(i));
                 }
 
-                //for (int i = 0; i < 8; i++)
-                //{
-                //    enemySpaces[i].setCard(new Captain());
-                //}
-
+                
+                //generates the repository for all the cards in the game
                 var mapper = new CardMapper();
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 repo = new CardRepository(provider, mapper);
 
-                //dropRepoTable();
-
+                //Finds the players deck in the repository
                 repo.Open();
 
                 PlayerDeck = repo.FindDeck();
 
                 repo.Close();
 
-                //Random rnd = new Random();
-
-                //for (int i = 0; i < 5; i++)
-                //{
-                //    int temp = rnd.Next(0, PlayerDeck.Count);
-
-                //    playerCards.Add(PlayerDeck[temp]);
-                //    PlayerDeck.RemoveAt(temp);
-                //}
-
+                //makes the repostiory for the difficulty in case the player wins
                 var diffMapper = new DifficultyMapper();
                 var diffProvider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 diffRepo = new EnemyDifficultyRepository(diffProvider, diffMapper);
 
 
-
+                //draws a hand for the players
                 DrawHand();
                 playerTurn = true;
             }
@@ -160,7 +321,7 @@ namespace PriateCardGame
                 var mapper = new CardMapper();
                 var provider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 repo = new CardRepository(provider, mapper);
-
+                //adds all the ui elements 
                 GameUI = new List<UI>();
                 GameUI.Add(new UI("MenuButton", new Vector2(800, 600)));
                 GameUI.Add(new UI("LeftArrow", new Vector2(50, 600)));
@@ -171,12 +332,12 @@ namespace PriateCardGame
                 PlayerDeck = new List<CardBase>();
                 AllOwnedCards = new List<CardBase>();
                 storageSpaces = new List<StorageSpace>();
-
+                //finds the players deck and all their owned cards
                 repo.Open();
                 PlayerDeck = repo.FindDeck();
                 AllOwnedCards = repo.FindAllCards();
                 repo.Close();
-
+                //adds all the storage spaces and places cards where they should be
                 for (int i = 0; i < 10; i++)
                 {
                     storageSpaces.Add(new StorageSpace());
@@ -184,15 +345,16 @@ namespace PriateCardGame
                     storageSpaces[i].SetCardPos(i);
                     
                 }
+                //sets the cound of many cards the player owns of those cards
                 SetDeckBuildingCardCount();
-
+                //refreshes the lists
                 RefresDeckBuildingLists();
                 
             }
             else if (gameState == GameState.StageSelect)
             {
                 GameUI = new List<UI>();
-
+                //adds all the buttons to the screen
                 for (int i = 1; i < 6; i++)
                 {
                     if (i >=5)
@@ -213,6 +375,8 @@ namespace PriateCardGame
 
 
                 //dropRepoTable();
+                //makes the player a deck if they dont have one
+                //this will only run if the player owns 0 cards, which will only happen the first time they open the game
                 repo.Open();
                 if (repo.FindAllCards().Count <=0)
                 {
@@ -224,12 +388,13 @@ namespace PriateCardGame
                 var diffProvider = new SQLiteDatabaseProvider("Data Source=Cards.db;Version=3;new=true");
                 diffRepo = new EnemyDifficultyRepository(diffProvider, diffMapper);
 
-
+                //if there is no row in the difficulty repistory, then make one
                 diffRepo.Open();
                 if (diffRepo.FindDiff() == 69)
                 {
                     diffRepo.AddUnlockedDifficulty(1);
                 }
+                //find out what the player has unlocked
                 unlockDiff = diffRepo.FindDiff();
                 diffRepo.Close(); 
 
@@ -238,8 +403,15 @@ namespace PriateCardGame
 
             base.Initialize();
         }
+        /// <summary>
+        /// Loadcontent Loads all content for the different fields
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         protected override void LoadContent()
         {
+            //only make a new spritebatch if there's not one already
             if (_spriteBatch == null)
             {
                 _spriteBatch = new SpriteBatch(GraphicsDevice);
@@ -251,6 +423,7 @@ namespace PriateCardGame
             woodClick = Content.Load<SoundEffect>("WoodClick");
             bookFlip = Content.Load<SoundEffect>("BookFlipping");
 
+            //Load different content based on what screen the player is on
             if (gameState == GameState.CardBoard)
             {
                 background = Content.Load<Texture2D>("Background");
@@ -348,7 +521,12 @@ namespace PriateCardGame
 
             // TODO: use this.Content to load your game content here
         }
-
+        /// <summary>
+        /// Used to load content for a specic list so as to not call all of loadcontent
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void LoadContentForThisUIList(List<UI> refList)
         {
             foreach (var item in refList)
@@ -356,7 +534,12 @@ namespace PriateCardGame
                 item.LoadContent(this.Content);
             }
         }
-
+        /// <summary>
+        /// makes a deck for the player
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void MakePlayerDeck()
         {
             for (int i = 0; i < 12; i++)
@@ -377,7 +560,12 @@ namespace PriateCardGame
             repo.AddCard("Captain");
         }
 
-
+        /// <summary>
+        /// Update constantly updates the game, meaning most of the game will happen here
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         protected override void Update(GameTime gameTime)
         {
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
@@ -386,8 +574,9 @@ namespace PriateCardGame
             Input(gameTime);
 
 
-
+            //sets the mousestate to whatever the current mouse us
             mouseState = Mouse.GetState();
+            //set the mouse position for wherever the mouse is pointing
             mousePos = new Point(mouseState.X, mouseState.Y);
 
             //if (mouseState.LeftButton == ButtonState.Pressed) //to check for postion placements
@@ -395,6 +584,7 @@ namespace PriateCardGame
 
             //}//breakpoint here to test <--
 
+            //run a different update depending on what screen the player is on
             if (gameState == GameState.CardBoard)
             {
                 UpdateCardBoard(gameTime);
@@ -416,7 +606,12 @@ namespace PriateCardGame
 
             base.Update(gameTime);
         }
-
+        /// <summary>
+        /// Used to update all the players cards, such as updating their position in hand
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         public void ListUpdate(List<CardBase> refList)
         {
             for (int i = 0; i < refList.Count; i++)
@@ -448,13 +643,18 @@ namespace PriateCardGame
 
             }
         }
-
+        /// <summary>
+        /// Draw is used to draw the different object in the game
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         protected override void Draw(GameTime gameTime)
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
             //_spriteBatch.Begin();
 
-           
+           //a different draw is called depending on the screen
                 if (gameState == GameState.CardBoard)
                 {
                     drawCardBoard(gameTime);
@@ -477,14 +677,24 @@ namespace PriateCardGame
 
             base.Draw(gameTime);
         }
-
+        /// <summary>
+        /// is Used to drop all the cards in the repository, only use this for testing purposes
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void dropRepoTable()
         {
             repo.Open();
             repo.DropTable();
             repo.Close();
         }
-
+        /// <summary>
+        /// Draws card for the player on their turn
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void DrawHand()
         {
             Random rnd = new Random();
@@ -517,11 +727,17 @@ namespace PriateCardGame
                     }
                 }
             }
+            //sorts the hand
             SortHand();
             LoadContent();
 
         }
-
+        /// <summary>
+        /// Used to check for keyboard input
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void Input(GameTime gametime)
         {
             KeyboardState state = Keyboard.GetState();
@@ -559,7 +775,12 @@ namespace PriateCardGame
                 tPress = false;
             }
         }
-
+        /// <summary>
+        /// ends the turn which will start a thread, activating all the card if it's not round one
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void endTurn(GameTime gameTime)
         {
             Thread newRoundEndThread = new Thread(() => ThreadWork(gameTime))
@@ -568,6 +789,12 @@ namespace PriateCardGame
             };
             newRoundEndThread.Start();
         }
+        /// <summary>
+        /// Starts a thread which sorts the players hand after name
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         public void SortHand()
         {
             Thread sortHandEndThread = new Thread(() => ThreadWorkSorting())
@@ -576,7 +803,12 @@ namespace PriateCardGame
             };
             sortHandEndThread.Start();
         }
-
+        /// <summary>
+        /// The update for deckbuilding
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void UpdateDeckBuilding(GameTime gameTime)
         {
             cardInfo = false;
@@ -694,7 +926,12 @@ namespace PriateCardGame
                 bPress = false;
             }
         }
-
+        /// <summary>
+        /// Update for stageSelect
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void UpdateStageSelect(GameTime gameTime)
         {
             repo.Open();
@@ -840,6 +1077,12 @@ namespace PriateCardGame
                 }
             }
         }
+        /// <summary>
+        /// This refreshes the deckbuilding lists, call this after the player removes or adds a card to the deck
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void RefresDeckBuildingLists()
         {
                 repo.Open();
@@ -854,13 +1097,24 @@ namespace PriateCardGame
             SortByNameAlgoByQuickSort(ref PlayerDeck);
             
         }
-
+        /// <summary>
+        /// This Removes a card from the deck
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void RemoveCardFromDeck(string cardName)
         {
             repo.Open();
             repo.removeCard(cardName);
             repo.Close();
         }
+        /// <summary>
+        /// This is what happens when you scroll the scroll wheel up
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void scrollDown()
         {
             if (ScrollValue <= PlayerDeck.Count - 13)
@@ -868,6 +1122,12 @@ namespace PriateCardGame
                 ScrollValue += 1;
             }
         }
+        /// <summary>
+        /// This is what happens when you scroll the scroll wheel down
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void scrollUp()
         {
             if (ScrollValue >= 1)
@@ -875,6 +1135,12 @@ namespace PriateCardGame
                 ScrollValue -= 1;
             }
         }
+        /// <summary>
+        /// this will add a card to the deck in the deckbuilding screen
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void AddCardToDeck(string cardName)
         {
             repo.Open();
@@ -891,7 +1157,12 @@ namespace PriateCardGame
                 item.CoinSetUp(playerSpaces);
             }
         }
-
+        /// <summary>
+        /// Will update all the coins for both playerSpaces and enemySpaces
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public static void UpdateCoinsForLists()
         {
 
@@ -904,7 +1175,12 @@ namespace PriateCardGame
                 CoinSetUp(enemySpaces, item.spaceNumber);
             }
         }
-
+        /// <summary>
+        /// This is update for combat against AI
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void UpdateCardBoard(GameTime gameTime)
         {
             if (mouseState.LeftButton == ButtonState.Pressed && tutorial == 3 && bPress == false)
@@ -1108,7 +1384,12 @@ namespace PriateCardGame
 
             
         }
-
+        /// <summary>
+        /// this is draw for deckbuilding
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void drawDeckBuilding(GameTime gameTime)
         {
             _spriteBatch.Begin();
@@ -1154,7 +1435,12 @@ namespace PriateCardGame
            
 
         }
-
+        /// <summary>
+        /// this is draw for combat against AI
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void drawCardBoard(GameTime gameTime)
         {
             _spriteBatch.Begin();
@@ -1245,7 +1531,12 @@ namespace PriateCardGame
                 _spriteBatch.Draw(tutorialBackground, new Vector2(0, 0), Color.White);
             }
         }
-
+        /// <summary>
+        /// this is draw for stageSelect
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void drawStageSelect()
         {
             _spriteBatch.Begin();
@@ -1264,7 +1555,13 @@ namespace PriateCardGame
                 item.Draw(this._spriteBatch);
             }
         }
-
+        /// <summary>
+        /// call this to set the numbers in deckbuilding
+        /// <para>the numbers of how many is in the storage, and how many is in the deck</para>
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void SetDeckBuildingCardCount()
         {
             var storage = 0;
@@ -1282,13 +1579,23 @@ namespace PriateCardGame
                 }
             }
         }
-
+        /// <summary>
+        /// What work the thread for sorting the hand should do
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         public void ThreadWorkSorting()
         {
             SortByNameAlgoByQuickSort(ref playerCards);
         }
 
-
+        /// <summary>
+        /// What work the endturn thread should do
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void ThreadWork(GameTime gameTime)
         {
             if (turn >=3)
@@ -1516,7 +1823,12 @@ namespace PriateCardGame
             
 
         }
-
+        /// <summary>
+        /// loads the content for all enemy cards in cardboard
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void EnemyCardsLoadContent()
         {
             foreach (var item in enemySpaces)
@@ -1528,6 +1840,12 @@ namespace PriateCardGame
                 }
             }
         }
+        /// <summary>
+        /// Sets up all the coins for the spaces in cardboard / against the AI
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public static void CoinSetUp(List<CardSpace> refList,int cSPace)
         {
             switch (cSPace)
@@ -1618,6 +1936,12 @@ namespace PriateCardGame
 
             }
         }
+        /// <summary>
+        /// Decides which reward the player should get if they win a game
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void CardReward()
         {
             Random rnd = new Random();
@@ -1739,6 +2063,12 @@ namespace PriateCardGame
         }
 
         //A Quicksort method which takes in a list of cards of the CardBase class
+        /// <summary>
+        /// Sorts a liste by names
+        /// </summary>
+        ///<remarks>
+        /// Johnny
+        /// </remarks>
         public List<CardBase> SortByNameAlgoByQuickSort(ref List<CardBase> ListOfCards)
         {
             //If there is 1 or less amount of cards in the list, it returns the card.

@@ -8,6 +8,12 @@ using System.Text;
 
 namespace PriateCardGame
 {
+    /// <summary>
+    /// A space for the Deckbuilding screen where the cards will be shown
+    /// </summary>
+    ///<remarks>
+    /// Nikolaj, Johnny
+    /// </remarks>
     public class StorageSpace
     {
         public CardBase card;
@@ -45,7 +51,13 @@ namespace PriateCardGame
                 this.card.LoadContent(content);
             }
         }
-
+        /// <summary>
+        /// Sets the postion of whatever card is in this space 
+        /// <para>use in combination with a for loop</para>
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj
+        /// </remarks>
         public void SetCardPos(int i)
         {
             if (i <= 4)
@@ -62,7 +74,13 @@ namespace PriateCardGame
                 this.card.position = this.position;
             }
         }
-
+        /// <summary>
+        /// Sets the card for this storage space
+        /// <para>use method in a for loop to set all cards in deckbuilding</para>
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void SetCard(int i)
         {
             var tmp = i + (GameWorld.pageNumber*10);
@@ -143,7 +161,12 @@ namespace PriateCardGame
 
             }
         }
-
+        /// <summary>
+        /// Draws the card and how many of that card the player owns, both in storage and deck
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void Draw(SpriteBatch spriteBatch)
         {
             if (this.card != null)
@@ -154,7 +177,12 @@ namespace PriateCardGame
             }
             
         }
-
+        /// <summary>
+        /// Used to set how many of that card the player owns
+        /// </summary>
+        ///<remarks>
+        /// Nikolaj, Johnny
+        /// </remarks>
         public void SetCardCount(int storage,int deck)
         {
             this.storageOwned = storage;

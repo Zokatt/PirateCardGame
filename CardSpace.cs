@@ -8,17 +8,49 @@ using System.Text;
 
 namespace PriateCardGame
 {
+    /// <summary>
+    /// The CardSpace is used to contain a card 
+    /// </summary>
+    ///<remarks>
+    /// Nikolaj
+    /// </remarks>
     public class CardSpace
     {
+        /// <summary>
+        /// The card this is in this cardspace
+        /// </summary>
         public CardBase card;
+        /// <summary>
+        /// where this cardspace is
+        /// </summary>
         public Vector2 position;
+        /// <summary>
+        /// this sprite is for when the player hovers the mouse cursor of a free space where they can place a card
+        /// </summary>
         private Texture2D sprite;
+        /// <summary>
+        /// The bool for wheteve or not the player can place a card on this space
+        /// </summary>
         public bool CanPlace = false;
+        /// <summary>
+        /// For when the player can place a card but there's not enough coins on the space
+        /// </summary>
         public bool canPlaceButNotEnoughCoins = false;
+        /// <summary>
+        /// For whatever number the cardspace is in the list, will deternime backrow and frontrow
+        /// </summary>
         public int spaceNumber;
+        /// <summary>
+        /// However many coins are on a space
+        /// </summary>
         public int spaceCoin;
+        /// <summary>
+        /// The texture for the coin
+        /// </summary>
         private Texture2D coin;
-
+        /// <summary>
+        /// The collision to check whetever the player is hovering their cursor over the cardspace
+        /// </summary>
         public virtual Rectangle Collision
         {
             get
@@ -31,11 +63,18 @@ namespace PriateCardGame
                    );
             }
         }
+        /// <summary>
+        /// The constructor for a cardspace
+        /// <para>Use this in combination with a for loop as the spacenumber needs to be set </para>
+        /// </summary>
         public CardSpace(int i)
         {
             this.spaceNumber = i;
         }
-
+        /// <summary>
+        /// Method for checking whetever there's a card or not
+        /// <para>if there's not a card on this space this returns an empty card</para>
+        /// </summary>
         public CardBase checkCard()
         {
             CardBase tmp;
@@ -50,9 +89,15 @@ namespace PriateCardGame
 
             return tmp;
         }
-
+        /// <summary>
+        /// Used to setup coins for all spaces
+        /// <para>use in combination with a foreach loop to go through all spaces</para>
+        /// </summary>
         public void CoinSetUp(List<CardSpace> refList)
         {
+            /// <summary>
+            /// Switch case for all spacenumbers so the correct spaces will add up
+            /// </summary>
             switch (this.spaceNumber)
             {
                 case 0:
@@ -118,7 +163,11 @@ namespace PriateCardGame
 
             }
         }
-
+        /// <summary>
+        /// Method to set a card into a space
+        /// <para>This sets things such a spacenumber and postion</para>'
+        /// <para>Also Sets The coins on this space equal to the coin worth on the card</para>
+        /// </summary>
         public void setCard(CardBase otherCard)
         {
             this.card = otherCard;
@@ -126,19 +175,25 @@ namespace PriateCardGame
             this.card.spaceNumber = this.spaceNumber;
             this.spaceCoin = this.card.Coin;
         }
-
+        /// <summary>
+        /// Draws amount of coins
+        /// </summary>
         public void DrawCoin(SpriteBatch spriteBatch)
         {
             spriteBatch.DrawString(GameWorld.font, $"{spaceCoin}", new Vector2(this.position.X + 25, this.position.Y +5), Color.Black);
             spriteBatch.Draw(coin, new Vector2(this.position.X,this.position.Y), null, Color.White, 0f,
                          Vector2.Zero, 0.4f, SpriteEffects.None, 0f);
         }
-
+        /// <summary>
+        /// Used to draw the card
+        /// </summary>
         public void DrawCard(SpriteBatch spritebatch)
         {
             card.Draw(spritebatch);
         }
-
+        /// <summary>
+        /// Whenever the player hovers over an empty space,if they can place a card here draw the sprite for it 
+        /// </summary>
         public void DrawCanPlaceHere(SpriteBatch spriteBatch)
         {
             if (CanPlace == true && canPlaceButNotEnoughCoins ==true)
@@ -150,6 +205,10 @@ namespace PriateCardGame
                 spriteBatch.Draw(sprite, position, Color.Lime);
             }
         }
+        /// <summary>
+        /// Used in initalize to setup all the spaces and their postions 
+        /// <para>use with a for loop</para>
+        /// </summary>
         public void setPos(int i)
         {
             if (i <= 3)
@@ -166,7 +225,10 @@ namespace PriateCardGame
                 this.card.position = this.position;
             }
         }
-
+        /// <summary>
+        /// Used in initalize to setup all the spaces for the enemy and their postions 
+        /// <para>use with a for loop</para> 
+        /// </summary>
         public void setEnemyPos(int i)
         {
             if (i <= 3)
